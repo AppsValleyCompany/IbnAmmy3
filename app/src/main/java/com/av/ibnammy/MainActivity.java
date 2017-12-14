@@ -14,9 +14,8 @@ public class MainActivity extends AppCompatActivity {
         // Edit by Aya
         // 12/14/2014
         //mina
-
-
     }
+
     void HiAya()
     {
         Toast.makeText(this,"Hi Aya",Toast.LENGTH_LONG).show();
@@ -25,5 +24,9 @@ public class MainActivity extends AppCompatActivity {
     void HiMina()
     {
         Toast.makeText(this,"Welcome Back Mina",Toast.LENGTH_LONG).show();
+    }
+    void HiAya2()
+    {
+        Toast.makeText(this,"Hi Aya",Toast.LENGTH_LONG).show();
     }
 }
