@@ -29,4 +29,9 @@ public class MainActivity extends AppCompatActivity {
     {
         Toast.makeText(this,"Hi Aya",Toast.LENGTH_LONG).show();
     }
+
+    void HiMina2()
+    {
+        Toast.makeText(this,"Welcome Back Mina",Toast.LENGTH_LONG).show();
+    }
 }
