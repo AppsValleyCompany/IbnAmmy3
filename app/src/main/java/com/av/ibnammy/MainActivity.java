@@ -2,6 +2,7 @@ package com.av.ibnammy;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,5 +15,10 @@ public class MainActivity extends AppCompatActivity {
         // 12/14/2014
         //mina
 
+
+    }
+    void HiAya()
+    {
+        Toast.makeText(this,"Hi Aya",Toast.LENGTH_LONG).show();
     }
 }
