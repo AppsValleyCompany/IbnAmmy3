@@ -1,0 +1,225 @@
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.av.ibnammy.payment.PaymentFragment1"
+    android:background="@color/light_black2">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            >
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/light_black2">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp">
+
+                    <TableRow android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_gravity="bottom">
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="اشرف احمد"
+                            android:textSize="17sp"
+                            android:textColor="@color/light_orange"
+                            android:background="@color/light_black1"
+                            android:gravity="bottom|center_horizontal"
+                            android:layout_weight="9.2"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="50dp"
+                            />
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:text="1"
+                            android:textSize="19sp"
+                            android:textColor="@color/light_orange"
+                            android:background="@color/light_black1"
+                            android:gravity="center"
+                            android:layout_marginLeft="3dp"
+                            />
+
+                    </TableRow>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/profile_icon"
+                        />
+                    <Button
+                        android:id="@+id/btn_add_relative_pay_dues"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/light_orange"
+                        android:text="اضف فرد"
+                        android:textColor="@color/light_black2"
+                        />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/add_relative_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:background="@drawable/rectangle_white_frame"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+
+                            >
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/relation_type"
+                                android:paddingLeft="25dp"
+                                android:gravity="center"
+                                android:backgroundTint="@color/white"
+                                android:prompt="@color/white"
+                                style="@style/AlertDialog.AppCompat.Light"
+                                android:layoutDirection="rtl"
+                                />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:background="@drawable/rectangle_white_frame"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="2"
+                            android:padding="5dp"
+
+                            >
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/sex_type"
+                                android:paddingLeft="25dp"
+                                android:gravity="center"
+                                android:backgroundTint="@color/white"
+                                android:prompt="@color/white"
+                                style="@style/AlertDialog.AppCompat.Light"
+                                android:layoutDirection="rtl"
+
+                                />
+                        </FrameLayout>
+
+                    </TableRow>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="الاسم"
+                        android:background="@drawable/rectangle_white_frame"
+                        android:padding="5dp"
+                        android:textColorHint="@color/white"
+                        android:layout_marginTop="8dp"
+                        />
+                    <Button
+                        android:id="@+id/btn_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/light_orange"
+                        android:text="اضف"
+                        android:textColor="@color/light_black2"
+                        />
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_view"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spanCount="3"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#ff2e2f"
+                        android:text="300 ج"
+                        android:textSize="19sp"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:layout_weight="20"
+                        />
+
+                    <TableRow android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:background="#f65555"
+                        android:gravity="right|center_vertical"
+                        android:layout_weight="5">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="الاشتراك"
+                            android:textColor="@color/white"
+                            android:textSize="19sp"
+                            android:layout_marginRight="100dp"
+                            />
+
+
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="مجموع الاتباع"
+                            android:textSize="17sp"
+                            android:textColor="@color/white"
+
+                            />
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="6"
+                            android:textSize="19sp"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            />
+
+                    </TableRow>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    <Button
+        android:id="@+id/btn1_pay_dutes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="8dp"
+        android:background="@color/light_orange"
+        android:text="دفع الاشتراك"
+        android:textSize="18dp"
+        android:textColor="@color/light_black2"
+        />
+</FrameLayout>

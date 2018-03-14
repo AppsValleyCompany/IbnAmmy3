@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/backgroundColor">
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorTappedIcon"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableRight="@mipmap/ic_search_bar"
+        android:hint="بحث"
+        android:textColorHint="@android:color/white"
+        android:drawablePadding="20dp"
+        android:layoutDirection="rtl"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/search_bar"
+        android:id="@+id/listFavourite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/row_item_favourite"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="3dp"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_black2"
+    tools:context="com.av.ibnammy.updateUserData.UploadMediaActivity"
+    android:fillViewport="true"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/action_bar_for_upload_media"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+                <EditText
+                    android:id="@+id/statues_descripe"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rectangle_orange_frame"
+                    android:ems="200"
+                    android:gravity="top"
+                    android:hint="وصف الخدمة"
+                    android:inputType="textMultiLine"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:textColorHint="@color/white"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="اضف صور : "
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/photos_linear_container"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:divider="@drawable/empty_space_10" >
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/add_new_photo_iv"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/add_photo_bg"
+                        android:padding="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="اضغط مطولا على الصورةالمضافة لمسحها و اضافة اخرى."
+                    android:textColor="@color/gray"
+                    android:textSize="13dp"
+                    android:layout_marginTop="5dp"
+                    />
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_marginBottom="5dp"
+        android:visibility="invisible"
+        android:id="@+id/delete_vid_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/ic_delete2"
+        android:layout_gravity="bottom"
+        android:tint="@color/gray"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp">
+ <!--                   <Button
+                        android:id="@+id/delete_vid_btn"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="56dp"
+                        android:layout_height="45dp"
+                        android:text="حذف"
+                        android:background="@drawable/solid_orange_rounded_corners"
+                        android:drawableLeft="@mipmap/ic_delete"
+                        android:padding="3dp"
+                        android:drawableTint="@color/light_black2"
+                        />-->
+
+                    <ImageView
+                        android:id="@+id/upload_video_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:padding="5dp"
+                        android:src="@drawable/add_video_bg" />
+
+                    <TextView
+                        android:textSize="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="اضف فيديو : "/>
+        </LinearLayout>
+    </FrameLayout>
+                <FrameLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_black1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <VideoView
+                        android:visibility="gone"
+                        android:id="@+id/videoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center_horizontal"/>
+                </FrameLayout>
+
+
+                <TextView
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="right"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="سعر الخدمة :"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/gold"
+                        android:layoutDirection="rtl">
+
+                        <Spinner
+                            android:entries="@array/coins"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/light_black1"
+                            android:theme="@style/spinnerTheme_black"
+                            android:popupBackground="@color/white"/>
+                    </FrameLayout>
+
+                    <EditText
+                        android:padding="6dp"
+                        android:background="@drawable/rectangle_orange_frame"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layoutDirection="rtl">
+                    <TextView
+                        android:textSize="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="right"
+                        android:textColor="@color/white"
+                        android:text="نسبة الخصم : "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/discount_ratio_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="70%"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/discount_seekBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="70"
+                    android:layoutDirection="rtl"
+                    android:progressTint="@color/red"
+                    android:thumbTint="@color/red"
+                    android:progressBackgroundTint="@color/white"
+                    />
+            </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/save_media_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:background="@color/light_orange"
+        android:text="حفظ"
+        android:textColor="@color/light_black2"
+        android:textSize="20dp"
+        />
+</FrameLayout>
+    </LinearLayout>
+    </ScrollView>

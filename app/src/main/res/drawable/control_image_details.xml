@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/img_frame_photo"
+        android:drawable="@mipmap/ic_half_frame" />
+
+
+    <item
+        android:id="@+id/img_profile_photo"
+        android:drawable="@drawable/ic_profile_image"
+        android:gravity="center"
+        android:top="80dp"
+        android:bottom="30dp"
+        android:left="50dp"
+        android:right="50dp"
+        />
+
+
+
+</layer-list>

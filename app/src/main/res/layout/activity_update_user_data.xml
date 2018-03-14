@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.av.ibnammy.updateUserData.UpdateUserData"
+    android:background="@color/light_black2"
+    android:orientation="vertical"
+    >
+   <include android:id="@+id/action_bar"
+       layout="@layout/action_bar_for_update_data"/>
+
+
+    <com.anton46.stepsview.StepsView
+        android:id="@+id/stepsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        />
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="15dp" >
+
+    <FrameLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frag_holder_update_data"
+
+       >
+    </FrameLayout>
+    <Button
+        android:id="@+id/next1_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="التالي"
+        android:textStyle="bold"
+        android:textColor="@color/light_black2"
+        android:background="@drawable/solid_orange_rounded_corners"
+        android:layout_gravity="bottom"
+        />
+
+</FrameLayout>
+</LinearLayout>
+</ScrollView>
+</layout>

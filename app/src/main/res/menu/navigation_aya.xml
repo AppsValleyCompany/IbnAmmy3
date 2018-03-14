@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@mipmap/ic_menu_bottom"
+        android:title="القائمة"
+        />
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@mipmap/ic_map"
+        android:title="الخريطه" />
+
+    <item
+        android:id="@+id/navigation_notification"
+        android:icon="@mipmap/ic_chat"
+        android:title="محادثة" />
+
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@mipmap/ic_favourite"
+        android:title="المفضلة" />
+
+</menu>

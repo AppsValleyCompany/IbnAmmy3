@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="transparent">#00000000</color>
+    <color name="signIn_btn_color">#A07434</color>
+    <color name="signUp_btn_color">#DD9210</color>
+    <color name="light_orange">#FAB864</color>
+    <color name="light_black2">#0D0E12</color>
+    <color name="light_black1">#1C1D21</color>
+    <color name="gold">#fab864</color>
+    <color name="red">#ea3434</color>
+    <color name="toolbar_favourite">#fbb965</color>
+    <color name="white">#fff</color>
+
+    <!--
+        Aya colors
+    -->
+
+    <color name="colorPrimary">#1c1d21</color>
+    <color name="colorPrimaryDark">#1c1d21</color>
+
+    <color name="colorAccent">#fab864</color>
+
+    <color name="titleTextColor">#ffc66a</color>
+    <color name="colorTappedIcon">#fab864</color>
+    <color name="colorSideMenuSelect">#1c1d21</color>
+
+    <color name="backgroundColor">#0d0e12</color>
+
+    <color name="bgSwipeMenuList">#ab7e46</color>
+    <color name="bgSwipeMenuDelete">#f64444</color>
+
+
+
+    <color name="background">#0d0e12</color>
+    <color name="light_black">#1c1d21</color>
+    <color name="gray">#aaa9af</color>
 </resources>

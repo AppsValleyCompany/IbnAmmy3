@@ -1,5 +1,250 @@
 <resources>
     <string name="app_name">IbnAmmy</string>
     <string name="sayHello">Hello IbnAmmys again</string>
+    <string name="signInText">تسجيل دخول</string>
+    <string name="email_ed_hint"> البريد الالكتروني </string>
+    <string name="password_ed_hint">كلمة المرور</string>
+    <string name="confirm_password_ed_hint"> تأكيد كلمة المرور</string>
 
+    <string name="signIn_btn_txt">دخول</string>
+    <string name="signUp_btn_txt">تسجيل</string>
+    <string name="phone_number">رقم الهاتف</string>
+
+    <string-array name="years_array">
+        <item>السنة</item>
+        <item>1920</item>
+        <item>1930</item>
+        <item>1940</item>
+    </string-array>
+
+    <string-array name="months_array">
+        <item>الشهر</item>
+        <item>يناير</item>
+        <item>فبراير</item>
+        <item>مارس</item>
+        <item> ابريل</item>
+        <item>مايو </item>
+        <item>يونيو </item>
+        <item> يوليو</item>
+        <item> اغسطس</item>
+        <item> سبتمبر</item>
+        <item> اكتوبر</item>
+        <item>نوفمبر </item>
+        <item>ديسمبر </item>
+    </string-array>
+
+    <string-array name="days_array">
+        <item>اليوم</item>
+        <item> 1 </item>
+        <item>2 </item>
+        <item>3 </item>
+        <item> 4</item>
+        <item>5 </item>
+        <item> 6</item>
+        <item> 7</item>
+        <item>8 </item>
+        <item>9 </item>
+        <item>10 </item>
+    </string-array>
+    <string-array name="phone_array">
+        <item>010</item>
+        <item>012</item>
+        <item>011</item>
+        <item>015</item>
+    </string-array>
+    <string-array name="family_array">
+        <item>عائلة النجار</item>
+        <item>عائلة المهندس</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_bottom_nav">BottomNavActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string-array name="marital_status_array">
+        <item>الحالة الاجتماعية</item>
+        <item> متزوج </item>
+        <item>غير متزوج </item>
+        <item>منفصل </item>
+        <item> مطلق</item>
+        <item>أعزب</item>
+        <item> يبحث عن زوجة</item>
+    </string-array>
+
+    <string-array name="countries_array">
+        <item> الدولة </item>
+        <item> مصر </item>
+        <item>الامارات  </item>
+    </string-array>
+
+    <string-array name="districts_array">
+        <item>المحافظة / الأمارة</item>
+        <item> القاهرة </item>
+        <item>بورسعيد</item>
+        <item>دبي </item>
+        <item> ابو ظبي </item>
+    </string-array>
+
+    <string-array name="blood_type_array">
+        <item>فصيلة الدم</item>
+
+        <item>O-</item>
+        <item> O+ </item>
+        <item>A-</item>
+        <item>A+</item>
+        <item> B-</item>
+        <item> B+</item>
+        <item> AB-</item>
+        <item> AB+</item>
+    </string-array>
+
+    <string-array name="job_type1">
+        <item>صاحب مؤسسة</item>
+        <item>اعمال حرة</item>
+        <item>حرفي</item>
+    </string-array>
+    <string-array name="job_type2">
+        <item>موظف</item>
+        <item>طالب</item>
+        <item>غير موظف</item>
+        <item>يبحث عن وظيفة</item>
+    </string-array>
+
+    <string-array name="service_type">
+        <item>طبيب</item>
+        <item>مهندس</item>
+        <item>محامى</item>
+    </string-array>
+
+    <string-array name="specializations_list">
+        <item>مهندس مدني </item>
+        <item>محامي نقض</item>
+        <item>طبيب اسنان</item>
+
+    </string-array>
+    <string-array name="organization_name">
+        <item>لا املك مؤسسة</item>
+        <item>مؤسسة 1</item>
+        <item>مؤسسة 2</item>
+        <item>مؤسسة 3</item>
+    </string-array>
+    <string-array name="relation_type">
+        <item>نوع القرابة</item>
+        <item>اخ</item>
+        <item>اخت</item>
+        <item>ام</item>
+        <item>اب</item>
+        <item>ابن</item>
+    </string-array>
+    <string-array name="sex_type">
+        <item>ذكر</item>
+        <item>انثى</item>
+    </string-array>
+    <string-array name="card_type">
+        <item>Visa</item>
+        <item>Master Card</item>
+    </string-array>
+
+
+    <!-- Aya Strings-->
+    <string name="action_alert">Alert</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_bottom_tap">BottomTapActivity</string>
+
+    <string-array name="ProvideServiceList">
+
+        <item>اطباء</item>
+        <item>محامين</item>
+        <item>سائقين</item>
+        <item>مهندسين</item>
+        <item>محاسبين</item>
+        <item>طباخين</item>
+
+    </string-array>
+
+    <integer-array name="SideMenuIcons">
+
+
+        <item>@mipmap/ic_home_page</item>
+        <item>@mipmap/ic_my_page</item>
+        <item>@mipmap/ic_settings</item>
+        <item>@mipmap/ic_my_ad</item>
+        <item>@mipmap/ic_my_alert</item>
+        <item>@mipmap/ic_message</item>
+
+    </integer-array>
+
+    <string-array name="citiesList">
+        <item>المدينه</item>
+        <item>القاهرة</item>
+        <item>الرياض</item>
+        <item>الدوحه</item>
+    </string-array>
+
+    <string-array name="requestHelpList">
+        <item>حاله الاستغاثه</item>
+        <item>فصيله الدم</item>
+        <item>محامى</item>
+    </string-array>
+
+    <string-array name="manorList">
+        <item>عزبة</item>
+    </string-array>
+
+    <string-array name="villageList">
+        <item>القريه</item>
+    </string-array>
+
+    <string-array name="typeOfRequestList">
+        <item>نوع الخدمه</item>
+        <item>مقدم خدمة </item>
+        <item>طالب خدمة</item>
+    </string-array>
+
+    <string-array name="cat_type">
+        <item>رجل اعمال/حرفي</item>
+        <item>موظف</item>
+        <item>غير موظف</item>
+    </string-array>
+
+    <string-array name="UnEmplyeeList">
+        <item>طالب  </item>
+        <item>باحث عن وظيفه</item>
+        <item>معاش</item>
+        <item>ربة منزل</item>
+    </string-array>
+    <string-array name="EmplyeeList">
+        <item>وزارة المالية </item>
+        <item>وزارة التربية والتعليم </item>
+        <item>وزارة الاسكان </item>
+        <item>وزارة الصحة </item>
+        <item>وزارة العدل </item>
+        <item>وزارة التموين </item>
+
+    </string-array>
+
+    <string-array name="BusinessManList">
+        <item>مؤسسات طبية</item>
+        <item>مصانع</item>
+        <item>مقاولات</item>
+        <item>مزارع</item>
+        <item>تجارة عامة</item>
+        <item>اصحاب الحرف والمهن </item>
+    </string-array>
+
+    <string-array name="coins">
+        <item >جنيه</item>
+        <item >ريال سعودي</item>
+        <item >دولار</item>
+        <item >دينار كويتي</item>
+        <item >درهم اماراتي </item>
+    </string-array>
 </resources>

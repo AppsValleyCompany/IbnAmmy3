@@ -1,0 +1,163 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.av.ibnammy.payment.PaymentFragment2"
+    android:background="@color/light_black2"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    >
+<TableRow android:layout_width="match_parent"
+    android:layout_height="35dp">
+    <TextView android:layout_height="match_parent"
+        android:layout_width="70dp"
+        android:text="6"
+        android:background="@color/white"
+        android:textColor="@color/light_black2"
+        android:gravity="center"
+        android:layout_marginRight="5dp"
+        android:textSize="16dp"
+        />
+
+    <TextView android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="المجموع"
+        android:background="@color/white"
+        android:textColor="@color/light_black2"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:paddingRight="15dp"/>
+</TableRow>
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp">
+        <TextView android:layout_height="match_parent"
+            android:layout_width="70dp"
+            android:text="100ج"
+            android:background="@color/white"
+            android:textColor="@color/light_black2"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textSize="16dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingRight="15dp"
+            android:text="اشتراك الفرد"
+            android:textColor="@color/light_black2"
+            android:textSize="16dp" />
+    </TableRow>
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp">
+        <TextView android:layout_height="match_parent"
+            android:layout_width="70dp"
+            android:text="600"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textSize="16dp"
+            android:background="#ff2e2f"
+
+            />
+
+        <TextView android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="المبلغ الاجمالي"
+            android:background="#ff2e2f"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:layout_weight="4"
+            android:textSize="16dp"
+            android:paddingRight="15dp"/>
+    </TableRow>
+
+    <include layout="@layout/payment_methods_tabs"
+        />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="الاسم كما موجود على بطاقة الائتمان"
+        android:textColor="@color/white"
+        android:layout_gravity="right"/>
+<EditText
+    android:layout_marginTop="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:background="@drawable/rectangle_orange_frame"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="نوع البطاقة"
+        android:textColor="@color/white"
+        android:layout_gravity="right"/>
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="right"
+        android:layout_marginTop="8dp">
+        <ImageView android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/visa_icon"
+            android:layout_marginRight="10dp"
+            />
+        <ImageView android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/mastercard_icon"
+            android:layout_marginRight="10dp"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/rectangle_orange_frame"
+            >
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/card_type"
+                android:gravity="center"
+                android:backgroundTint="@color/white"/>
+</FrameLayout>
+    </TableRow>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="رقم البطاقة"
+        android:textColor="@color/white"
+        android:layout_gravity="right"/>
+    <EditText
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/rectangle_orange_frame"/>
+
+</LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/btn1_pay_dutes"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="8dp"
+        android:background="@color/light_orange"
+        android:text="دفع الاشتراك"
+        android:textSize="18dp"
+        android:textColor="@color/light_black2"
+        />
+</FrameLayout>

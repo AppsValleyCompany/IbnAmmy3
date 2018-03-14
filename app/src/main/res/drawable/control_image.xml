@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item
+     android:id="@+id/img_frame_photo"
+     android:drawable="@mipmap/ic_frame_photo"
+
+    />
+
+
+    <item
+        android:id="@+id/img_profile_photo"
+        android:drawable="@mipmap/ic_chefs"
+        android:gravity="center"
+
+        android:right="60dp"
+        android:top="50dp"
+        android:bottom="50dp"
+        android:left="55dp"
+    />
+
+
+
+
+
+</layer-list>

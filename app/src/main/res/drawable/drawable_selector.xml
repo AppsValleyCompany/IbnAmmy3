@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/colorTappedIcon" android:state_checked="true" />
+    <item android:drawable="@color/colorPrimaryDark" android:state_checked="false" />
+</selector>

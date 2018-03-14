@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1c1d21"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+   <LinearLayout
+       android:id="@+id/advance_search"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <LinearLayout
+         android:layout_marginTop="10dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
+
+         <FrameLayout
+             android:layout_height="35dp"
+             android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_marginRight="5dp"
+             android:layout_marginLeft="25dp"
+
+             android:background="@drawable/rectangle_white_frame">
+             <Spinner
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layoutDirection="rtl"
+                 android:entries="@array/citiesList"
+                 android:popupBackground="@color/background"
+                 android:theme="@style/spinnerTheme"
+                 android:backgroundTint="@color/white"
+                 />
+         </FrameLayout>
+         <FrameLayout
+             android:layout_height="35dp"
+             android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_marginRight="25dp"
+             android:layout_marginLeft="5dp"
+             android:background="@drawable/rectangle_white_frame">
+             <Spinner
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layoutDirection="rtl"
+                 android:entries="@array/countries_array"
+                 android:popupBackground="@color/background"
+                 android:theme="@style/spinnerTheme"
+                 android:backgroundTint="@color/white"
+                 />
+
+         </FrameLayout>
+
+     </LinearLayout>
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+
+           <FrameLayout
+               android:layout_height="35dp"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_marginRight="5dp"
+               android:layout_marginLeft="25dp"
+
+               android:background="@drawable/rectangle_white_frame">
+               <Spinner
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layoutDirection="rtl"
+                   android:entries="@array/manorList"
+                   android:popupBackground="@color/background"
+                   android:theme="@style/spinnerTheme"
+                   android:backgroundTint="@color/white"
+                   />
+           </FrameLayout>
+           <FrameLayout
+               android:layout_height="35dp"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_marginRight="25dp"
+               android:layout_marginLeft="5dp"
+               android:background="@drawable/rectangle_white_frame">
+               <Spinner
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layoutDirection="rtl"
+                   android:entries="@array/villageList"
+                   android:popupBackground="@color/background"
+                   android:theme="@style/spinnerTheme"
+                   android:backgroundTint="@color/white"
+                   />
+
+           </FrameLayout>
+
+       </LinearLayout>
+
+
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+
+           <FrameLayout
+               android:layout_height="35dp"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_marginRight="5dp"
+               android:layout_marginLeft="25dp"
+
+               android:background="@drawable/rectangle_white_frame">
+               <Spinner
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layoutDirection="rtl"
+                   android:entries="@array/ProvideServiceList"
+                   android:popupBackground="@color/background"
+                   android:theme="@style/spinnerTheme"
+                   android:backgroundTint="@color/white"
+                   />
+           </FrameLayout>
+           <FrameLayout
+               android:layout_height="35dp"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_marginRight="25dp"
+               android:layout_marginLeft="5dp"
+               android:background="@drawable/rectangle_white_frame">
+               <Spinner
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layoutDirection="rtl"
+                   android:entries="@array/typeOfRequestList"
+                   android:popupBackground="@color/background"
+                   android:theme="@style/spinnerTheme"
+                   android:backgroundTint="@color/white"
+                   />
+
+           </FrameLayout>
+
+       </LinearLayout>
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+
+           <FrameLayout
+               android:layout_height="35dp"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_marginRight="5dp"
+               android:layout_marginLeft="25dp"
+
+               android:background="@drawable/rectangle_white_frame">
+               <Spinner
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layoutDirection="rtl"
+                   android:entries="@array/sex_type"
+                   android:popupBackground="@color/background"
+                   android:theme="@style/spinnerTheme"
+                   android:backgroundTint="@color/white"
+                   />
+           </FrameLayout>
+           <FrameLayout
+               android:layout_height="35dp"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_marginRight="25dp"
+               android:layout_marginLeft="5dp"
+               android:background="@drawable/rectangle_white_frame">
+               <Spinner
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layoutDirection="rtl"
+                   android:entries="@array/blood_type_array"
+                   android:popupBackground="@color/background"
+                   android:theme="@style/spinnerTheme"
+                   android:backgroundTint="@color/white"
+                   />
+
+           </FrameLayout>
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+
+</RelativeLayout>

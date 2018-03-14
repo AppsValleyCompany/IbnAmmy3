@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+   <!-- <item android:drawable="@drawable/frame_accent_checked"   android:state_selected="true"/>
+    <item android:drawable="@drawable/frame_accent_unchecked" android:state_selected="false" />-->
+
+
+    <item  android:state_focused="false"
+        android:drawableLeft="@mipmap/ic_unselected_arrow"
+        android:drawable="@drawable/frame_accent_unchecked"/>
+    <item android:state_focused="true"
+
+        android:drawableLeft="@mipmap/ic_selected_arrow"
+
+        android:drawable="@drawable/frame_accent_checked"/>
+</selector>

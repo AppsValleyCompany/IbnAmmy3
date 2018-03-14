@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/backgroundColor">
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/frame_accent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/ic_search_bar"
+        android:hint="بحث"
+        android:textColorHint="@android:color/white"
+        android:drawablePadding="20dp"
+        android:layoutDirection="rtl"/>
+
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/search_bar"
+        android:id="@+id/listChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/row_item_chat"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="3dp"/>
+
+</RelativeLayout>

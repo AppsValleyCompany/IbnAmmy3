@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:layout="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <!-- MapView    -->
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/fragment_map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            />
+
+        <!-- To show transparent map-->
+        <FrameLayout
+            android:id="@+id/map_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <!-- To Two button request services or help -->
+
+        <Button
+            android:id="@+id/btn_request_service"
+            android:visibility="visible"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="بحث / اطلب خدمه"
+            android:background="#fab864"
+            />
+        <Button
+            android:id="@+id/btn_request_for_help"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="اطلب استغاثه"
+            android:background="#f64444"
+            android:layout_marginBottom="30dp"
+            android:visibility="visible"
+            />
+
+        <!-- when user click request for  service show that box -->
+        <LinearLayout
+            android:id="@+id/request_service"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1c1d21"
+            android:animateLayoutChanges="true"
+            >
+
+            <EditText
+                android:id="@+id/search_bar"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/frame_accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/ic_search_bar"
+                android:hint="بحث"
+                android:textColorHint="@android:color/white"
+                android:drawablePadding="20dp"
+                android:layoutDirection="rtl"/>
+
+            <CheckBox
+                android:layout_marginTop="5dp"
+                android:id="@+id/checkbox_advance_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="بحث متقدم"
+                android:textColor="@android:color/white"
+                android:layoutDirection="rtl"
+                android:layout_gravity="right"
+                android:layout_marginRight="30dp"
+                android:buttonTint="@drawable/try_d"
+                />
+
+            <include
+                android:id="@+id/advance_search"
+                android:visibility="gone"
+                layout="@layout/try_k"/>
+
+            <Button
+                android:id="@+id/btn_search_service"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textAlignment="center"
+                android:text="بحث"
+                android:background="#fab864"
+                android:layout_marginBottom="20dp"
+                />
+
+        </LinearLayout>
+
+        <!-- when user click request for  help show that box -->
+        <LinearLayout
+            android:id="@+id/request_help"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1c1d21"
+            android:orientation="vertical"
+            android:baselineAligned="false">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginLeft="35dp"
+                android:background="@drawable/rectangle_white_frame">
+                <Spinner
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="rtl"
+                    android:entries="@array/requestHelpList"
+                    android:popupBackground="@color/background"
+                    android:theme="@style/spinnerTheme"
+                    android:backgroundTint="@color/white"
+                    />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btn_search_help"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textAlignment="center"
+                android:text="بحث"
+                android:background="#fab864"
+                android:layout_marginBottom="20dp"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+        <!-- when user click search for  help show that box as result -->
+
+        <hollowsoft.slidingdrawer.SlidingDrawer
+            android:id="@+id/drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout:handle="@+id/search_result"
+            layout:content="@+id/list_item_search"
+            android:visibility="gone"
+            >
+
+            <RelativeLayout
+                android:id="@+id/search_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimaryDark"
+                android:visibility="visible"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/v1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/txt_result_search"
+                        android:layout_alignParentRight="true"
+                        android:text="  نتائج البحث   "
+                        android:textColor="@color/titleTextColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="17sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/txt_result_search"
+                        android:textColor="@android:color/white"
+                        android:text="   25 محامى  "
+                        android:textSize="17sp"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/img_slide_up"
+                        android:src="@mipmap/arrow_slide_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="10dp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_below="@+id/v1"
+                    android:id="@+id/v2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/backgroundColor"
+                        android:id="@+id/small_line"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_profile_photo"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/small_line"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_profile_image"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_user_name"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/small_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/img_profile_photo"
+                        android:text="اشرف احمد النجار"
+                        android:textColor="@color/titleTextColor"/>
+
+                    <TextView
+                        android:id="@+id/txt_job_user_name"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/txt_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/img_profile_photo"
+                        android:text="محامى بالنقض"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@android:color/white"/>
+
+
+
+
+
+                    <TextView
+                        android:id="@+id/txt_distance_user_name"
+                        android:layout_marginTop="30dp"
+                        android:layout_below="@+id/small_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="3  km"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/titleTextColor"/>
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_item_search"
+                android:visibility="visible"
+                android:layout_below="@+id/v1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </hollowsoft.slidingdrawer.SlidingDrawer>
+
+
+        <!-- when user click on user  to show his details  -->
+        <RelativeLayout
+            android:id="@+id/user_box_details"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            >
+
+            <RelativeLayout
+                android:layout_margin="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:background="@color/colorTappedIcon"
+                    />
+
+
+                <RelativeLayout
+                    android:id="@+id/details_box"
+                    android:background="@color/colorPrimaryDark"
+                    android:alpha="3"
+
+                    android:layout_below="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:id="@+id/row_1"
+                        android:layout_marginTop="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_man_white"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@mipmap/ic_man_white"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/img_man_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="اشرف احمد"
+                            android:textColor="@color/titleTextColor"/>
+
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/row_2"
+                        android:layout_below="@+id/row_1"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_job_note"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@mipmap/ic_job_note"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/img_job_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="محامى بالنقض"
+                            android:textColor="@android:color/white"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/row_3"
+                        android:layout_below="@+id/row_2"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp">
+
+                        <ImageView
+                            android:id="@+id/img_marker_white"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@mipmap/ic_marker_white"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:layout_marginRight="5dp"                           android:layout_toLeftOf="@+id/img_marker_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="القاهرة مصر"
+                            android:textColor="@android:color/darker_gray"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_below="@+id/details_box"
+                    android:background="@color/colorTappedIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
+
+                    <ImageView
+                        android:id="@+id/img_man_black"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_man_black"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        />
+
+                    <View
+                        android:id="@+id/line_2"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundColor"
+                        android:layout_toRightOf="@+id/img_man_black"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <ImageView
+                        android:id="@+id/img_chat_black"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_chat_black"
+                        android:layout_toRightOf="@+id/line_2"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        />
+
+                    <View
+                        android:id="@+id/line_3"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundColor"
+                        android:layout_toRightOf="@+id/img_chat_black"
+                        android:layout_marginLeft="20dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_request_service"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/line_3"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="اتصل مكالمه "
+                        android:gravity="center"
+                        android:textColor="@color/backgroundColor"
+                        />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/control_image_details"
+                />
+
+
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</layout>
