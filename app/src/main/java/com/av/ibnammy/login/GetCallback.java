@@ -9,6 +9,7 @@ public abstract class GetCallback {
         void onSuccess(String s);
         void onFailure(String s);
     }
+
     public interface onSignUpFinish{
         void onSuccess(String s);
         void onFailure(String s);

@@ -16,7 +16,7 @@ import retrofit2.Response;
  * Created by Mina on 3/1/2018.
  */
 
-public class SignUpModelImp implements SignUpModel {
+public class SignUpModelImp implements SignUpContract.SignUpModel {
     ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
     @Override

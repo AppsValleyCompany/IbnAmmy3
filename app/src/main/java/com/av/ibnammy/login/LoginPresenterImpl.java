@@ -1,16 +1,18 @@
 package com.av.ibnammy.login;
 
 
+import android.content.Context;
+
 /**
  * Created by lenovo on 20/02/2018.
  */
 
-public class LoginPresenterImpl implements LoginPresenter,GetCallback.onLoginFinish  {
+public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallback.onLoginFinish  {
 
-    private LoginView loginView;
+    private LoginContract.LoginView loginView;
     private LoginModelImpl loginModel;
 
-    public LoginPresenterImpl(LoginView loginView){ //take an object of a class implements the model view
+    public LoginPresenterImpl(LoginContract.LoginView loginView){ //take an object of a class implements the model view
         this.loginView=loginView;
         this.loginModel=new LoginModelImpl();
     }
@@ -72,6 +74,16 @@ public class LoginPresenterImpl implements LoginPresenter,GetCallback.onLoginFin
     }
 
     @Override
+    public void onAttach(Context context) {
+        loginView.loadCredentials();
+    }
+
+    @Override
+    public void onDetach() {
+        loginView=null;
+    }
+
+    @Override
     public void onSuccess(String s) {
         loginView.hideProgress();
         loginView.showError("Login success. your id is: " + s);
@@ -84,4 +96,6 @@ public class LoginPresenterImpl implements LoginPresenter,GetCallback.onLoginFin
         loginView.hideProgress();
         loginView.showError(s);
     }
+
+
 }

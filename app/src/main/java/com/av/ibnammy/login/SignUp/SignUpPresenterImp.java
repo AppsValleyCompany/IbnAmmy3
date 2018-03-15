@@ -7,12 +7,12 @@ import com.av.ibnammy.login.GetCallback;
  * Created by Mina on 3/1/2018.
  */
 
-public class SignUpPresenterImp implements SignUpPresenter,GetCallback.onSignUpFinish {
+public class SignUpPresenterImp implements SignUpContract.SignUpPresenter,GetCallback.onSignUpFinish {
 
     SignUpModelImp signUpModelImp;
-    SignUpView signUpView;
+    SignUpContract.SignUpView signUpView;
 
-    public SignUpPresenterImp(SignUpView signUpView){
+    public SignUpPresenterImp(SignUpContract.SignUpView signUpView){
         signUpModelImp= new SignUpModelImp();
         this.signUpView=signUpView;
     }
@@ -27,7 +27,8 @@ public class SignUpPresenterImp implements SignUpPresenter,GetCallback.onSignUpF
         }
         else{
             signUpView.setUsernameError(null);
-            return true;}
+            return true;
+        }
     }
 
     @Override
@@ -45,7 +46,8 @@ public class SignUpPresenterImp implements SignUpPresenter,GetCallback.onSignUpF
         else{
             signUpView.setPasswordError(null);
             signUpView.setRepeatPasswordError(null);
-            return true;}
+            return true;
+        }
     }
 
     @Override

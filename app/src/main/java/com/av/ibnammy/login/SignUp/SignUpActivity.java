@@ -11,9 +11,9 @@ import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.ActivitySignUpBinding;
 import com.av.ibnammy.login.LoginActivity;
 
-public class SignUpActivity extends AppCompatActivity implements SignUpView{
+public class SignUpActivity extends AppCompatActivity implements SignUpContract.SignUpView {
 
-    SignUpPresenterImp presenter;
+    SignUpContract.SignUpPresenter presenter;
     ActivitySignUpBinding binding;
 
     @Override
@@ -60,7 +60,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
     @Override
     public void moveToLoginScreen() {
         startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-
     }
 
     @Override
@@ -71,12 +70,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
     @Override
     public void setPasswordError(String e) {
         binding.inputLayoutPassword.setError(e);
-
     }
 
     @Override
     public void setRepeatPasswordError(String e) {
         binding.inputLayoutRepeatPassword.setError(e);
-
     }
 }

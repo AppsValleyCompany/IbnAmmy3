@@ -17,6 +17,7 @@ import com.av.ibnammy.homePage.menu.MenuListAdapter;
 
 public class FavouriteFragment extends Fragment {
 
+
     RecyclerView recyclerViewFavourite;
 
     @Override
@@ -41,16 +42,11 @@ public class FavouriteFragment extends Fragment {
 
             }
 
-            @Override
+             @Override
             public int getItemCount() {
                 return 10;
             }
         });
-
-
-
-
-
 
         return rooView;
     }

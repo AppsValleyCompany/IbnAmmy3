@@ -39,7 +39,7 @@
                 android:id="@+id/all_members"
                 >
 
-                <com.av.ibnammy.classes.ProgressWheel
+                <com.av.ibnammy.dashboard.ProgressWheel
                     android:layout_gravity="center"
                     android:id="@+id/progressBarTwo"
                     android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                 android:layout_height="wrap_content"
                 >
 
-                <com.av.ibnammy.classes.ProgressWheel
+                <com.av.ibnammy.dashboard.ProgressWheel
                     android:layout_marginRight="35dp"
                     android:layout_gravity="end"
                     android:id="@+id/progressBarthree"
@@ -220,7 +220,7 @@
                     ProgressWheel:pwRimWidth="12dp"
                     ProgressWheel:pwSpinSpeed="3dp"/>
 
-                <com.av.ibnammy.classes.ProgressWheel
+                <com.av.ibnammy.dashboard.ProgressWheel
                     android:id="@+id/progressBarfour"
                     android:layout_width="100dp"
                     android:layout_gravity="start"

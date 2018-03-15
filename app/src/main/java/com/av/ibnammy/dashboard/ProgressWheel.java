@@ -1,4 +1,4 @@
-package com.av.ibnammy.classes;
+package com.av.ibnammy.dashboard;
 
 import android.content.Context;
 import android.content.res.TypedArray;

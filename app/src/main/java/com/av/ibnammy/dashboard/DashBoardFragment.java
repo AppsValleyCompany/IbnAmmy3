@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.av.ibnammy.R;
-import com.av.ibnammy.classes.ProgressWheel;
 
 import java.util.ArrayList;
 import java.util.List;
