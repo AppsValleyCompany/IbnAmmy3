@@ -37,19 +37,9 @@ public class SubCategoryFragment extends Fragment {
 
         sectionCategory = v.findViewById(R.id.txt_section_category);
 
-        String getTypeOfCategory = getArguments().getString("typeOfCategory");
-        if(getTypeOfCategory.equals("1")){
-            sectionCategory.setText("بنوك خاصه");
-
-        }else if(getTypeOfCategory.equals("2")){
-            sectionCategory.setText("جامعة");
-
-        }else {
-            sectionCategory.setText("مستشفيات");
-        }
 
 
-        menuListAdapter = new MenuListAdapter(getActivity(),getTypeOfCategory);
+        menuListAdapter = new MenuListAdapter(getActivity(),"1");
 
         recyclerViewCategory = (RecyclerView) v.findViewById(R.id.category_list);
         recyclerViewCategory.setLayoutManager(new LinearLayoutManager(getContext()));

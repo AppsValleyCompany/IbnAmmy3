@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_black1"
@@ -27,7 +33,6 @@
                 android:id="@+id/cat_type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:entries="@array/cat_type"
                 android:gravity="center"
                 android:theme="@style/spinnerTheme"
                 android:backgroundTint="@color/white"
@@ -60,7 +65,7 @@
             android:layoutDirection="rtl"
             >
             <Spinner
-                android:id="@+id/spinner_service_categories"
+                android:id="@+id/category_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -161,22 +166,173 @@
         android:textSize="15sp"
         android:visibility="visible"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/gray"/>
 
-        <include layout="@layout/address_layout" />
 
-    <Button
-        android:id="@+id/upload_media_page_btn"
-        android:visibility="visible"
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="مقر السكن"
+        android:textSize="16sp"
         android:layout_gravity="center_horizontal"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:id="@+id/address_label_tv"/>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:gravity="right">
+
+        <EditText
+            android:id="@+id/district_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_white_frame"
+            android:hint="المحافظة"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/gray"
+            />
+
+        <EditText
+            android:id="@+id/country_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_white_frame"
+            android:hint="الدولة"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            />
+
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:gravity="right">
+
+        <EditText
+            android:id="@+id/region_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_white_frame"
+            android:hint="المنطقة/القرية"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"
+            android:textSize="15sp"
+
+            />
+
+        <EditText
+            android:id="@+id/city_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="المدينة/المركز"
+            android:background="@drawable/rectangle_white_frame"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/gray"
+            />
+
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:gravity="right">
+
+        <EditText
+            android:id="@+id/street_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_white_frame"
+            android:hint="اسم الشارع"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/gray"
+            />
+
+        <EditText
+            android:id="@+id/area_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="عزبة/نجع/كفر"
+            android:background="@drawable/rectangle_white_frame"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColorHint="@color/gray"
+
+            />
+
+    </TableRow>
+
+
+    <Button android:id="@+id/get_address_data_btn"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:background="@color/light_orange"
-        android:text="اضافة ميديا/اعلان"
+        android:text="تحديث موقعك"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:background="@drawable/solid_orange_rounded_corners"
+        android:layout_gravity="center_horizontal"
         android:textColor="@color/light_black2"
+        android:layout_marginTop="10dp"
+
         />
 
+        <Button
+            android:id="@+id/upload_media_page_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/solid_orange_rounded_corners"
+            android:paddingEnd="30dp"
+            android:paddingStart="30dp"
+            android:text="اضافة ميديا/اعلان"
+            android:textColor="@color/light_black2"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            />
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="التالي"
+        android:textStyle="bold"
+        android:textColor="@color/light_black2"
+        android:background="@drawable/solid_orange_rounded_corners"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="15dp"/>
 </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
+</FrameLayout>
+</layout>

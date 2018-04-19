@@ -12,6 +12,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
        private Handler timer;
        private int splash_timeout=2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

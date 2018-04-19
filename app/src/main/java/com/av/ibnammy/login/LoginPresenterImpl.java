@@ -2,15 +2,21 @@ package com.av.ibnammy.login;
 
 
 import android.content.Context;
+import android.os.Bundle;
+
+import com.av.ibnammy.networkUtilities.GetCallback;
 
 /**
  * Created by lenovo on 20/02/2018.
  */
 
-public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallback.onLoginFinish  {
+
+public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallback.onLoginFinish,GetCallback.onResetPasswordFinish  {
 
     private LoginContract.LoginView loginView;
     private LoginModelImpl loginModel;
+
+ //   public boolean isSavePassChecked;
 
     public LoginPresenterImpl(LoginContract.LoginView loginView){ //take an object of a class implements the model view
         this.loginView=loginView;
@@ -42,7 +48,7 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
 
     @Override
     public boolean validatePhone(String phone) {
-        if(phone.length()!=11){
+        if(phone.length()>18|| phone.length()<10){
             loginView.setUsernameError("خطأ في رقم الهاتف");
             loginView.setPasswordError(null);
             return false;
@@ -84,11 +90,26 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
     }
 
     @Override
-    public void onSuccess(String s) {
+    public void requestForgetPasswordFromModel(String phone, String email) {
+      //  if(CommonUtils.isEmailValid(email)){
+           // loginView.showProgress();
+            loginModel.requestForgetPassword(phone,email,this);
+   //     }
+      //  else
+         //   loginView.showError(email+" is not a valid email.");
+
+    }
+
+    @Override
+    public void onSuccess(Bundle b) {
         loginView.hideProgress();
-        loginView.showError("Login success. your id is: " + s);
-        loginView.saveCredentials();
-        loginView.moveToHomeScreen();
+        loginView.showError("Login success.");
+        String id=b.getString("id");
+     //   if(isSavePassChecked){
+        loginView.saveCredentials(id);
+     //   }
+
+        loginView.moveToHomeScreen(b);
     }
 
     @Override
@@ -98,4 +119,17 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
     }
 
 
+    @Override
+    public void onResetPasswordSuccess(String status) {
+        loginView.showError(status);
+        loginView.dismissForgetPopup();
+       // loginView.hideProgress();
+    }
+
+    @Override
+    public void onResetPasswordFailure(String status) {
+        loginView.showError("خطأ: "+status);
+        loginView.dismissForgetPopup();
+       // loginView.hideProgress();
+    }
 }

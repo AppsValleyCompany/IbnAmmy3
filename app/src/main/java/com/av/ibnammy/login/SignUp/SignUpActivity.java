@@ -58,8 +58,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     }
 
     @Override
-    public void moveToLoginScreen() {
-        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+    public void moveToLoginScreen(String phone) {
+        startActivity(new Intent(SignUpActivity.this, LoginActivity.class).putExtra("phone",phone));
     }
 
     @Override

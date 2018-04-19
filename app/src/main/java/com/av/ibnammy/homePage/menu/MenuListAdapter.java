@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.av.ibnammy.R;
-import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.subcategoryListActivity;
-import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileFragment;
 
 
 /**
@@ -30,7 +28,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MyView
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_list_category,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_list_subcategory,parent,false);
         return new MyViewHolder(view);
     }
 
@@ -79,7 +77,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MyView
          @Override
          public void onClick(View view) {
 
-             subcategoryListActivity.changeFragmentForSideMenu(new CousinProfileFragment());
+            // subcategoryListActivity.changeFragmentForSideMenu(new CousinProfileFragment());
 
          }
      });

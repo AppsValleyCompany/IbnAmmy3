@@ -15,7 +15,7 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.custom_item_pay_dutes_list, parent, false);
+                .inflate(R.layout.row_pay_dutes_list, parent, false);
 
         return new ViewHolder(itemView);    }
 

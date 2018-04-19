@@ -1,159 +1,139 @@
+<layout>
 
-<LinearLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.av.ibnammy.updateUserData.familyData.FamilyDataFragment"
+        >
 
-    xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.av.ibnammy.updateUserData.FamilyDataFragment"
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/light_black_rounded_corners"
+    android:background="@color/light_black1"
     android:orientation="vertical"
-    android:padding="10dp"
-   >
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp">
+    android:padding="5dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@color/light_orange"
-            android:text="النجار"
-            android:textColor="@color/light_black2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-        <EditText
+                <LinearLayout
+                    android:id="@+id/add_relative_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    >
+                    <EditText
+                        android:id="@+id/follower_name_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="الاسم"
+                        android:background="@drawable/rectangle_white_frame"
+                        android:padding="5dp"
+                        android:textColorHint="@color/white"
+                        android:layout_marginBottom="8dp"/>
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:background="@drawable/rectangle_white_frame"
-            android:hint="اسم الأب"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="12sp" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
 
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp">
 
-        <EditText
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:background="@drawable/rectangle_white_frame"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="2"
+                            android:padding="5dp">
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:background="@drawable/rectangle_white_frame"
-            android:hint="اسم الأم"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="12sp" />
+                            <Spinner
+                                android:layout_marginRight="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/gender"
+                                android:paddingLeft="25dp"
+                                android:gravity="center"
+                                android:backgroundTint="@color/white"
+                                android:prompt="@color/white"
+                                style="@style/AlertDialog.AppCompat.Light"
+                                android:layoutDirection="rtl"
+                                android:theme="@style/spinnerTheme"/>
 
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="12dp"
-       >
+                        </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:background="@drawable/rectangle_white_frame"
+                            android:layout_weight="1"
+                            android:padding="5dp">
 
-        <Button
-            android:id="@+id/add_brother_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/light_orange"
-            android:text="&#xf067;"
-            android:textColor="@color/light_black"
-            />
+                            <Spinner
+                                android:id="@+id/relation_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/relation_type"
+                                android:paddingLeft="25dp"
+                                android:gravity="center"
+                                android:backgroundTint="@color/white"
+                                android:prompt="@color/white"
+                                style="@style/AlertDialog.AppCompat.Light"
+                                android:layoutDirection="rtl"
+                                android:theme="@style/spinnerTheme"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rectangle_white_frame"
-            android:hint="اسم الأخ"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="12sp"
-            android:layout_weight="3"
-            />
-    </TableRow>
+                        </FrameLayout>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="12dp">
+                    </TableRow>
 
-        <Button
-            android:id="@+id/add_sister_btn"
 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/light_orange"
-            android:text="&#xf067;"
-            android:textColor="@color/light_black"            />
+                    <Button
+                        android:id="@+id/add_follower_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/light_orange"
+                        android:text="اضف"
+                        android:textColor="@color/light_black2"
+                        />
+                </LinearLayout>
 
-        <EditText
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_view"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/row_family_list"
+                    android:layout_marginBottom="40dp"
+                    />
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:background="@drawable/rectangle_white_frame"
-            android:hint="اسم الأخت"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="12sp" />
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp">
-
-        <EditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:background="@drawable/rectangle_white_frame"
-            android:hint="اسم الزوجة"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="12sp" />
-
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="12dp">
-
-        <Button
-            android:id="@+id/add_son_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/light_orange"
-            android:text="&#xf067;"
-            android:textColor="@color/light_black"            />
-
-        <EditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:background="@drawable/rectangle_white_frame"
-            android:hint="اسم الابن"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="12sp" />
-    </TableRow>
+            </LinearLayout>
 </LinearLayout>
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="التالي"
+            android:textStyle="bold"
+            android:textColor="@color/light_black2"
+            android:background="@drawable/solid_orange_rounded_corners"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="30dp"
+            />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+    </FrameLayout>
+</layout>

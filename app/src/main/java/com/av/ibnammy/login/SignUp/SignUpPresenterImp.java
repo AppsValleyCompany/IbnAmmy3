@@ -1,7 +1,7 @@
 package com.av.ibnammy.login.SignUp;
 
 
-import com.av.ibnammy.login.GetCallback;
+import com.av.ibnammy.networkUtilities.GetCallback;
 
 /**
  * Created by Mina on 3/1/2018.
@@ -20,7 +20,7 @@ public class SignUpPresenterImp implements SignUpContract.SignUpPresenter,GetCal
     @Override
     public boolean validatePhone(String phone) {
         if(phone.length()!=11){
-            signUpView.setUsernameError("Phone must be 11 digits.");
+            signUpView.setUsernameError("رقم الهاتف غبر صحيح..يجب ان يتكون من 11 رقم.");
             signUpView.setPasswordError(null);
             signUpView.setRepeatPasswordError(null);
             return false;
@@ -34,12 +34,12 @@ public class SignUpPresenterImp implements SignUpContract.SignUpPresenter,GetCal
     @Override
     public boolean validatePass(String pass, String repeat) {
         if(pass.length()<5){
-            signUpView.setPasswordError("Password must be 5 digits.");
+            signUpView.setPasswordError("كلمة المرور اقل من 5 احرف!!");
             signUpView.setRepeatPasswordError(null);
             return false;
         }
         else if(!(repeat.equals(pass))){
-            signUpView.setRepeatPasswordError("The repeat must match password.");
+            signUpView.setRepeatPasswordError("لا تتطابق مع كلمة المرور!");
             signUpView.setPasswordError(null);
             return false;
         }
@@ -66,10 +66,10 @@ public class SignUpPresenterImp implements SignUpContract.SignUpPresenter,GetCal
     }
 
     @Override
-    public void onSuccess(String s) {
+    public void onSuccess(String status,String phone) {
         signUpView.hideProgress();
-        signUpView.showMessage(s);
-        signUpView.moveToLoginScreen();
+        signUpView.showMessage(status);
+        signUpView.moveToLoginScreen(phone);
     }
 
     @Override

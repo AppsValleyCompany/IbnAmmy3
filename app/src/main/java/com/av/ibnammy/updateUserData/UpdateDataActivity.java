@@ -11,8 +11,9 @@ import android.widget.ImageView;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.ActivityUpdateUserDataBinding;
+import com.av.ibnammy.updateUserData.personalData.PersonalDataFragment;
 
-public class UpdateUserData extends AppCompatActivity {
+public class UpdateDataActivity extends AppCompatActivity {
 
     //StepsView mStepsView;
     private final String[] labels = {"بيانات شخصية", " العمل"," الأسرة"};
@@ -20,41 +21,18 @@ public class UpdateUserData extends AppCompatActivity {
    // Button nextStep_btn;
     ImageView back_btn;
 
-    ActivityUpdateUserDataBinding binding;
-
+    static ActivityUpdateUserDataBinding binding;
+    UpdateDataView dataView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_update_user_data);
          binding= DataBindingUtil.setContentView(this,R.layout.activity_update_user_data);
-
+         dataView=new PersonalDataFragment();
        // mStepsView =  findViewById(R.id.stepsView);
 
         addStep(i,this);
         replaceFragment1(new PersonalDataFragment());
-
-        //nextStep_btn = findViewById(R.id.next1_btn);
-        binding.next1Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //activity.addStep(1);
-               if( binding.stepsView.getCompletedPosition()==0 )
-                 {
-                     addStep(1,getApplicationContext());
-                     replaceFragment(new WorkDataFragment_New());
-                 }
-               else if ( binding.stepsView.getCompletedPosition()==1 )
-                   {
-                       addStep(2,getApplicationContext());
-                       replaceFragment(new FamilyDataFragment());
-                   }
-
-
-
-            }
-        });
-
         back_btn=findViewById(R.id.back_icon);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +42,7 @@ public class UpdateUserData extends AppCompatActivity {
         });
 
     }
+
 
     public void addStep(int i, Context context)
     {
@@ -80,6 +59,7 @@ public class UpdateUserData extends AppCompatActivity {
         super.onBackPressed();
         if(binding.stepsView.getCompletedPosition()>0) //or get current fragment and compare
          addStep(binding.stepsView.getCompletedPosition()-1,getApplicationContext());
+
 
     }
 

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_cousin_data"
+        android:visibility="visible"
+        android:layout_margin="7dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_cousin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@+id/img_cousin"
+            android:textColor="@color/titleTextColor"
+            android:text="@string/no_cousin_data_found"
+            android:maxWidth="200dp"
+            android:lines="4"
+            android:maxLines="4"
+            />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:visibility="invisible"
+            android:id="@+id/img_cousin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            app:civ_border_color="@color/titleTextColor"
+            app:civ_border_width="2dp"
+            android:src="@drawable/ic_profile_image" />
+
+        <ProgressBar
+            android:visibility="visible"
+            android:id="@+id/pb_load_photo"
+            android:layout_marginRight="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:indeterminateTint="@color/titleTextColor"/>
+
+        <TextView
+            android:id="@+id/tv_cousin_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_cousin"
+            android:layout_toLeftOf="@+id/img_cousin"
+            android:layout_toStartOf="@+id/img_cousin"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="15dp"
+             android:layout_marginTop="20dp"
+            android:text="@string/no_cousin_data_found"
+            />
+
+        <ImageView
+            android:id="@+id/img_left_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_left_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/unCheckFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_left_arrow"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_unfavourite"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/checkFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_left_arrow"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_favourite"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/white"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_no_cousin_data"
+        android:visibility="gone"
+        android:layout_margin="7dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_no_member_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/no_member"
+            android:textColor="@color/titleTextColor"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

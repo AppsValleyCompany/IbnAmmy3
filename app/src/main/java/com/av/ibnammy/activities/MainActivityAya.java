@@ -11,40 +11,68 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.dashboard.DashBoardFragment;
 import com.av.ibnammy.homePage.HomePageFragment;
-import com.av.ibnammy.viewprofile.ProfileFragment;
 import com.av.ibnammy.payment.PaymentActivity;
-import com.av.ibnammy.updateUserData.UpdateUserData;
+import com.av.ibnammy.updateUserData.UpdateDataActivity;
+import com.av.ibnammy.viewprofile.Profile;
+import com.av.ibnammy.viewprofile.ProfileFragment;
+import com.bumptech.glide.Glide;
+
+import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
 
 public class MainActivityAya extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public static TextView mTitle;
     NavigationView navigationView;
+    private Profile getProfileData;
+    private TextView  userName;
+    private ImageView userImage;
+    private Button sign_out_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent=getIntent();
 
         changeFragmentForSideMenu1(new HomePageFragment());
-
-
-
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); // set My custom toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);// Display title name
 
-         mTitle = (TextView)findViewById(R.id.txt_title);
-
-
+        mTitle = (TextView)findViewById(R.id.txt_title);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);// to access any item on navigation view
+       // getData();
+        View view = navigationView.getHeaderView(0);
+        userName  = view.findViewById(R.id.tv_user_name);
+        userImage = view.findViewById(R.id.img_user);
+        sign_out_btn=findViewById(R.id.sign_out_btn);
+        sign_out_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivityAya.this.finish();
+            }
+        });
+        Bundle data=intent.getBundleExtra("Login_Data");
+           if (data != null) {
+            String fName=data.getString("fName");
+            String sName=data.getString("sName");
+            String photo=data.getString("img");
+            String name=fName+" "+sName;
+            userName.setText(name);
+            Glide.with(this).load(IMG_URL +photo).into(userImage);
+        }
 
     }
+
     public  void openDrawer(View v){
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerVisible(GravityCompat.START)) {
@@ -95,7 +123,7 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
         else if(id == R.id.nav_settings) {
             //  changeFragmentForSideMenu(new MyPageFragment());
             //mTitle.setText("تعديل البيانات");
-            startActivity(new Intent(MainActivityAya.this,UpdateUserData.class));
+            startActivity(new Intent(MainActivityAya.this,UpdateDataActivity.class));
         }
         else if(id == R.id.nav_my_ad) {
             //  changeFragmentForSideMenu(new MyPageFragment());
@@ -131,6 +159,55 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
                 .commit();
     }
 
-    //
+
+   /* private void  getData(){
+
+        Bundle bundle=CommonUtils.loadCredentials(this);
+        String phone=bundle.getString(Constants.PHONE_KEY);
+        String password=bundle.getString(Constants.PASSWORD_KEY);
+
+        ProfileModel.GetProfileData(phone, password, new GetCallBack.ProfileCallBack() {
+            @Override
+            public void onSuccess(Profile profile) {
+                getProfileData = profile;
+                updateData(getProfileData);
+            }
+
+            @Override
+            public void onFailure(String error) {
+            }
+        });
+
+    }
+
+    private void updateData(Profile profile){
+
+        if(profile!=null){
+
+            if(!profile.getProfileImage().equals("")) {
+
+
+
+                Glide.with(this).load(IMG_URL + profile.getProfileImage())
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                //binding.pbLoadingPhoto.setVisibility(View.GONE);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                // binding.pbLoadingPhoto.setVisibility(View.GONE);
+                                return false;
+                            }
+                        }).into(userImage);
+            }
+
+            userName.setText(profile.getUserName());
+
+
+        }
+    }*/
 
 }

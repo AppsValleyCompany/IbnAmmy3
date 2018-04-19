@@ -1,4 +1,4 @@
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +9,9 @@
     android:layoutDirection="rtl"
     android:background="@color/light_black2"
     android:paddingTop="20dp">
+
+
+
     
 <LinearLayout
     android:layout_width="match_parent"
@@ -16,15 +19,20 @@
     android:orientation="vertical"
     android:paddingStart="15dp"
     android:paddingEnd="15dp">
+
+
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image_profile_frag"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:src="@mipmap/profile_icon"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/circular_shape"
+        app:civ_border_color="@color/titleTextColor"
+        app:civ_border_width="2dp"
         android:padding="7dp"/>
+
 
 <TableRow android:layout_width="match_parent"
     android:layout_height="40dp"
@@ -47,7 +55,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:text="اشرف احمد عبداللطيف النجار"
+    tools:text="اشرف احمد عبداللطيف النجار"
     android:textColor="@color/light_orange"
     android:textSize="17dp"
     android:textStyle="bold"
@@ -76,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="  نج1058"
+            tools:text="  نج1058"
             android:textColor="@color/light_orange"
             android:textSize="17dp"
             android:textStyle="bold"
@@ -105,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="0127777777"
+            tools:text="0127777777"
             android:textColor="@color/light_orange"
             android:textSize="17dp"
             android:textStyle="bold"
@@ -135,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="  لم يدفع"
+            tools:text="  لم يدفع"
             android:textColor="@color/light_orange"
             android:textSize="17dp"
             android:textStyle="bold"
@@ -164,7 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text=" غير مفعّل"
+            tools:text=" غير مفعّل"
             android:textColor="@color/light_orange"
             android:textSize="17dp"
             android:textStyle="bold"
@@ -193,7 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text=" 5 افراد"
+            tools:text=" 5 افراد"
             android:textColor="@color/light_orange"
             android:textSize="17dp"
             android:textStyle="bold"
@@ -212,5 +220,22 @@
         android:text="تعديل البيانات"
         android:layout_gravity="bottom"
         android:background="@color/light_orange"/>
+
+
+     <ProgressBar
+         android:visibility="invisible"
+         android:id="@+id/pb_loading"
+         android:layout_gravity="center"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+
+     <ProgressBar
+         android:id="@+id/pb_loading_photo"
+         android:layout_marginTop="50dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+
+
 </FrameLayout>
 </layout>

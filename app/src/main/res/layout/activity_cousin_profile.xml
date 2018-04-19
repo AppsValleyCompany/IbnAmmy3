@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+<RelativeLayout
+
+    android:id="@+id/activity_profile_"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical"
+    android:background="@color/background"
+    tools:context="com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileActivity"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/rl_cousin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/light_black">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                android:id="@+id/tv_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="6dp"
+                android:src="@mipmap/back_icon" />
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <ImageView
+            android:id="@+id/img_cousin_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_toRightOf="@+id/img_cousin_photo"
+            app:srcCompat="@mipmap/ic_unfavourite" />
+
+<!--
+        -->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_cousin_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_profile_image"
+            app:civ_border_color="@color/titleTextColor"
+            app:civ_border_width="2dp"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:layout_below="@+id/toolbar"
+            android:visibility="visible"
+            android:id="@+id/pb_load_photo_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"/>
+
+
+        <ImageView
+            android:id="@+id/img_cousin_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_toLeftOf="@+id/img_cousin_photo"
+            android:src="@mipmap/ic_marker_white" />
+
+        <TextView
+            android:id="@+id/tv_cousin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_cousin_location"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:maxWidth="200dp"
+            android:lines="3"
+            android:maxLines="3"
+            android:text="@string/no_cousin_data_found"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_cousin_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_cousin_name"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/no_cousin_data_found"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <FrameLayout
+            android:id="@+id/tv_cousin_status"
+            android:visibility="invisible"
+            android:layout_width="45dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/statues_border"
+            >
+            <ImageView
+                android:visibility="visible"
+                android:layout_width="30dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:src="@drawable/ic_white_heart"
+                android:layout_marginRight="3dp"
+                 />
+        </FrameLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/rl_cousin"
+        android:id="@+id/rl_cousin_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rl_call_or_chat"
+        >
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:fillViewport="true">
+
+           <FrameLayout
+               android:id="@+id/container_fragment"
+               android:layout_below="@+id/tab_host"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+           </FrameLayout>
+
+
+       </ScrollView>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_call_or_chat"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.5"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/red"
+                android:drawableRight="@mipmap/ic_chat"
+                android:gravity="center"
+                android:paddingRight="25dp"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/btn_call"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gold"
+                android:text="اتصل مكالمه"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+</layout>

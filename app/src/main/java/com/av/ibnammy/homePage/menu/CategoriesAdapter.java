@@ -1,16 +1,19 @@
 package com.av.ibnammy.homePage.menu;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.av.ibnammy.R;
+import com.av.ibnammy.databinding.RowListCategoryBinding;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.subcategoryListActivity;
+
+import java.util.ArrayList;
 
 /**
  * Created by Maiada on 12/27/2017.
@@ -18,21 +21,24 @@ import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.subcategoryListActi
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder> {
 
-    String [] setItemNames;
-    int [] setItemIcons;
+    ArrayList<Category> categoryArrayList ;
     private Fragment activity;
-    String getTypeOfCategory;
-    public CategoriesAdapter(Fragment fragment, String[] getItemNames, int[] getItemIcons, String typeOfCategory) {
-        activity =fragment;
-        setItemNames= getItemNames;
-        setItemIcons= getItemIcons;
-        this.getTypeOfCategory = typeOfCategory;
+    int getTypeOfCategory;
+    RowListCategoryBinding rowListCategoryBinding;
+    int icons [] ;
 
-    }
+    public CategoriesAdapter(Fragment fragment, ArrayList<Category> categories, int typeOfCategory,int [] getIcons) {
+        activity =fragment;
+        this.getTypeOfCategory = typeOfCategory;
+        categoryArrayList = categories;
+        icons = getIcons;
+            }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_list_provide_service,parent,false);
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_list_category,parent,false);
+        rowListCategoryBinding = DataBindingUtil.bind(view);
         return new MyViewHolder(view);
     }
 
@@ -40,21 +46,28 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
 
-        holder.nameOFItem.setText(setItemNames[position]);
-        holder.iconOfItem.setImageResource(setItemIcons[position]);
+        rowListCategoryBinding.txtCategoryName.setText(categoryArrayList.get(position).getCategoryName().replace("\r\n",""));
+        rowListCategoryBinding.txtMemberCategory.setText(categoryArrayList.get(position).getNumberOfMembers_ServiceCategory()+" عضو ");
+        rowListCategoryBinding.imgItemCategory.setImageResource(icons[position]);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //   Toast.makeText(activity.getActivity().getApplicationContext(),setItemNames[position],Toast.LENGTH_SHORT).show();
 
-                if(position==0)
-                {
-                    Intent h = new Intent(activity.getContext(), subcategoryListActivity.class);
-                    h.putExtra("CategoryName",setItemNames[position]);
-                    h.putExtra("TypeOfCategory",getTypeOfCategory);
-                     activity.startActivity(h);
-                 }
+                    int checkNumberOfMembers =Integer.parseInt(categoryArrayList.get(position).getNumberOfMembers_ServiceCategory());
+
+                    if(checkNumberOfMembers != 0){
+                        Intent subCategoryIntent = new Intent(activity.getContext(), subcategoryListActivity.class);
+                        subCategoryIntent.putExtra("CategoryID",categoryArrayList.get(position).getService_CategoryID());
+                        subCategoryIntent.putExtra("CategoryType",getTypeOfCategory);
+                        subCategoryIntent.putExtra("CategoryName",categoryArrayList.get(position).getCategoryName());
+                        activity.startActivity(subCategoryIntent);
+                    }else {
+                        Toast.makeText(activity.getContext(),activity.getString(R.string.no_member), Toast.LENGTH_SHORT).show();
+                    }
+
+
             }
         });
 
@@ -62,23 +75,33 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     }
 
 
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     @Override
     public int getItemCount() {
-        return setItemIcons.length;
+        return categoryArrayList.size();
     }
 
     public  class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView nameOFItem;
+     /*  TextView categoryName;
         ImageView iconOfItem;
+        TextView  subCategoryNumber;*/
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            nameOFItem =   itemView.findViewById(R.id.txt_item_category);
-            iconOfItem =   itemView.findViewById(R.id.img_item_category);
+         /*   categoryName          =   itemView.findViewById(R.id.txt_category_name);
+            iconOfItem            =   itemView.findViewById(R.id.img_item_category);
+            subCategoryNumber     =   itemView.findViewById(R.id.txt_member_category);*/
         }
 
 
     }
+
+
 
 }

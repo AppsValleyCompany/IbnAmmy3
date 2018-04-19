@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context="com.av.ibnammy.homePage.menu.subcategoryWithUsersList.subcategoryListActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+
+        <ImageView
+            android:id="@+id/tv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="6dp"
+            android:src="@mipmap/back_icon" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="اطباء"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/titleTextColor"/>
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/search_bar"
+        android:layout_margin="10dp"
+        android:background="@drawable/frame_accent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/ic_search_bar"
+        android:hint="بحث"
+        android:maxLines="1"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:drawablePadding="20dp"
+        android:layoutDirection="rtl"
+      />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_search_result"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/error_search_result"
+        android:textColor="@android:color/white"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_subcategory"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_below="@+id/search_bar"
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_error_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_no_data_found"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/titleTextColor"
+    />
+
+</RelativeLayout>
+</layout>

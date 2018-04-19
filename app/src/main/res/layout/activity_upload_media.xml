@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_black2"
@@ -28,7 +32,7 @@
             android:paddingRight="30dp">
 
                 <EditText
-                    android:id="@+id/statues_descripe"
+                    android:id="@+id/et_service_description"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:layout_marginTop="10dp"
@@ -53,7 +57,6 @@
                     />
 
                 <LinearLayout
-                    android:id="@+id/photos_linear_container"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -70,6 +73,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
+
+                     <LinearLayout
+                         android:gravity="right"
+                         android:orientation="horizontal"
+                         android:id="@+id/photos_linear_container"
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:divider="@drawable/empty_space_10">
+
+
+
+
+
+                     </LinearLayout>
+
+
                 </LinearLayout>
 
                 <TextView
@@ -172,6 +191,7 @@
                     </FrameLayout>
 
                     <EditText
+                        android:id="@+id/et_service_price"
                         android:padding="6dp"
                         android:background="@drawable/rectangle_orange_frame"
                         android:layout_width="match_parent"
@@ -228,6 +248,15 @@
         android:textColor="@color/light_black2"
         android:textSize="20dp"
         />
+
+        <ProgressBar
+            android:indeterminateTint="@color/titleTextColor"
+            android:visibility="invisible"
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"/>
 </FrameLayout>
     </LinearLayout>
     </ScrollView>
+</layout>

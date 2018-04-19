@@ -17,13 +17,6 @@
     android:layout_height="wrap_content"
     android:background="@mipmap/splash_bg">
 
-    <ProgressBar
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/progress_bar"
-        android:layout_gravity="center"
-        android:visibility="invisible"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,33 +64,34 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
         <EditText
             android:id="@+id/phone_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:background="@drawable/white_rounded_corners"
             android:drawablePadding="4dp"
             android:drawableRight="@mipmap/phone_icon"
             android:hint="@string/phone_number"
             android:padding="9dp"
             android:textColorHint="@color/white"
             android:textSize="15sp"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
 
         <EditText
             android:id="@+id/password_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
-            android:background="@drawable/white_rounded_corners"
             android:drawablePadding="4dp"
             android:drawableRight="@mipmap/password_et_hint_icon"
             android:hint="@string/password_ed_hint"
@@ -122,17 +116,25 @@
             <CheckBox android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/save_creds_cb"/>
-
         </TableRow>
+
         <Button
             android:id="@+id/signin_btn"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/signin_btn_background"
             android:text="@string/signIn_btn_txt"
             android:textColor="@color/white"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_forget_password_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="هل نسيت كلمة المرور؟!"
+            android:layout_marginTop="5dp"
+            android:textSize="15.5sp"
+            />
     </LinearLayout>
 
     <Button
@@ -144,6 +146,15 @@
         android:text="@string/signUp_btn_txt"
         android:textColor="@color/white"
         android:textStyle="bold" />
+
+    <ProgressBar
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/progress_bar"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_marginTop="15dp"/>
+
 </FrameLayout>
 </ScrollView>
 </layout>

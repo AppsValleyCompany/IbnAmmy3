@@ -1,6 +1,6 @@
 package com.av.ibnammy.login.SignUp;
 
-import com.av.ibnammy.login.GetCallback;
+import com.av.ibnammy.networkUtilities.GetCallback;
 
 /**
  * Created by Mina on 3/15/2018.
@@ -16,7 +16,7 @@ public interface SignUpContract {
         void showProgress();
         void hideProgress();
         void showMessage(String error);
-        void moveToLoginScreen();
+        void moveToLoginScreen(String phone);
         void setUsernameError(String e);
         void setPasswordError(String e);
         void setRepeatPasswordError(String e);

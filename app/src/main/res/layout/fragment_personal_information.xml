@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+<FrameLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_black"
+   >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tv_service_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/tv_service_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+
+
+            <TextView
+                android:id="@+id/tv_service_subcategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tv_service_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+            <TextView
+                android:id="@+id/tv_marital_Status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tv_cousin_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/background"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="@string/no_cousin_data_found"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
+</layout>

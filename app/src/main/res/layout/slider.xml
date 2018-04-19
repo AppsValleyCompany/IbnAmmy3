@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <ImageView
+        android:layout_marginTop="10dp"
         android:id="@+id/im_slider"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>;
+        android:src="@mipmap/ic_logo"
+        android:layout_gravity="center_horizontal|center_vertical"/>;
 
 </LinearLayout>

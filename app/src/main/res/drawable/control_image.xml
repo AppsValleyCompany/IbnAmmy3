@@ -4,21 +4,27 @@
 
 <item
      android:id="@+id/img_frame_photo"
-     android:drawable="@mipmap/ic_frame_photo"
+     android:drawable="@drawable/ic_frame_photo_h"
 
-    />
+    >
+
+
+</item>
 
 
     <item
-        android:id="@+id/img_profile_photo"
-        android:drawable="@mipmap/ic_chefs"
+        android:id="@+id/img_cousin_photo"
+        android:drawable="@drawable/ic_profile_image"
         android:gravity="center"
+        android:top="75dp"
+        android:bottom="70dp"
+        android:left="60dp"
+        android:right="70dp"
+        />
 
-        android:right="60dp"
-        android:top="50dp"
-        android:bottom="50dp"
-        android:left="55dp"
-    />
+
+
+
 
 
 

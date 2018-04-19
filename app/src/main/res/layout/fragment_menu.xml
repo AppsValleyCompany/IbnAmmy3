@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+<RelativeLayout
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
 
     <android.support.design.widget.TabLayout
@@ -21,27 +28,36 @@
         />
 
 
-    <android.support.v4.view.ViewPager
+    <FrameLayout
         android:layout_below="@+id/tabs"
-        android:id="@+id/viewpager"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  >
 
 
+    </FrameLayout>
 
-    </android.support.v4.view.ViewPager>
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        />
 
-
-
-
-
-
-
-
-
-
-
-
+    <TextView
+        android:id="@+id/txt_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        tools:text="لا يوجد بيانات"
+        android:textColor="@color/colorTappedIcon"
+        android:textSize="18sp"
+        />
 
 </RelativeLayout>
+
+</layout>

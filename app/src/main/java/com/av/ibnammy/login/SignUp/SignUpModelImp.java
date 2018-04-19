@@ -1,7 +1,7 @@
 package com.av.ibnammy.login.SignUp;
 
 
-import com.av.ibnammy.login.GetCallback;
+import com.av.ibnammy.networkUtilities.GetCallback;
 import com.av.ibnammy.networkUtilities.ApiClient;
 import com.av.ibnammy.networkUtilities.ApiInterface;
 
@@ -20,7 +20,7 @@ public class SignUpModelImp implements SignUpContract.SignUpModel {
     ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
     @Override
-    public void requestSignUp(String mobile, String password, int familyID, final GetCallback.onSignUpFinish listener) {
+    public void requestSignUp(final String mobile, final String password, int familyID, final GetCallback.onSignUpFinish listener) {
 
         String data="{'Mobile':"+mobile+",'Password':'"+password+"','FamliyID':'"+ familyID +"'}";
 
@@ -38,7 +38,7 @@ public class SignUpModelImp implements SignUpContract.SignUpModel {
                       listener.onFailure(status);
                     }
                     else {
-                        listener.onSuccess(status);
+                        listener.onSuccess(status,mobile);
                     }
 
                 } catch (JSONException e) {

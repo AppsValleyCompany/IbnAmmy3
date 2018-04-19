@@ -8,7 +8,7 @@
 
     <string name="signIn_btn_txt">دخول</string>
     <string name="signUp_btn_txt">تسجيل</string>
-    <string name="phone_number">رقم الهاتف</string>
+    <string name="phone_number">رقم الهاتف 01xx , 009xx</string>
 
     <string-array name="years_array">
         <item>السنة</item>
@@ -54,7 +54,6 @@
     </string-array>
     <string-array name="family_array">
         <item>عائلة النجار</item>
-        <item>عائلة المهندس</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -71,12 +70,12 @@
 
     <string-array name="marital_status_array">
         <item>الحالة الاجتماعية</item>
-        <item> متزوج </item>
-        <item>غير متزوج </item>
-        <item>منفصل </item>
-        <item> مطلق</item>
-        <item>أعزب</item>
-        <item> يبحث عن زوجة</item>
+        <item>متزوج / متزوجة</item>
+        <item>مطلق / مطلقة</item>
+        <item>أعزب / عزباء</item>
+        <item>أرمل / أرملة</item>
+        <item>منفصل / منفصلة</item>
+        <item>باحث عن زوج(ة)</item>
     </string-array>
 
     <string-array name="countries_array">
@@ -104,6 +103,8 @@
         <item> B+</item>
         <item> AB-</item>
         <item> AB+</item>
+        <item>لا اعلم</item>
+
     </string-array>
 
     <string-array name="job_type1">
@@ -111,6 +112,7 @@
         <item>اعمال حرة</item>
         <item>حرفي</item>
     </string-array>
+
     <string-array name="job_type2">
         <item>موظف</item>
         <item>طالب</item>
@@ -144,10 +146,13 @@
         <item>اب</item>
         <item>ابن</item>
     </string-array>
-    <string-array name="sex_type">
+
+    <string-array name="gender">
+        <item>النوع</item>
         <item>ذكر</item>
-        <item>انثى</item>
+        <item>أنثي</item>
     </string-array>
+
     <string-array name="card_type">
         <item>Visa</item>
         <item>Master Card</item>
@@ -247,4 +252,9 @@
         <item >دينار كويتي</item>
         <item >درهم اماراتي </item>
     </string-array>
+
+    <string name="error_no_data_found">لا يوجد بيانات </string>
+    <string name="no_member">لا يوجد اعضاء</string>
+    <string name="no_cousin_data_found">لا يوجد </string>
+    <string name="error_search_result">لا يوجد نتائج للبحث </string>
 </resources>

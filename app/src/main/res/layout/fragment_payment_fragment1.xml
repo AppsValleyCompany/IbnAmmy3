@@ -10,11 +10,10 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            >
+            android:layout_marginBottom="50dp">
+
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -117,7 +116,7 @@
                             <Spinner
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:entries="@array/sex_type"
+                                android:entries="@array/gender"
                                 android:paddingLeft="25dp"
                                 android:gravity="center"
                                 android:backgroundTint="@color/white"
@@ -157,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:spanCount="3"
-                    />
+                                      />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

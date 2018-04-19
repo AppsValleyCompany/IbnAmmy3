@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65sp"
+    android:orientation="horizontal"
+    android:paddingBottom="3dp">
+
+    <TableRow android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:background="@color/light_black2"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_weight="1.8">
+
+
+        <ImageView
+            android:id="@+id/delete_follower_btn"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/ic_delete"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/follower_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="احمد عبداللطيف"
+            android:textSize="17sp"
+            android:textColor="@color/light_orange"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_weight="4"
+
+            />
+        <TextView
+            android:id="@+id/follower_desc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="أب"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/follower_prof_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:src="@mipmap/profile_icon"
+
+            />
+    </TableRow>
+
+</LinearLayout>
+</layout>

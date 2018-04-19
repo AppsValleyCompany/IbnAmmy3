@@ -165,7 +165,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:layoutDirection="rtl"
-                   android:entries="@array/sex_type"
+                   android:entries="@array/gender"
                    android:popupBackground="@color/background"
                    android:theme="@style/spinnerTheme"
                    android:backgroundTint="@color/white"
