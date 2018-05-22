@@ -147,7 +147,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_IMAGE) {
             if(data!=null){
-            Uri filePath = data.getData();
+                Uri filePath = data.getData();
             String getPath= FilePath.getPath(getActivity(),filePath);
             if(getPath!=null&& getContext()!=null) {
 
