@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IbnAmmy</string>
+    <string name="app_name">إبن عمي</string>
     <string name="sayHello">Hello IbnAmmys again</string>
     <string name="signInText">تسجيل دخول</string>
     <string name="email_ed_hint"> البريد الالكتروني </string>
@@ -7,7 +7,7 @@
     <string name="confirm_password_ed_hint"> تأكيد كلمة المرور</string>
 
     <string name="signIn_btn_txt">دخول</string>
-    <string name="signUp_btn_txt">تسجيل</string>
+    <string name="signUp_btn_txt">تسجيل حساب جديد</string>
     <string name="phone_number">رقم الهاتف 01xx , 009xx</string>
 
     <string-array name="years_array">
@@ -80,8 +80,8 @@
 
     <string-array name="countries_array">
         <item> الدولة </item>
-        <item> مصر </item>
-        <item>الامارات  </item>
+     <!--   <item> مصر </item>
+        <item>الامارات  </item>-->
     </string-array>
 
     <string-array name="districts_array">
@@ -165,13 +165,13 @@
     <string name="title_activity_bottom_tap">BottomTapActivity</string>
 
     <string-array name="ProvideServiceList">
-
-        <item>اطباء</item>
+        <item>التخصص</item>
+        <!--<item>اطباء</item>
         <item>محامين</item>
         <item>سائقين</item>
         <item>مهندسين</item>
         <item>محاسبين</item>
-        <item>طباخين</item>
+        <item>طباخين</item>-->
 
     </string-array>
 
@@ -189,15 +189,16 @@
 
     <string-array name="citiesList">
         <item>المدينه</item>
-        <item>القاهرة</item>
-        <item>الرياض</item>
-        <item>الدوحه</item>
+
     </string-array>
 
     <string-array name="requestHelpList">
-        <item>حاله الاستغاثه</item>
-        <item>فصيله الدم</item>
-        <item>محامى</item>
+        <item>حاله الاستغاثه </item>
+        <item>  حادثة على الطريق</item>
+        <item> إعتداء على المنزل </item>
+        <item> رهن الاحتجاز </item>
+        <item> طوارئ صحية </item>
+
     </string-array>
 
     <string-array name="manorList">
@@ -210,8 +211,15 @@
 
     <string-array name="typeOfRequestList">
         <item>نوع الخدمه</item>
-        <item>مقدم خدمة </item>
-        <item>طالب خدمة</item>
+        <item>الباحث عن وظيفة</item>
+        <item>الباحث عن زوج(ة)</item>
+        <item>ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</item>
+        <item>تكنولوجيا/ميديا</item>
+        <item>ورش و صيانة</item>
+        <item>مصانع</item>
+        <item>مكتب محاماه</item>
+        <item>مؤسسات طبية</item>
+        <item>اخرى</item>
     </string-array>
 
     <string-array name="cat_type">
@@ -246,15 +254,21 @@
     </string-array>
 
     <string-array name="coins">
-        <item >جنيه</item>
-        <item >ريال سعودي</item>
-        <item >دولار</item>
-        <item >دينار كويتي</item>
-        <item >درهم اماراتي </item>
+        <item>جنيه</item>
+        <item>ريال سعودي</item>
+        <item>دولار</item>
+        <item>دينار كويتي</item>
+        <item>درهم اماراتي </item>
     </string-array>
 
     <string name="error_no_data_found">لا يوجد بيانات </string>
     <string name="no_member">لا يوجد اعضاء</string>
     <string name="no_cousin_data_found">لا يوجد </string>
     <string name="error_search_result">لا يوجد نتائج للبحث </string>
+    <string name="search_text">اكتب التخصص او الخدمة المطلوبة</string>
+
+
+    <string name="not_activated">لم يتم التفعيل بعد </string>
+    <string name="not_activated_one">سوف يتم تفعيل هذه الخاصيه بمجرد </string>
+    <string name="not_activated_two"> وصول اعداد المشتركين 25 الف مشترك رئيسي او 125 الف تعداد عام ايهما الاول </string>
 </resources>

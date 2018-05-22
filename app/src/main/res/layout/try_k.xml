@@ -13,6 +13,15 @@
        android:layout_height="wrap_content"
        android:orientation="vertical">
 
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:textSize="17sp"
+           android:layout_marginRight="25dp"
+           android:textColor="@color/titleTextColor"
+           android:text="الموقع"/>
+
        <LinearLayout
          android:layout_marginTop="10dp"
          android:layout_width="match_parent"
@@ -31,7 +40,7 @@
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
                  android:layoutDirection="rtl"
-                 android:entries="@array/citiesList"
+                 android:entries="@array/villageList"
                  android:popupBackground="@color/background"
                  android:theme="@style/spinnerTheme"
                  android:backgroundTint="@color/white"
@@ -92,7 +101,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:layoutDirection="rtl"
-                   android:entries="@array/villageList"
+                   android:entries="@array/citiesList"
                    android:popupBackground="@color/background"
                    android:theme="@style/spinnerTheme"
                    android:backgroundTint="@color/white"
@@ -109,13 +118,12 @@
            android:layout_height="wrap_content"
            android:orientation="horizontal">
 
-           <FrameLayout
+      <!--     <FrameLayout
                android:layout_height="35dp"
                android:layout_width="0dp"
                android:layout_weight="1"
                android:layout_marginRight="5dp"
                android:layout_marginLeft="25dp"
-
                android:background="@drawable/rectangle_white_frame">
                <Spinner
                    android:layout_width="match_parent"
@@ -126,8 +134,8 @@
                    android:theme="@style/spinnerTheme"
                    android:backgroundTint="@color/white"
                    />
-           </FrameLayout>
-           <FrameLayout
+           </FrameLayout>-->
+         <!--  <FrameLayout
                android:layout_height="35dp"
                android:layout_width="0dp"
                android:layout_weight="1"
@@ -138,16 +146,16 @@
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:layoutDirection="rtl"
-                   android:entries="@array/typeOfRequestList"
+                   android:entries="@array/villageList"
                    android:popupBackground="@color/background"
                    android:theme="@style/spinnerTheme"
                    android:backgroundTint="@color/white"
                    />
 
-           </FrameLayout>
+           </FrameLayout>-->
 
        </LinearLayout>
-       <LinearLayout
+      <!-- <LinearLayout
            android:layout_marginTop="10dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
@@ -182,7 +190,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:layoutDirection="rtl"
-                   android:entries="@array/blood_type_array"
+                   android:entries="@array/manorList"
                    android:popupBackground="@color/background"
                    android:theme="@style/spinnerTheme"
                    android:backgroundTint="@color/white"
@@ -190,7 +198,7 @@
 
            </FrameLayout>
 
-       </LinearLayout>
+       </LinearLayout>-->
 
    </LinearLayout>
 

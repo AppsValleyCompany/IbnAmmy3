@@ -114,25 +114,37 @@ public class ProfileFragment extends Fragment {
        hideProgressBar();
        if(profile!=null){
 
-           if(!profile.getProfileImage().equals("")) {
+           if(!profile.getProfileImage().equals("")){
+               if(getContext()!=null)
+                   Glide.with(getContext()).load(IMG_URL + profile.getProfileImage())
+                           .listener(new RequestListener<Drawable>() {
+                               @Override
+                               public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                   binding.pbLoadingPhoto.setVisibility(View.GONE);
+                                   return false;
+                               }
 
-               Glide.with(getContext()).load(IMG_URL + profile.getProfileImage())
-                       .listener(new RequestListener<Drawable>() {
-                           @Override
-                           public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                               binding.pbLoadingPhoto.setVisibility(View.GONE);
-                               return false;
-                           }
-
-                           @Override
-                           public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                               binding.pbLoadingPhoto.setVisibility(View.GONE);
-                               return false;
-                           }
-                       }).into(binding.profileImageProfileFrag);
+                               @Override
+                               public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                   binding.pbLoadingPhoto.setVisibility(View.GONE);
+                                   return false;
+                               }
+                           }).into(binding.profileImageProfileFrag);
            }
 
+            else
+               binding.pbLoadingPhoto.setVisibility(View.GONE);
+
+
+
+
+
+
+           if(!profile.getFullUserName().equals(""))
            binding.nameTvProfileFrag.setText(profile.getFullUserName());
+           else
+           binding.nameTvProfileFrag.setText(" لا يوجد");
+
            binding.phoneTvProfileFrag.setText(profile.getMobile());
            binding.idTvProfileFrag.setText(profile.getAccountId());
            binding.accStatusTvProfileFrag.setText(profile.getSubscriptionStatus());

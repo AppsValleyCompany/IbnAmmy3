@@ -202,7 +202,8 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         this.listsDD =response;
         setEntries(binding.catTypeSpinner,response.getTypes(),catTypeId);
         binding.progressBar.setVisibility(View.GONE);
-      //  UpdateDataModel.get_user_data(data,this);
+        binding.saveBtn.setVisibility(View.VISIBLE);
+      //  UpdateDataModel.get_user_datasave(data,this);
     }
 
     void listsAlreadyFetched(){
@@ -260,6 +261,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         binding.progressBar.setVisibility(View.VISIBLE);
         if(validateForms()) {
             CategoryType cat_type = (CategoryType) binding.catTypeSpinner.getSelectedItem();
+
             String cat_type_id = cat_type.getCategory_TypeID();
             ServiceCategory category = (ServiceCategory) binding.categorySpinner.getSelectedItem();
             String cat_id = category.getService_CategoryID();
@@ -268,7 +270,6 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
             ServiceType serviceType = (ServiceType) binding.spinnerServiceType.getSelectedItem();
             String service_type_id = serviceType.getService_TypeID();
             String service_name = binding.organizationNameEt.getText().toString();
-
             String country=binding.countryEt.getText().toString();
             String district=binding.districtEt.getText().toString();
             String city=binding.cityEt.getText().toString();
@@ -281,6 +282,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
 
             String phone=bundle.getString(Constants.PHONE_KEY);
             String password=bundle.getString(Constants.PASSWORD_KEY);
+
 
             User user = new User(phone, password, cat_type_id, cat_id, subcat_id, service_type_id,
                     service_name,longitude, latitude,country,district,city,region,area,street);
@@ -295,13 +297,12 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
     @Override
     public boolean validateForms(){
         String service_name=binding.organizationNameEt.getText().toString();
-
          if(service_name.equals("")){
             return false;}
-            else if(longitude==null||latitude==null){
+/*            else if(longitude==null||latitude==null){
             Toast.makeText(getContext(),"الرجاء الضغط على تحديد موقعك لاكمال التسجيل..",Toast.LENGTH_LONG).show();
             return false;
-        }
+        }*/
          return true;
     }
 
@@ -323,12 +324,16 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         binding.areaEt.setText(area);
         binding.streetEt.setText(street);
 
+        longitude=user.getHome_Longitude();
+        latitude=user.getHome_Latitude();
+
     }
 
 
     // LocationManager locationManager;
 
     public void getLocation() {
+
         binding.progressBar.setVisibility(View.VISIBLE);
 
         LocationListener locationListener=new LocationListener() {
@@ -347,6 +352,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
                     binding.cityEt.setText(addresses.get(0).getSubAdminArea());
                     binding.regionEt.setText(addresses.get(0).getLocality());
                     binding.areaEt.setText(addresses.get(0).getFeatureName());
+                    binding.streetEt.setText("");
                     binding.progressBar.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(),"تم الحصول على بيانات موقعك بنجاح.",Toast.LENGTH_LONG).show();
 

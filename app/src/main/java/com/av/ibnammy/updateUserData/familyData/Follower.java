@@ -5,7 +5,11 @@ package com.av.ibnammy.updateUserData.familyData;
  */
 
 public class Follower {
-   String Account_FollowerID,Follower_Name,Description,Gender;
+   String Account_FollowerID;
+   String Follower_Name;
+   String Description;
+   String Gender;
+   private int photo;
 
    public Follower(String follower_Name, String description) {
       Follower_Name = follower_Name;
@@ -26,5 +30,13 @@ public class Follower {
 
    public String getGender() {
       return Gender;
+   }
+
+   public int getPhoto() {
+      return photo;
+   }
+
+   public void setPhoto(int photo) {
+      this.photo = photo;
    }
 }

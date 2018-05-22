@@ -6,7 +6,6 @@ package com.av.ibnammy.viewprofile;
 
 public class Profile {
 
-
     private String  userName  = "" ;
     private String  mobile    = "" ;
     private String  accountId = "";
@@ -15,8 +14,8 @@ public class Profile {
     private String  followersNumber = "";
     private String  profileImage = "";
     private String  fullUserName = "";
-
-
+    private String  homeLongitude = "";
+    private String  homeLatitude= "";
 
 
     public String getUserName() {
@@ -81,5 +80,22 @@ public class Profile {
 
     public void setFullUserName(String fullUserName) {
         this.fullUserName = fullUserName;
+    }
+
+
+    public String getHomeLongitude() {
+        return homeLongitude;
+    }
+
+    public void setHomeLongitude(String homeLongitude) {
+        this.homeLongitude = homeLongitude;
+    }
+
+    public String getHomeLatitude() {
+        return homeLatitude;
+    }
+
+    public void setHomeLatitude(String homeLatitude) {
+        this.homeLatitude = homeLatitude;
     }
 }

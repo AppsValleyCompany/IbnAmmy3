@@ -90,6 +90,8 @@ public class CommonUtils {
         }
         return bundle;
     }
+
+
 /*    public static String getTimeStamp() {
         return new SimpleDateFormat(AppConstants.TIMESTAMP_FORMAT, Locale.US).format(new Date());
     }*/

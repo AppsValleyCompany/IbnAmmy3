@@ -4,11 +4,9 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.FragmentCategoriesBinding;
@@ -25,7 +23,7 @@ public class CategoriesFragment extends Fragment {
     CategoriesAdapter categoriesAdapter;
     private FragmentCategoriesBinding fragmentCategoriesBinding;
 
-    int [] itemOFIconsEmployee = {
+ /*   int [] itemOFIconsEmployee = {
             R.mipmap.ic_accountants,
             R.mipmap.ic_lawyers,
             R.mipmap.ic_logo,
@@ -67,7 +65,7 @@ public class CategoriesFragment extends Fragment {
             R.mipmap.ic_doctors,
             R.mipmap.ic_doctors,
             R.mipmap.ic_accountants
-    };
+    };*/
 
 
 
@@ -85,15 +83,15 @@ public class CategoriesFragment extends Fragment {
             fragmentCategoriesBinding.categoryList.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
             fragmentCategoriesBinding.categoryList.setHasFixedSize(true);
             if(categoryType==0){
-                categoriesAdapter = new CategoriesAdapter(this,categoryArrayList ,categoryType,itemOFIconsEmployee);
+                categoriesAdapter = new CategoriesAdapter(this,categoryArrayList ,categoryType);
                 fragmentCategoriesBinding.categoryList.setAdapter(categoriesAdapter);
                 categoriesAdapter.notifyDataSetChanged();
             } else  if(categoryType==1){
-               categoriesAdapter = new CategoriesAdapter(this,categoryArrayList,categoryType,itemOFIconsUnEmployee);
+               categoriesAdapter = new CategoriesAdapter(this,categoryArrayList,categoryType);
                 fragmentCategoriesBinding.categoryList.setAdapter(categoriesAdapter);
                 categoriesAdapter.notifyDataSetChanged();
             } else {
-                categoriesAdapter = new CategoriesAdapter(this,categoryArrayList,categoryType,itemOFIconsBusiness);
+                categoriesAdapter = new CategoriesAdapter(this,categoryArrayList,categoryType);
                 fragmentCategoriesBinding.categoryList.setAdapter(categoriesAdapter);
                 categoriesAdapter.notifyDataSetChanged();
             }

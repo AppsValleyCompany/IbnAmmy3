@@ -29,7 +29,6 @@ public class UpdateDataModel {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-
                 try {
                         JSONObject res=new JSONObject(response.body());
                         if(res.has("Status")){
@@ -38,7 +37,6 @@ public class UpdateDataModel {
                             }
                 } else
                             listener.onUpdateFailure(res.toString());
-
                 } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -66,6 +64,5 @@ public class UpdateDataModel {
                 listener.onGetDataFailure(t.getMessage());
             }
         });
-
     }
 }

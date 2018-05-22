@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
 >
+    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="65sp"
     android:orientation="horizontal"
@@ -15,7 +19,40 @@
         android:paddingBottom="3dp"
         android:layout_weight="1.8">
 
+        <TextView
+            android:id="@+id/follower_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="احمد عبداللطيف"
+            android:textSize="17sp"
+            android:textColor="@color/light_orange"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/follower_desc_tv"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:text="زوج/ه"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            />
 
+        <ImageView
+            android:id="@+id/follower_prof_iv"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:src="@mipmap/male"
+
+            />
+    </TableRow>
+
+</LinearLayout>
         <ImageView
             android:id="@+id/delete_follower_btn"
             android:layout_width="38dp"
@@ -26,38 +63,6 @@
             android:src="@mipmap/ic_delete"
             android:layout_gravity="center_vertical"
             />
-        <TextView
-            android:id="@+id/follower_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="احمد عبداللطيف"
-            android:textSize="17sp"
-            android:textColor="@color/light_orange"
-            android:gravity="center"
-            android:layout_marginRight="20dp"
-            android:layout_weight="4"
 
-            />
-        <TextView
-            android:id="@+id/follower_desc_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="أب"
-            android:textSize="17sp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:layout_marginRight="20dp"
-            />
-
-        <ImageView
-            android:id="@+id/follower_prof_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:src="@mipmap/profile_icon"
-
-            />
-    </TableRow>
-
-</LinearLayout>
+    </FrameLayout>
 </layout>

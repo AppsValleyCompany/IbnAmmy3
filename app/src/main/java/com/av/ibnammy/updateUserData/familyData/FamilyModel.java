@@ -63,8 +63,15 @@ public class FamilyModel {
         else listener.onAddFamilySuccess("لم يتم اضافة اتباع جدد.");
     }
 
-    public static void getFamily(String phone, String password, final FamilyCallBack.GetFamily listener){
-        String data = "{'Mobile':"+phone+",'Password':"+password+"}";
+    public static void getFamily(String phone, String password, final FamilyCallBack.GetFamily listener)  {
+        JSONObject object=new JSONObject();
+        try {
+            object.put("Mobile",phone);
+            object.put("password",password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String data = object.toString();//"{'Mobile':"+phone+",'Password':"+password+"}";
         Call<String> call=apiInterface.getFollowers(data);
         call.enqueue(new Callback<String>() {
             @Override
@@ -94,7 +101,17 @@ public class FamilyModel {
     }
 
     public static void deleteFollower(String phone, String password, String id, final FamilyCallBack.DeleteFollower listener){
-       String data = "{'Mobile':"+phone+",'Password':"+password+",'Account_FollowerID':"+id+"}";
+       //String data = "{'Mobile':"+phone+",'Password':"+password+",'Account_FollowerID':"+id+"}";
+        JSONObject object=new JSONObject();
+        try {
+            object.put("Mobile",phone);
+            object.put("password",password);
+            object.put("Account_FollowerID",id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String data = object.toString();
+
        Call<String> call=apiInterface.deleteFollower(data);
        call.enqueue(new Callback<String>() {
            @Override
@@ -115,7 +132,6 @@ public class FamilyModel {
            @Override
            public void onFailure(Call<String> call, Throwable t) {
                listener.onDeleteFollowerFailure(t.getMessage());
-
            }
        });
 

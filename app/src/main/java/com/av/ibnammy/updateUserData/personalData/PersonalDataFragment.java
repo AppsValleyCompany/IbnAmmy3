@@ -57,7 +57,6 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     public static final int PICK_IMAGE = 1;
     Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date;
-    UpdateDataModel model;
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS=0x2;
     Bundle bundle;
     @Override
@@ -67,10 +66,10 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         bundle=CommonUtils.loadCredentials(getContext());
         String phone=bundle.getString(Constants.PHONE_KEY);
         String password=bundle.getString(Constants.PASSWORD_KEY);
-
         final String data="{'Mobile':"+phone+",'Password':'"+password+"'}";
-        model=new UpdateDataModel();
-        model.get_user_data(data,this);
+        //model=new UpdateDataModel();
+        UpdateDataModel.get_user_data(data,this);
+
     }
 
     @Override
@@ -79,6 +78,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
 
         binding= DataBindingUtil.inflate(inflater,R.layout.personal_data_fragment, container, false);
         View view = binding.getRoot();
+        binding.progressBar.setVisibility(View.VISIBLE);
         binding.changeProfileIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,13 +146,13 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_IMAGE) {
+            if(data!=null){
             Uri filePath = data.getData();
             String getPath= FilePath.getPath(getActivity(),filePath);
             if(getPath!=null&& getContext()!=null) {
 
                 Glide.with(getContext())
                         .applyDefaultRequestOptions(new RequestOptions()
-                                .placeholder(R.drawable.ic_profile_image)
                                 .fitCenter().transform(new CircleCrop()))
                         .load(data.getData())
                         .into(binding.changeProfileIv);
@@ -161,6 +161,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
                 Toast.makeText(getActivity(), "يتم رفع الصورة", Toast.LENGTH_SHORT).show();
                 uploadImageToServer(filePath);
             }//TODO: action
+            }
         }
     }
 
@@ -169,7 +170,6 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         try {
             Uri myUri = Uri.parse(imageUri.toString());
             String path = getPathForImage(myUri);
-
             String uploadId = UUID.randomUUID().toString();
          //   Bundle bundle=CommonUtils.loadCredentials(getContext());
             String id=bundle.getString(Constants.USER_ID);
@@ -192,7 +192,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
         cursor.close();
         cursor = getActivity().getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
         cursor.moveToFirst();
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
@@ -257,7 +257,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         User user=new User(phone,password,email,first_name,second_name,
                 third_name,forth_name,gender,marital,birth_date,blood_type);
 
-            model.update_user_data(user,PersonalDataFragment.this);
+         UpdateDataModel.update_user_data(user,PersonalDataFragment.this);
         }
         else {
             Toast.makeText(getContext(),"رجاء اكمال البيانات اولا.",Toast.LENGTH_SHORT).show();
@@ -276,24 +276,26 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         int gen=binding.genderSpinner.getSelectedItemPosition();
         int marital=binding.maritalSpinner.getSelectedItemPosition();
         int blood=binding.bloodTypeSpinner.getSelectedItemPosition();
-        if(first_name.equals("")||second_name.equals("")||third_name.equals("")
+        if (first_name.equals("")||second_name.equals("")||third_name.equals("")
                 ||forth_name.equals("")||birth_date.equals("")
-                || gen==0 || marital==0 || blood==0  ){
+                || gen==0 || marital==0 || blood==0  )
             return false;
-        }
-        else return true;
+        else
+            return true;
     }
 
 
 
     @Override
     public void onGetDataSuccess(User user) {
+        binding.progressBar.setVisibility(View.GONE);
         fillForms(user);
     }
 
     @Override
     public void onGetDataFailure(String status) {
         Toast.makeText(getContext(), status,Toast.LENGTH_SHORT).show();
+        binding.progressBar.setVisibility(View.GONE);
     }
 
 
@@ -306,9 +308,9 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         binding.birthDateEt.setText(user.getBirthDate());
         binding.emailEt.setText(user.getEmail());
 
-        Glide.with(getContext())
+        if(getContext()!=null)
+         Glide.with(getContext())
                 .applyDefaultRequestOptions(new RequestOptions()
-                        .placeholder(R.drawable.ic_profile_image)
                         .fitCenter().transform(new CircleCrop()))
                 .load(IMG_URL +user.getProfile_IMG())
                 .into(binding.changeProfileIv);
@@ -332,5 +334,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         if (Arrays.asList(getResources().getStringArray(R.array.blood_type_array)).contains(blood_type)){
             binding.bloodTypeSpinner.setSelection (((ArrayAdapter)binding.bloodTypeSpinner.getAdapter()).getPosition(blood_type));
         }
+
+        //binding.progressBar.setVisibility(View.GONE);
     }
 }

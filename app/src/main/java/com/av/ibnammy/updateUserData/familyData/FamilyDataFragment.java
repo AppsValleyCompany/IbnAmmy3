@@ -30,6 +30,7 @@ import java.util.Collection;
 
 
 public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFamily,FamilyCallBack.GetFamily {
+
     FragmentFamilyDataBinding binding;
     ArrayList<Follower> familyList;
     FamilyListAdapter adapter;
@@ -42,12 +43,9 @@ public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFa
         UpdateDataActivity activity=new UpdateDataActivity();
         activity.addStep(2,getContext());
         familyList=new ArrayList<>();
-
         Bundle bundle= CommonUtils.loadCredentials(getContext());
-         phone=bundle.getString(Constants.PHONE_KEY);
-         password=bundle.getString(Constants.PASSWORD_KEY);
-
-
+        phone=bundle.getString(Constants.PHONE_KEY);
+        password=bundle.getString(Constants.PASSWORD_KEY);
     }
 
 
@@ -62,27 +60,36 @@ public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFa
         binding.addFollowerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String desKey= (String) binding.relationSpinner.getSelectedItem(); // get description value for selected key.
-                String des= Constants.relation_map().get(desKey);
+               // String des= Constants.relation_map().get(desKey);
                 String name=binding.followerNameEt.getText().toString();
+                if(!name.equals("")){
                 Follower follower=new Follower(name,desKey);
-/*                if(familyList.contains(follower))
+                    if(desKey.equals("زوجة")||desKey.equals("ام")||desKey.equals("ابنة")||desKey.equals("اخت")){
+                        follower.setPhoto(R.mipmap.female);
+                    }
+                    else
+                        follower.setPhoto(R.mipmap.male);
+
+                    /*                if(familyList.contains(follower))
                     Toast.makeText(getContext(),"موجود بالفعل.", Toast.LENGTH_SHORT).show();
                 else {*/
+
                     adapter.add(follower);
                     hideKeyboard();
                  //   adapter.notifyDataSetChanged();
               //  }
             }
+            else Toast.makeText(getContext(), "برجاء ادخال اسم التابع اولا.", Toast.LENGTH_SHORT).show();
+            }
         });
 
        // adapter=new FamilyListAdapter(familyList,getContext());
-
         binding.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addFamily(adapter.getNewFamilyList());
-
             }
         });
         return v;
@@ -114,6 +121,14 @@ public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFa
 
     @Override
     public void onGetFamilySuccess(ArrayList<Follower> followers) {
+        for(Follower fol:followers){
+             String desKey=fol.getDescription();
+            if(desKey.equals("زوجة")||desKey.equals("ام")||desKey.equals("ابنة")||desKey.equals("اخت")){
+                fol.setPhoto(R.mipmap.female);
+                continue;
+            }
+                fol.setPhoto(R.mipmap.male);
+        }
         setup_recycler(followers);
         hideProgress();
     }
@@ -123,8 +138,6 @@ public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFa
         hideProgress();
         Toast.makeText(getContext(), status,Toast.LENGTH_SHORT).show();
     }
-
-
 
     public void addFamily(ArrayList<Follower>list){
         showProgress();
@@ -137,13 +150,12 @@ public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFa
         Toast.makeText(getContext(), status,Toast.LENGTH_SHORT).show();
         getActivity().finish();
     }
+
     @Override
     public void onAddFamilyFailure(String status) {
         hideProgress();
         Toast.makeText(getContext(), status,Toast.LENGTH_SHORT).show();
     }
-
-
 
     void showProgress(){
         binding.progressBar.setVisibility(View.VISIBLE);

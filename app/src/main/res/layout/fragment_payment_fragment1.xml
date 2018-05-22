@@ -10,7 +10,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="50dp"
+            android:alpha="0.5">
 
 
             <LinearLayout
@@ -28,7 +29,7 @@
                         android:layout_gravity="bottom">
                         <TextView android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="اشرف احمد"
+                            android:text="اسم المستخدم"
                             android:textSize="17sp"
                             android:textColor="@color/light_orange"
                             android:background="@color/light_black1"
@@ -37,6 +38,8 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="50dp"
                             />
+
+
                         <TextView
                             android:layout_width="50dp"
                             android:layout_height="match_parent"
@@ -166,7 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ff2e2f"
-                        android:text="300 ج"
+                        android:text="00 ج"
                         android:textSize="19sp"
                         android:textColor="@color/white"
                         android:gravity="center"
@@ -198,7 +201,7 @@
                             />
                         <TextView android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="6"
+                            android:text="0"
                             android:textSize="19sp"
                             android:textColor="@color/white"
                             android:layout_marginLeft="20dp"
@@ -208,12 +211,53 @@
                     </TableRow>
                 </LinearLayout>
 
+
+
+
             </LinearLayout>
         </ScrollView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_not_activated_one"
+            android:textColor="@color/titleTextColor"
+            android:text= "@string/not_activated_one"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:alpha="3"
+            />
+
+        <TextView
+            android:layout_below="@id/tv_not_activated_one"
+            android:id="@+id/tv_not_activated_two"
+            android:textColor="@color/titleTextColor"
+            android:text="@string/not_activated_two"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:maxLines="2"
+            android:lines="2"
+            android:textStyle="bold"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+    </LinearLayout>
     <Button
         android:id="@+id/btn1_pay_dutes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="bottom"
         android:layout_marginTop="8dp"
         android:background="@color/light_orange"

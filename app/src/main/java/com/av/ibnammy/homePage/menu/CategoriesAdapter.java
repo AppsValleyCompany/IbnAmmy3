@@ -1,12 +1,17 @@
 package com.av.ibnammy.homePage.menu;
 
+import android.content.Context;
 import android.content.Intent;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.databinding.adapters.AdapterViewBindingAdapter;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.av.ibnammy.R;
@@ -25,13 +30,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     private Fragment activity;
     int getTypeOfCategory;
     RowListCategoryBinding rowListCategoryBinding;
-    int icons [] ;
+  //  int icons [] ;
 
-    public CategoriesAdapter(Fragment fragment, ArrayList<Category> categories, int typeOfCategory,int [] getIcons) {
+    public CategoriesAdapter(Fragment fragment, ArrayList<Category> categories, int typeOfCategory) {
         activity =fragment;
         this.getTypeOfCategory = typeOfCategory;
         categoryArrayList = categories;
-        icons = getIcons;
+       // icons = getIcons;
             }
 
     @Override
@@ -48,7 +53,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
         rowListCategoryBinding.txtCategoryName.setText(categoryArrayList.get(position).getCategoryName().replace("\r\n",""));
         rowListCategoryBinding.txtMemberCategory.setText(categoryArrayList.get(position).getNumberOfMembers_ServiceCategory()+" عضو ");
-        rowListCategoryBinding.imgItemCategory.setImageResource(icons[position]);
+     //   rowListCategoryBinding.imgItemCategory.setImageResource(icons[position]);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

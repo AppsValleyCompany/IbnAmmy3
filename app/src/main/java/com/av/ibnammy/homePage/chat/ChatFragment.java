@@ -1,19 +1,12 @@
 package com.av.ibnammy.homePage.chat;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import com.av.ibnammy.R;
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 /**
  * Created by Aya on 1/1/2018.
@@ -21,7 +14,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 public class ChatFragment extends Fragment {
 
-    private SwipeMenuListView swipeChatList;
+   //private SwipeMenuListView swipeChatList;
 
 
     @Override
@@ -29,7 +22,7 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rooView = inflater.inflate(R.layout.fragment_chat, container, false);
-
+/*
         swipeChatList = rooView.findViewById(R.id.listChat);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -106,15 +99,15 @@ public class ChatFragment extends Fragment {
         });
 
          // Left
-        swipeChatList.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
+        swipeChatList.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);*/
 
 
         return rooView;
     }
 
 
-    private int dp2px(int dp) {
+   /* private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics());
-    }
+    }*/
 }

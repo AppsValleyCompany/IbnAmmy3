@@ -1,5 +1,8 @@
 package com.av.ibnammy.networkUtilities;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,7 +20,12 @@ public class ApiClient {
     public static Retrofit getClient(){
         if(retrofit==null)
         {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .readTimeout(15,TimeUnit.SECONDS).build();
+
             retrofit=new Retrofit.Builder()
+                    .client(client)
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

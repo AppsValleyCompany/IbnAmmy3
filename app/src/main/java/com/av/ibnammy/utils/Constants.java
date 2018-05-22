@@ -15,11 +15,12 @@ public final class Constants {
 
     public static  HashMap<String,String> relation_map(){
         HashMap<String,String> relation_map=new HashMap<>();
-        relation_map.put("أب" ,"fa");
+        relation_map.put("اب" ,"fa");
         relation_map.put("ام" , "mo");
-        relation_map.put("زوج/ة","par");
-        relation_map.put("أخ","bro");
-        relation_map.put("أخت","sis");
+        relation_map.put("زوج","par");
+        relation_map.put("زوجة","par");
+        relation_map.put("اخ","bro");
+        relation_map.put("اخت","sis");
         relation_map.put("ابن","son");
         relation_map.put("ابنة","dau");
         return relation_map;

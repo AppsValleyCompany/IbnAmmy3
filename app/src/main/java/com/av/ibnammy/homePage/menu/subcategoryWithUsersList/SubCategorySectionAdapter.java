@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
 
@@ -42,8 +43,6 @@ public class SubCategorySectionAdapter extends SectionRecyclerViewAdapter<SubCat
 
 
     }
-
-
 
 
     @Override
@@ -84,30 +83,26 @@ public class SubCategorySectionAdapter extends SectionRecyclerViewAdapter<SubCat
 
             if (!cousinAccount.getCousinImage().equals("")){
 
-                Glide.with(context).load(IMG_URL +cousinAccount.getCousinImage()).listener(new RequestListener<Drawable>() {
+                Glide.with(context)
+                 .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.male)
+                 )
+                .load(IMG_URL +cousinAccount.getCousinImage()).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        cousinAccountHolder.cousinImage.setVisibility(View.VISIBLE);
-                        cousinAccountHolder.cousinImage.setImageResource(R.drawable.ic_profile_image);
                         cousinAccountHolder.progressBar.setVisibility(View.GONE);
-
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         cousinAccountHolder.progressBar.setVisibility(View.GONE);
-                        cousinAccountHolder.cousinImage.setVisibility(View.VISIBLE);
-
                         return false;
                     }
                 }).into(cousinAccountHolder.cousinImage);
 
 
-
             }else {
-                cousinAccountHolder.cousinImage.setVisibility(View.VISIBLE);
-                cousinAccountHolder.cousinImage.setImageResource(R.drawable.ic_profile_image);
+                cousinAccountHolder.cousinImage.setImageResource(R.mipmap.male);
                 cousinAccountHolder.progressBar.setVisibility(View.GONE);
 
             }

@@ -26,7 +26,7 @@
         android:id="@+id/profile_image_profile_frag"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:src="@mipmap/profile_icon"
+        android:src="@mipmap/male"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/circular_shape"
         app:civ_border_color="@color/titleTextColor"

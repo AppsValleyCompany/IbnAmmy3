@@ -13,14 +13,18 @@ public class SignUpPresenterImp implements SignUpContract.SignUpPresenter,GetCal
     SignUpContract.SignUpView signUpView;
 
     public SignUpPresenterImp(SignUpContract.SignUpView signUpView){
-        signUpModelImp= new SignUpModelImp();
+         signUpModelImp= new SignUpModelImp();
         this.signUpView=signUpView;
     }
 
     @Override
     public boolean validatePhone(String phone) {
-        if(phone.length()!=11){
-            signUpView.setUsernameError("رقم الهاتف غبر صحيح..يجب ان يتكون من 11 رقم.");
+
+       // if(phone.length()!=11){
+        if(phone.length()>18|| phone.length()<10){
+           // signUpView.setUsernameError("رقم الهاتف غبر صحيح..يجب ان يتكون من 11 رقم.");
+            signUpView.setUsernameError("خطأ في رقم الهاتف");
+
             signUpView.setPasswordError(null);
             signUpView.setRepeatPasswordError(null);
             return false;
@@ -33,8 +37,8 @@ public class SignUpPresenterImp implements SignUpContract.SignUpPresenter,GetCal
 
     @Override
     public boolean validatePass(String pass, String repeat) {
-        if(pass.length()<5){
-            signUpView.setPasswordError("كلمة المرور اقل من 5 احرف!!");
+        if(pass.length()<3){
+            signUpView.setPasswordError("كلمة المرور لا ينبغي ان تكون اقل من ٣ احرف / ارقام");
             signUpView.setRepeatPasswordError(null);
             return false;
         }

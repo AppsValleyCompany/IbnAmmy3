@@ -17,7 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Maiada on 3/20/2018.
+ * Created by Aya Mahmoud on 3/20/2018.
  */
 
 public class SubcategoryModel {
@@ -45,14 +45,14 @@ public class SubcategoryModel {
                                     JSONObject accountObject = classAccounts.getJSONObject(j);
                                     cousinAccount.setHasAccount(true);
                                     if(!accountObject.getString("First_Name").equals("")&&
-                                       !accountObject.getString("Second_Name").equals("")){
+                                            !accountObject.getString("Second_Name").equals("")){
 
-                                    cousinAccount.setCousinName(accountObject.getString("First_Name")
-                                                               .concat(" "+accountObject.getString("Second_Name")));
+                                        cousinAccount.setCousinName(accountObject.getString("First_Name")
+                                                .concat(" "+accountObject.getString("Second_Name")));
                                     }
 
                                     if(!accountObject.getString("Service_Type").equals("null"))
-                                    cousinAccount.setCousinJob(accountObject.getString("Service_Type").replace("\r\n",""));
+                                        cousinAccount.setCousinJob(accountObject.getString("Service_Type").replace("\r\n",""));
 
                                     String getProfile_IMG = accountObject.getString("Profile_IMG");
                                     if(!getProfile_IMG.equals("null"))
@@ -60,16 +60,16 @@ public class SubcategoryModel {
 
 
                                     if(!accountObject.getString("BirthDate").equals("null"))
-                                     cousinAccount.setBirthDate(accountObject.getString("BirthDate"));
+                                        cousinAccount.setBirthDate(accountObject.getString("BirthDate"));
 
                                     if(!accountObject.getString("Marital_Status").equals("null"))
-                                    cousinAccount.setCousinMaritalStatus(accountObject.getString("Marital_Status").replace("\r\n",""));
+                                        cousinAccount.setCousinMaritalStatus(accountObject.getString("Marital_Status").replace("\r\n",""));
 
                                     if(!accountObject.getString("Home_Latitude").equals("null"))
-                                    cousinAccount.setHomeLatitude(accountObject.getString("Home_Latitude"));
+                                        cousinAccount.setHomeLatitude(accountObject.getString("Home_Latitude"));
 
                                     if(!accountObject.getString("Home_Longitude").equals("null"))
-                                    cousinAccount.setHomeLongitude(accountObject.getString("Home_Longitude"));
+                                        cousinAccount.setHomeLongitude(accountObject.getString("Home_Longitude"));
 
 
                                     if(!accountObject.getString("Home_Street").equals("null"))
@@ -117,11 +117,13 @@ public class SubcategoryModel {
                                     if(!getWork_IMG5.equals("null"))
                                         cousinAccount.setWork_IMG5(getWork_IMG5);
 
+                                    String getWork_Video = accountObject.getString("Work_Video");
+                                    if(!getWork_Video.equals("null"))
+                                        cousinAccount.setWork_Video(getWork_Video);
+
                                     if(!accountObject.getString("Mobile").equals("null"))
                                         cousinAccount.setCousinMobile(accountObject.getString("Mobile"));
 
-                                    if(!accountObject.getString("Category_Type").equals("null"))
-                                        cousinAccount.setCategoryType(accountObject.getString("Category_Type").replace("\r\n",""));
 
                                     if(!accountObject.getString("Service_Category").equals("null"))
                                         cousinAccount.setServiceCategory(accountObject.getString("Service_Category").replace("\r\n",""));
@@ -132,12 +134,16 @@ public class SubcategoryModel {
                                     if(!accountObject.getString("Service_Name").equals("null"))
                                         cousinAccount.setServiceName(accountObject.getString("Service_Name").replace("\r\n",""));
 
+                                    if(!accountObject.getString("Gender").equals("null"))
+                                        cousinAccount.setGender(accountObject.getString("Gender").replace("\r\n",""));
+
+
 
                                     accountArrayList.add(cousinAccount);
 
                                 }
-                               subCategory.setCousinAccounts(accountArrayList);
-                               subCategoryArrayList.add(subCategory);
+                                subCategory.setCousinAccounts(accountArrayList);
+                                subCategoryArrayList.add(subCategory);
 
                             }else{
                                 CousinAccount cousinAccount = new CousinAccount();

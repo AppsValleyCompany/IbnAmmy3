@@ -8,9 +8,11 @@
     <android.support.v4.view.ViewPager
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:id="@+id/vp_slider">
+        android:id="@+id/vp_slider"
+        android:paddingBottom="10dp">
+
     </android.support.v4.view.ViewPager>
+
     <LinearLayout
         android:id="@+id/ll_dots"
         android:layout_width="wrap_content"

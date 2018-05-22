@@ -2,14 +2,11 @@ package com.av.ibnammy.homePage.favourite;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.av.ibnammy.R;
-import com.av.ibnammy.homePage.menu.MenuListAdapter;
 
 /**
  * Created by Maiada on 1/2/2018.
@@ -17,8 +14,7 @@ import com.av.ibnammy.homePage.menu.MenuListAdapter;
 
 public class FavouriteFragment extends Fragment {
 
-
-    RecyclerView recyclerViewFavourite;
+    //RecyclerView recyclerViewFavourite;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,7 +22,7 @@ public class FavouriteFragment extends Fragment {
         // Inflate the layout for this fragment
         View rooView = inflater.inflate(R.layout.fragment_favourite, container, false);
 
-        recyclerViewFavourite = rooView.findViewById(R.id.listFavourite);
+      /*  recyclerViewFavourite = rooView.findViewById(R.id.listFavourite);
         recyclerViewFavourite.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewFavourite.setHasFixedSize(true);
         recyclerViewFavourite.setAdapter(new RecyclerView.Adapter() {
@@ -42,11 +38,16 @@ public class FavouriteFragment extends Fragment {
 
             }
 
-             @Override
+            @Override
             public int getItemCount() {
                 return 10;
             }
         });
+*/
+
+
+
+
 
         return rooView;
     }

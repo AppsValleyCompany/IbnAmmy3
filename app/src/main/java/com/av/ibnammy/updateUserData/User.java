@@ -1,5 +1,9 @@
 package com.av.ibnammy.updateUserData;
 
+import com.av.ibnammy.updateUserData.uploadMedia.WorkPhoto;
+
+import java.util.ArrayList;
+
 /**
  * Created by Mina on 3/21/2018.
  */
@@ -9,7 +13,8 @@ public class User {
     private String Mobile,Password,Email,First_Name,Second_Name,Third_Name,Forth_Name,Gender,Marital_Status,BirthDate,Blood_Type,
             Account_Type,Category_TypeID,Service_CategoryID,Service_SubcategoryID,Service_TypeID,Service_Name,
             Service_Description,Price,Home_Longitude,Home_Latitude,
-            Home_Country,Home_District,Home_City,Home_Region,Home_Area,Home_Street,Profile_IMG,AccountID;
+            Home_Country,Home_District,Home_City,Home_Region,Home_Area,Home_Street,Profile_IMG,AccountID,
+            Work_IMG1,Work_IMG2,Work_IMG3,Work_IMG4,Work_IMG5,Work_Video;
 
             private Integer Discount;
     public User(String mobile, String password, String email, String first_Name, String second_Name, String third_Name, String forth_Name, String gender, String marital_Status, String birthDate, String blood_Type) {
@@ -252,5 +257,63 @@ public class User {
 
     public String getAccountID() {
         return AccountID;
+    }
+
+    public String getWork_IMG1() {
+        return Work_IMG1;
+    }
+
+    public String getWork_IMG2() {
+        return Work_IMG2;
+    }
+
+    public String getWork_IMG3() {
+        return Work_IMG3;
+    }
+
+    public String getWork_IMG4() {
+        return Work_IMG4;
+    }
+
+    public String getWork_IMG5() {
+        return Work_IMG5;
+    }
+
+    public ArrayList<WorkPhoto> getWorkImgList(){
+        ArrayList<WorkPhoto> list=new ArrayList<>();
+        list.add(new WorkPhoto(getWork_IMG1(),1,true));
+        list.add(new WorkPhoto(getWork_IMG2(),2,true));
+        list.add(new WorkPhoto(getWork_IMG3(),3,true));
+        list.add(new WorkPhoto(getWork_IMG4(),4,true));
+        list.add(new WorkPhoto(getWork_IMG5(),5,true));
+
+        /*if(getWork_IMG1()!=null){
+            WorkPhoto photo=new WorkPhoto(getWork_IMG1(),1,true);
+            list.add(photo);
+       }else{
+            WorkPhoto photo=new WorkPhoto(getWork_IMG1(),1,true);
+            list.add(photo);
+        }
+     //   if(getWork_IMG2()!=null){
+            WorkPhoto photo=new WorkPhoto(getWork_IMG2(),2,true);
+            list.add(photo);
+    //    }
+    //    if(getWork_IMG3()!=null){
+            WorkPhoto photo=new WorkPhoto(getWork_IMG3(),3,true);
+            list.add(photo);
+     //   }
+      //  if(getWork_IMG4()!=null){
+            WorkPhoto photo=new WorkPhoto(getWork_IMG4(),4,true);
+            list.add(photo);
+     //   }
+            WorkPhoto photo=new WorkPhoto(getWork_IMG5(),5,true);
+            list.add(photo);
+     //   }*/
+        return list;
+    }
+
+
+    public String getWork_Video() {
+        return Work_Video;
     }
 }

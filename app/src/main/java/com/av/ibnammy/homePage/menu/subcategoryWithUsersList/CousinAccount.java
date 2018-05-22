@@ -1,7 +1,5 @@
 package com.av.ibnammy.homePage.menu.subcategoryWithUsersList;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 /**
@@ -33,10 +31,10 @@ public class CousinAccount implements Serializable {
     public  String  price ="";
     public  String  discount ="";
     public  String  cousinMobile="";
-    public  String  categoryType="";
     public  String  serviceCategory="";
     public  String  serviceSubcategory = "";
     public  String  serviceName = "";
+    public  String  gender = "";
 
     public boolean isHasAccount() {
         return hasAccount;
@@ -216,13 +214,6 @@ public class CousinAccount implements Serializable {
         this.cousinMobile = cousinMobile;
     }
 
-    public String getCategoryType() {
-        return categoryType;
-    }
-
-    public void setCategoryType(String categoryType) {
-        this.categoryType = categoryType;
-    }
 
     public String getServiceCategory() {
         return serviceCategory;
@@ -246,5 +237,13 @@ public class CousinAccount implements Serializable {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

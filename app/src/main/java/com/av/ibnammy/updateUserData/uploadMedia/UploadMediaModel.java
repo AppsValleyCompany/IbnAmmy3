@@ -21,7 +21,7 @@ public class UploadMediaModel {
 
     public static ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
-    public static void UploadMedia(final MediaCallBack.uploadMediaImage getCallBack, String id, ArrayList<MultipartBody.Part> list){
+    public static  void UploadMediaImage(final MediaCallBack.uploadMediaImage getCallBack, String id, ArrayList<MultipartBody.Part> list){
         Call<String> profileDataCall  = apiInterface.uploadImagesToServer(id,list);
         profileDataCall.enqueue(new Callback<String>() {
             @Override
@@ -38,7 +38,6 @@ public class UploadMediaModel {
 
                 }
 
-
             }
 
             @Override
@@ -46,6 +45,83 @@ public class UploadMediaModel {
 
             }
         });
+    }
+
+    public  static  void  DeleteMediaImage(final  MediaCallBack.deleteMediaImage deleteMediaImageCallback,String id,int imgNumber){
+        Call<String> deletePhotoCall  = apiInterface.deletePhoto(id,imgNumber);
+        deletePhotoCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()){
+                    try {
+                        JSONObject object = new JSONObject(response.body());
+                        String status = object.getString("Status");
+                        deleteMediaImageCallback.onSuccess(status);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                deleteMediaImageCallback.onFailure("حدث خطأ اثناء التحميل");
+            }
+        });
+
+
+    }
+
+    public  static  void UpdateMediaImage(final MediaCallBack.updateMediaImage updateMediaImage, String id, int imgNumber, MultipartBody.Part part){
+        Call<String> updateImageCall  = apiInterface.updatePhoto(id,imgNumber,part);
+        updateImageCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()){
+                    try {
+                        JSONObject object = new JSONObject(response.body());
+                        String status = object.getString("Status");
+                        updateMediaImage.onSuccess(status);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                updateMediaImage.onFailure("حدث خطأ اثناء الرفع");
+
+            }
+        });
+
+
+    }
+
+    public  static  void  DeleteMediaVideo(final  MediaCallBack.deleteMediaVideo deleteMediaVideoCallback,String id){
+        Call<String> deleteVideoCall  = apiInterface.deleteVideo(id);
+        deleteVideoCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()){
+                    try {
+                        JSONObject object = new JSONObject(response.body());
+                        String status = object.getString("Status");
+                        deleteMediaVideoCallback.onSuccess(status);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                deleteMediaVideoCallback.onFailure("حدث خطأ اثناء التحميل");
+            }
+        });
+
+
     }
 
 }

@@ -13,12 +13,8 @@ import android.widget.TextView;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinAccount;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
-import static com.av.ibnammy.networkUtilities.ApiClient.WORK_MEDIA_URL;
 
 
 public class MediaFragment extends Fragment {
@@ -38,7 +34,7 @@ public class MediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_media, container, false);
+        View   v    = inflater.inflate(R.layout.fragment_media, container, false);
 
         vp_slider =  v.findViewById(R.id.vp_slider);
         ll_dots   =  v.findViewById(R.id.ll_dots);
@@ -46,6 +42,12 @@ public class MediaFragment extends Fragment {
 
         // method for initialisation
         cousinAccount = (CousinAccount) getArguments().getSerializable("CousinData");
+
+        if(!cousinAccount.getWork_Video().equals("")){
+            imgUrl.add(cousinAccount.getWork_Video());
+        }else{
+            imgUrl.add("");
+        }
 
         if(!cousinAccount.getWork_IMG1().equals("")){
             imgUrl.add(cousinAccount.getWork_IMG1());
@@ -69,13 +71,17 @@ public class MediaFragment extends Fragment {
             imgUrl.add(cousinAccount.getWork_IMG5());
         }
 
-        if(imgUrl.size()!=0){
-            init();
-            tvNoData.setVisibility(View.GONE);
-        }else {
-            tvNoData.setVisibility(View.VISIBLE);
 
-        }
+       if(imgUrl.size()==1&&imgUrl.get(0).equals("")){
+                tvNoData.setVisibility(View.VISIBLE);
+            }else{
+                init();
+                tvNoData.setVisibility(View.GONE);
+
+            }
+
+
+
 
 
 
@@ -103,9 +109,14 @@ public class MediaFragment extends Fragment {
         sliderPagerAdapter = new SlideAdapter(getActivity(), imgUrl);
         vp_slider.setAdapter(sliderPagerAdapter);
 
-        vp_slider.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vp_slider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(position!=0){
+                   /* videoView.stopPlayback(); // stop video
+                    videoControl.hide();      // hide media controll*/
+                   sliderPagerAdapter.stopVideoView();
+                }
 
             }
 

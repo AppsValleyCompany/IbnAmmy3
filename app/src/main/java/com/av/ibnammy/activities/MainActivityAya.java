@@ -18,11 +18,11 @@ import android.widget.TextView;
 import com.av.ibnammy.R;
 import com.av.ibnammy.dashboard.DashBoardFragment;
 import com.av.ibnammy.homePage.HomePageFragment;
-import com.av.ibnammy.payment.PaymentActivity;
 import com.av.ibnammy.updateUserData.UpdateDataActivity;
 import com.av.ibnammy.viewprofile.Profile;
 import com.av.ibnammy.viewprofile.ProfileFragment;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
 
@@ -61,16 +61,19 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
                 MainActivityAya.this.finish();
             }
         });
+
         Bundle data=intent.getBundleExtra("Login_Data");
            if (data != null) {
-            String fName=data.getString("fName");
-            String sName=data.getString("sName");
-            String photo=data.getString("img");
-            String name=fName+" "+sName;
-            userName.setText(name);
-            Glide.with(this).load(IMG_URL +photo).into(userImage);
-        }
+               String fName = data.getString("fName");
+               String sName = data.getString("sName");
+               if (!fName.equals("") || !sName.equals("")) {
+                   String photo = data.getString("img");
+                   String name = fName + " " + sName;
+                   userName.setText(name);
+                   Glide.with(this).applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.male)).load(IMG_URL + photo).into(userImage);
+               }
 
+           }
     }
 
     public  void openDrawer(View v){
@@ -125,17 +128,16 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
             //mTitle.setText("تعديل البيانات");
             startActivity(new Intent(MainActivityAya.this,UpdateDataActivity.class));
         }
-        else if(id == R.id.nav_my_ad) {
+/*        else if(id == R.id.nav_my_ad) {
             //  changeFragmentForSideMenu(new MyPageFragment());
             //mTitle.setText("دفع الاشتراك");
             startActivity(new Intent(MainActivityAya.this,PaymentActivity.class));
-        }
+        }*/
         else if(id == R.id.nav_my_alert) {
             //  changeFragmentForSideMenu(new MyPageFragment());
             mTitle.setText(item.getTitle());
             //startActivity(new Intent(MainActivityAya.this,DashBoardActivity.class));
             changeFragmentForSideMenu1(new DashBoardFragment());
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

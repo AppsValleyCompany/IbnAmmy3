@@ -5,8 +5,8 @@
         android:layout_height="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.av.ibnammy.updateUserData.familyData.FamilyDataFragment"
-        >
+        tools:context="com.av.ibnammy.updateUserData.familyData.FamilyDataFragment">
+
 
 
     <LinearLayout
@@ -37,7 +37,7 @@
                         android:hint="الاسم"
                         android:background="@drawable/rectangle_white_frame"
                         android:padding="5dp"
-                        android:textColorHint="@color/white"
+                        android:textColorHint="@color/gray"
                         android:layout_marginBottom="8dp"/>
 
                     <TableRow
@@ -46,7 +46,7 @@
                         android:gravity="right">
 
 
-                        <FrameLayout
+<!--                        <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="35dp"
                             android:background="@drawable/rectangle_white_frame"
@@ -67,7 +67,7 @@
                                 android:layoutDirection="rtl"
                                 android:theme="@style/spinnerTheme"/>
 
-                        </FrameLayout>
+                        </FrameLayout>-->
                         <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="35dp"
@@ -87,9 +87,7 @@
                                 style="@style/AlertDialog.AppCompat.Light"
                                 android:layoutDirection="rtl"
                                 android:theme="@style/spinnerTheme"/>
-
                         </FrameLayout>
-
                     </TableRow>
 
 

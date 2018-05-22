@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:background="@color/background"
     android:layout_height="wrap_content"
+    android:alpha="10"
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
@@ -65,6 +66,40 @@
                     android:id="@+id/textView" />
             </LinearLayout>
 
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/tv_not_activated_one"
+                android:textColor="@color/titleTextColor"
+                android:text= "@string/not_activated"
+                android:textSize="15sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:alpha="3"
+                android:layout_marginBottom="10dp"
+                />
+
+<!--
+            <TextView
+                android:layout_below="@id/tv_not_activated_one"
+                android:id="@+id/tv_not_activated_two"
+                android:textColor="@color/red"
+                android:text="@string/not_activated_two"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:maxLines="2"
+                android:lines="2"
+                android:textStyle="bold"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+-->
 
         </LinearLayout>
     </ScrollView>

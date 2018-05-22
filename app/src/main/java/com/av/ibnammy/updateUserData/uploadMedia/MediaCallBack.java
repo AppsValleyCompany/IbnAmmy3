@@ -11,4 +11,20 @@ public interface MediaCallBack {
         void  onFailure();
     }
 
+
+    interface  deleteMediaImage{
+        void  onSuccess(String success);
+        void  onFailure(String failure);
+    }
+
+    interface  updateMediaImage{
+        void  onSuccess(String success);
+        void  onFailure(String failure);
+    }
+
+
+    interface  deleteMediaVideo{
+        void  onSuccess(String success);
+        void  onFailure(String failure);
+    }
 }

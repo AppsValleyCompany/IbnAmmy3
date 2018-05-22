@@ -17,7 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             class="com.google.android.gms.maps.SupportMapFragment"
-            />
+            >
+
+
+        </com.google.android.gms.maps.MapView>
 
         <!-- To show transparent map-->
         <FrameLayout
@@ -38,6 +41,8 @@
             android:text="بحث / اطلب خدمه"
             android:background="#fab864"
             />
+
+
         <Button
             android:id="@+id/btn_request_for_help"
             android:layout_marginTop="80dp"
@@ -63,18 +68,40 @@
             android:animateLayoutChanges="true"
             >
 
+            <FrameLayout
+                android:layout_marginTop="10dp"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle_white_frame">
+                <Spinner
+                    android:id="@+id/spinner_request_list"
+                    android:layout_margin="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="rtl"
+                    android:entries="@array/typeOfRequestList"
+                    android:popupBackground="@color/background"
+                    android:theme="@style/spinnerTheme"
+                    android:backgroundTint="@color/white"
+                    />
+
+            </FrameLayout>
+
             <EditText
                 android:id="@+id/search_bar"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/frame_accent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableRight="@mipmap/ic_search_bar"
-                android:hint="بحث"
-                android:textColorHint="@android:color/white"
-                android:drawablePadding="20dp"
+                android:hint="@string/search_text"
+                android:textSize="14sp"
+                android:textColorHint="@color/gray"
+                android:drawablePadding="5dp"
                 android:layoutDirection="rtl"/>
 
             <CheckBox
@@ -122,18 +149,41 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="35dp"
                 android:layout_marginLeft="35dp"
                 android:background="@drawable/rectangle_white_frame">
                 <Spinner
-                    android:layout_margin="10dp"
+                    android:id="@+id/spinner_request_help"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layoutDirection="rtl"
                     android:entries="@array/requestHelpList"
+                    android:popupBackground="@color/background"
+                    android:theme="@style/spinnerTheme"
+                    android:backgroundTint="@color/white"
+                    />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame_blood_type"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginLeft="35dp"
+                android:background="@drawable/rectangle_white_frame">
+                <Spinner
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:entries="@array/blood_type_array"
                     android:popupBackground="@color/background"
                     android:theme="@style/spinnerTheme"
                     android:backgroundTint="@color/white"
@@ -231,7 +281,7 @@
                         android:id="@+id/small_line"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/img_profile_photo"
+                        android:id="@+id/img_cousin_photo"
                         android:layout_marginTop="10dp"
                         android:layout_below="@+id/small_line"
                         android:layout_marginRight="20dp"
@@ -243,22 +293,22 @@
                         />
 
                     <TextView
-                        android:id="@+id/txt_user_name"
+                        android:id="@+id/tv_cousin_name"
                         android:layout_marginTop="20dp"
                         android:layout_below="@+id/small_line"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/img_profile_photo"
+                        android:layout_toLeftOf="@+id/img_cousin_photo"
                         android:text="اشرف احمد النجار"
                         android:textColor="@color/titleTextColor"/>
 
                     <TextView
                         android:id="@+id/txt_job_user_name"
                         android:layout_marginTop="10dp"
-                        android:layout_below="@+id/txt_user_name"
+                        android:layout_below="@+id/tv_cousin_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/img_profile_photo"
+                        android:layout_toLeftOf="@+id/img_cousin_photo"
                         android:text="محامى بالنقض"
                         android:layout_marginRight="10dp"
                         android:textColor="@android:color/white"/>
@@ -485,6 +535,45 @@
 
 
         </RelativeLayout>
+
+       <ProgressBar
+           android:id="@+id/pb_loading"
+           android:visibility="invisible"
+           android:layout_gravity="center_horizontal|center_vertical"
+           android:indeterminateTint="@color/titleTextColor"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_not_activated_one"
+            android:textColor="@color/titleTextColor"
+            android:text= "@string/not_activated"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="50dp"
+
+            />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_not_activated_two"
+            android:textColor="@color/red"
+            android:text="@string/not_activated_two"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:maxLines="2"
+            android:lines="2"
+            android:layout_marginBottom="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="bottom|center_horizontal"
+            />
 
     </FrameLayout>
 

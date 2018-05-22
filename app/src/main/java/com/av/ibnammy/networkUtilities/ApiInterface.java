@@ -2,7 +2,6 @@ package com.av.ibnammy.networkUtilities;
 
 
 import java.util.ArrayList;
-
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -56,5 +55,20 @@ public interface ApiInterface {
 
     @POST("AccountServices/Forgot/ForgotAccount")
     Call<String> resetPasswordApi(@Body String data);
+
+    @POST("AccountServices/Statistic/StatisticAccount")
+    Call<String> getStatisticsApi();
+
+    @POST("AccountServices/Delete_IMGs/Delete_Work_IMGs")
+    Call<String> deletePhoto(@Query("accountID")String accountId,@Query("ImgNumber")int imgNumber);
+
+    @Multipart
+    @POST("AccountServices/Update_IMGs/Update_Work_IMGs")
+    Call<String> updatePhoto(@Query("accountID")String accountId,@Query("ImgNumber")int imgNumber,@Part MultipartBody.Part file);
+
+    @POST("AccountServices/Delete_Video/Delete_Work_Video")
+    Call<String> deleteVideo(@Query("accountID")String accountId);
+
+
 
 }

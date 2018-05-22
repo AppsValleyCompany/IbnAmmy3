@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/backgroundColor">
 
-    <EditText
+
+   <!-- <EditText
         android:id="@+id/search_bar"
         android:layout_marginTop="10dp"
         android:background="@color/colorTappedIcon"
@@ -25,7 +26,36 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/row_item_favourite"
         android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="3dp"/>
+        android:dividerHeight="3dp"/>-->
 
+    <TextView
+        android:id="@+id/tv_not_activated_one"
+        android:textColor="@color/titleTextColor"
+        android:text= "@string/not_activated"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:layout_centerVertical="true"/>
+
+<!--    <TextView
+        android:layout_below="@id/tv_not_activated_one"
+        android:id="@+id/tv_not_activated_two"
+        android:textColor="@color/red"
+        android:text="@string/not_activated_two"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:maxLines="2"
+        android:lines="2"
+        android:textStyle="bold"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>-->
 
 </RelativeLayout>

@@ -1,11 +1,16 @@
 package com.av.ibnammy.homePage.map;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,14 +21,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.av.ibnammy.R;
-import com.av.ibnammy.homePage.menu.MenuListAdapter;
 import com.av.ibnammy.databinding.FragmentMapBinding;
-import com.av.ibnammy.homePage.menu.MenuFragment;
-import com.google.android.gms.maps.CameraUpdate;
+import com.av.ibnammy.homePage.menu.GetCallBack;
+import com.av.ibnammy.homePage.menu.MenuListAdapter;
+import com.av.ibnammy.utils.CommonUtils;
+import com.av.ibnammy.utils.Constants;
+import com.av.ibnammy.viewprofile.Profile;
+import com.av.ibnammy.viewprofile.ProfileModel;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,8 +48,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Locale;
+
 import hollowsoft.slidingdrawer.OnDrawerCloseListener;
 import hollowsoft.slidingdrawer.OnDrawerOpenListener;
+
+import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
 
 
 /**
@@ -45,35 +64,39 @@ public class MapFragment extends Fragment implements
         OnMapReadyCallback,OnDrawerOpenListener, OnDrawerCloseListener
 {
 
-
     public FragmentMapBinding fragmentMapBinding;
-    public RecyclerView recyclerView;
     public boolean isClicked =false;
     private Animation animSlideUp,animSlideDown;
 
+    private View mCustomMarkerView;
+    private ImageView mMarkerImageView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         fragmentMapBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_map, container, false);
         View rootView = fragmentMapBinding.getRoot();  // getRoot because onCreateView return view
-        setRetainInstance(false);
+        Locale.setDefault(new Locale("ar","EG"));
+
+        mCustomMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_view, null);
+        mMarkerImageView = mCustomMarkerView.findViewById(R.id.img_new_marker);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         try{
+            FragmentManager manager = getChildFragmentManager();
+            FragmentTransaction transaction  = manager.beginTransaction();;
+            SupportMapFragment fragment = new SupportMapFragment();
+            transaction.add(R.id.fragment_map_view, fragment);
+            transaction.commit();
+            fragment.getMapAsync( this);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+        }
 
-        FragmentManager manager = getChildFragmentManager();
-        FragmentTransaction transaction  = manager.beginTransaction();;
-        SupportMapFragment fragment = new SupportMapFragment();
-        transaction.add(R.id.fragment_map_view, fragment);
-        transaction.commit();
-        fragment.getMapAsync( this);
-
-         } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
-               }
         Setup_UI();
 
         return rootView;
@@ -89,8 +112,9 @@ public class MapFragment extends Fragment implements
 
                 fragmentMapBinding.btnRequestService.setVisibility(View.GONE);
                 fragmentMapBinding.btnRequestForHelp.setVisibility(View.GONE);
+             /*   fragmentMapBinding.tvNotActivatedOne.setVisibility(View.VISIBLE);
+                 fragmentMapBinding.tvNotActivatedTwo.setVisibility(View.VISIBLE);*/
                 fragmentMapBinding.requestService.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -100,7 +124,10 @@ public class MapFragment extends Fragment implements
 
                 fragmentMapBinding.btnRequestService.setVisibility(View.GONE);
                 fragmentMapBinding.btnRequestForHelp.setVisibility(View.GONE);
-                fragmentMapBinding.requestHelp.setVisibility(View.VISIBLE);
+
+              //  fragmentMapBinding.tvNotActivatedTwo.setVisibility(View.VISIBLE);
+
+               fragmentMapBinding.requestHelp.setVisibility(View.VISIBLE);
 
             }
         });
@@ -112,9 +139,12 @@ public class MapFragment extends Fragment implements
             @Override
             public void onClick(View view) {
 
-                fragmentMapBinding.drawer.setVisibility(View.VISIBLE);
-                fragmentMapBinding.requestService.setVisibility(View.GONE);
+/*                fragmentMapBinding.drawer.setVisibility(View.VISIBLE);
+                fragmentMapBinding.requestService.setVisibility(View.GONE);*/
                 //mTitle.setText("نتائج البحث");
+                fragmentMapBinding.tvNotActivatedOne.setVisibility(View.VISIBLE);
+                fragmentMapBinding.requestService.setVisibility(View.GONE);
+
             }
         });
 
@@ -122,9 +152,13 @@ public class MapFragment extends Fragment implements
             @Override
             public void onClick(View view) {
 
-                fragmentMapBinding.drawer.setVisibility(View.VISIBLE);
+               /* fragmentMapBinding.drawer.setVisibility(View.VISIBLE);
+                fragmentMapBinding.requestHelp.setVisibility(View.GONE);*/
+                //    mTitle.setText("نتائج البحث");
+                fragmentMapBinding.tvNotActivatedOne.setVisibility(View.VISIBLE);
                 fragmentMapBinding.requestHelp.setVisibility(View.GONE);
-            //    mTitle.setText("نتائج البحث");
+
+
             }
         });
 
@@ -186,56 +220,161 @@ public class MapFragment extends Fragment implements
             }
         });
 
+
+        fragmentMapBinding.spinnerRequestHelp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==4)
+                    fragmentMapBinding.frameBloodType.setVisibility(View.VISIBLE);
+                else
+                    fragmentMapBinding.frameBloodType.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        fragmentMapBinding.spinnerRequestList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==3){
+                    fragmentMapBinding.spinnerRequestList.setSelection(0);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     @Override
-    public void onMapReady(final GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {
 
-        // mMap = googleMap;
-       try{
+        showProgressBar();
+
         googleMap.setMapStyle( MapStyleOptions.loadRawResourceStyle(
                 getContext(), R.raw.style_json));
 
-
-        // Get Item id to change with my new drawable
-        // control_image.xml  have two id  id:img_frame_profile and id:img_profile_image
-        // To change one of them ex: change img_profile_image
-        //  LayerDrawable layer = (LayerDrawable)getActivity().getResources().getDrawable(R.drawable.control_image); // Call drawable
-        // layer.setDrawableByLayerId(R.id.img_profile_photo, getActivity().getResources().getDrawable(R.mipmap.ic_doctors)); // replace and add
-
-        // You need to convert drawable to bitmap coz marker options take only bitmap
-        Drawable d = getResources().getDrawable(R.drawable.control_image);
-        Bitmap bitmap = drawableToBitmap(d);
-
-
-        // control size of marker icon
-        final Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap,Math.round(bitmap.getWidth() *0.7f),
-                Math.round(bitmap.getHeight() * 0.7f),false);
-
-        final LatLng getLocation = new LatLng( 29.978124,31.284781);
-
-        googleMap.addMarker(new MarkerOptions().position(getLocation).title("The Courtyard").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-
-        float zoom = 10f;
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(getLocation, zoom);
-        googleMap.animateCamera(cameraUpdate);
-
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                googleMap.clear();
-                googleMap.addMarker(new MarkerOptions().position(latLng).title("The Courtyard").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-            }
-        });
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
+        getData(googleMap);
 
     }
 
+    @Override
+    public void onDrawerClosed() {
+        fragmentMapBinding.imgSlideUp.setImageDrawable(getActivity().getResources().getDrawable(R.mipmap.arrow_slide_up));
+    }
+
+    @Override
+    public void onDrawerOpened() {
+        fragmentMapBinding.imgSlideUp.setImageDrawable(getActivity().getResources().getDrawable(R.mipmap.arrow_slide_down));
+
+    }
+
+    private void  getData(final GoogleMap googleMap){
+        Bundle bundle=CommonUtils.loadCredentials(getContext());
+        String phone=bundle.getString(Constants.PHONE_KEY);
+        String password=bundle.getString(Constants.PASSWORD_KEY);
+        ProfileModel.GetProfileData(phone, password, new GetCallBack.ProfileCallBack() {
+            @Override
+            public void onSuccess(Profile profile) {
+                hideProgressBar();
+                showAddressAndSetProfileImageOnMap(googleMap,profile);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                hideProgressBar();
+                if(getActivity()!=null)
+                Toast.makeText(getActivity(), "حدث خطا", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showAddressAndSetProfileImageOnMap(final GoogleMap googleMap, final Profile profile) {
+
+        try{
+
+            if(!profile.getHomeLatitude().equals("")&&!profile.getHomeLongitude().equals("")){
+                Double  lat = Double.parseDouble(profile.getHomeLatitude());
+                Double  lng = Double.parseDouble(profile.getHomeLongitude());
+
+                final LatLng getLocation = new LatLng( lat,lng);
+
+                if(!profile.getProfileImage().equals("")){
+                    Glide.with(getContext())
+                            .applyDefaultRequestOptions(new RequestOptions()
+                                    .placeholder(R.mipmap.male)
+                                    .fitCenter().transform(new CircleCrop())).
+                            asBitmap().
+                            load(IMG_URL + profile.getProfileImage())
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                                    googleMap.addMarker(new MarkerOptions()
+                                            .position(getLocation)
+                                            .title(profile.getFullUserName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(mCustomMarkerView, bitmap))));
+                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(getLocation, 15f));
+
+                                }
+
+                            });
+                }else{
+
+                    Drawable d = getResources().getDrawable(R.drawable.control_image);
+                    Bitmap bitmap = drawableToBitmap(d);
+                    final Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap,Math.round(bitmap.getWidth() *0.7f),
+                            Math.round(bitmap.getHeight() * 0.7f),false);
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(getLocation)
+                            .title(profile.getFullUserName())
+                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(getLocation, 13f));
+
+                }
+            }else {
+                   if(getActivity()!=null)
+                    Toast.makeText(getActivity(), "الرجاء تحديث بياناتك اولا ", Toast.LENGTH_LONG).show();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void showProgressBar(){
+        fragmentMapBinding.pbLoading.setVisibility(View.VISIBLE);
+    }
+    private void hideProgressBar(){
+        fragmentMapBinding.pbLoading.setVisibility(View.GONE);
+    }
+
+    private Bitmap getMarkerBitmapFromView(View view, Bitmap bitmap) {
+
+        mMarkerImageView.setImageBitmap(bitmap);
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.buildDrawingCache();
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        Drawable drawable = view.getBackground();
+        if (drawable != null)
+            drawable.draw(canvas);
+        view.draw(canvas);
+        return returnedBitmap;
+    }
+
+
     public static Bitmap drawableToBitmap (Drawable drawable) {
         Bitmap bitmap = null;
-
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             if(bitmapDrawable.getBitmap() != null) {
@@ -253,80 +392,5 @@ public class MapFragment extends Fragment implements
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
-    }
-
-
- /*   @Override
-    public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-      *//*  if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-             //   onBackButtonPressed();
-                return true;
-            }
-        }
-*//*
-        return false;
-    }*/
-
-    private void onBackButtonPressed() {
-
-
-        if(fragmentMapBinding.userBoxDetails.getVisibility()==View.VISIBLE){
-
-            fragmentMapBinding.userBoxDetails.setVisibility(View.GONE);
-            fragmentMapBinding.mapFrame.setVisibility(View.GONE);
-            fragmentMapBinding.drawer.setVisibility(View.VISIBLE);
-
-        }else  if(fragmentMapBinding.drawer.getVisibility()==View.VISIBLE){
-
-            fragmentMapBinding.drawer.setVisibility(View.GONE);
-            fragmentMapBinding.btnRequestForHelp.setVisibility(View.VISIBLE);
-            fragmentMapBinding.btnRequestService.setVisibility(View.VISIBLE);
-
-
-        }else if(fragmentMapBinding.requestHelp.getVisibility()==View.VISIBLE
-                ||
-                fragmentMapBinding.requestService.getVisibility()==View.VISIBLE){
-
-            fragmentMapBinding.requestHelp.setVisibility(View.GONE);
-            fragmentMapBinding.requestService.setVisibility(View.GONE);
-
-            fragmentMapBinding.btnRequestForHelp.setVisibility(View.VISIBLE);
-            fragmentMapBinding.btnRequestService.setVisibility(View.VISIBLE);
-
-        }
-        else {
-
-              getActivity(). getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.bottom_side_fragment, new MenuFragment(), "mapFragment")
-                    .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit();          //  navigation.getMenu().getItem(0).setChecked(true);
-
-        }
-      /*  else {
-
-                  *//*  getActivity(). getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.bottom_side_fragment, new MenuFragment(), "mapFragment")
-                    .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit();*//*
-
-
-
-
-    }*/
-
-    }
-
-    @Override
-    public void onDrawerClosed() {
-        fragmentMapBinding.imgSlideUp.setImageDrawable(getActivity().getResources().getDrawable(R.mipmap.arrow_slide_up));
-    }
-
-    @Override
-    public void onDrawerOpened() {
-        fragmentMapBinding.imgSlideUp.setImageDrawable(getActivity().getResources().getDrawable(R.mipmap.arrow_slide_down));
-
     }
 }

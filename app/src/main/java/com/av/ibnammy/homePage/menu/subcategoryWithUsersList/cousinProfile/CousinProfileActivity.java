@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,8 +21,12 @@ import com.av.ibnammy.databinding.ActivityCousinProfileBinding;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinAccount;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinProfileFragment;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +44,7 @@ public class CousinProfileActivity extends AppCompatActivity {
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS=0x1;
     private int categoryType;
     private String mobileNumber = "";
+    private String gender = "";
 
 
     @Override
@@ -49,8 +56,7 @@ public class CousinProfileActivity extends AppCompatActivity {
 
         Setup_UI();
 
-
-    }
+  }
 
     private void Setup_UI() {
         cousinProfileBinding.tvBack.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +79,7 @@ public class CousinProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!isFavourite){
                     //    changeFragmentForBottomMenu(new MyPageFragment());
+                    Toast.makeText(CousinProfileActivity.this, getString(R.string.not_activated), Toast.LENGTH_SHORT).show();
                     cousinProfileBinding.imgCousinFav.setImageDrawable(getResources().getDrawable(R.mipmap.ic_favourite));
                     isFavourite=true;
                 }else{
@@ -116,19 +123,28 @@ public class CousinProfileActivity extends AppCompatActivity {
 
               Glide.with(this)
                     .applyDefaultRequestOptions(new RequestOptions()
-                            .placeholder(R.drawable.ic_profile_image)
+                            .error(R.mipmap.male)
                             .fitCenter().transform(new CircleCrop()))
                     .load(IMG_URL+cousinAccount.getCousinImage())
+                    .listener(new RequestListener<Drawable>() {
+                                  @Override
+                                  public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                      cousinProfileBinding.pbLoadPhotoProfile.setVisibility(View.GONE);
+                                      return false;
+                                  }
+
+                                  @Override
+                                  public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                      cousinProfileBinding.pbLoadPhotoProfile.setVisibility(View.GONE);
+                                      return false;
+                                  }
+                              }
+                    )
                     .into(cousinProfileBinding.imgCousinPhoto);
 
 
-            cousinProfileBinding.pbLoadPhotoProfile.setVisibility(View.GONE);
-
-
         }else{
-            cousinProfileBinding.imgCousinPhoto.setVisibility(View.VISIBLE);
-
-            cousinProfileBinding.imgCousinPhoto.setImageResource(R.drawable.ic_profile_image);
+            cousinProfileBinding.imgCousinPhoto.setImageResource(R.mipmap.male);
             cousinProfileBinding.pbLoadPhotoProfile.setVisibility(View.GONE);
 
         }
@@ -136,25 +152,53 @@ public class CousinProfileActivity extends AppCompatActivity {
 
         changeFragmentForTab(new CousinProfileFragment());
 
+        gender  = cousinAccount.getGender();
+
+      //  Toast.makeText(CousinProfileActivity.this, gender, Toast.LENGTH_SHORT).show();
 
         mobileNumber =  cousinAccount.getCousinMobile();
-        if(mobileNumber.length()==10)
-            mobileNumber = "0"+mobileNumber;
+         if(mobileNumber.length()==10)
+            mobileNumber = "+20"+mobileNumber;
         else
-            mobileNumber = "00"+mobileNumber;
+            mobileNumber = "+"+mobileNumber;
 
         cousinProfileBinding.btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkPermissions()){
-                      if(!mobileNumber.equals(""))
-                        startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:"+mobileNumber)));
-                }else {
-                    Toast.makeText(CousinProfileActivity.this,"يجب السماح لإجراء اتصال  ", Toast.LENGTH_SHORT).show();
-                }
+
+                 if((gender.equals("أنثي")&&categoryType==2)||gender.equals("ذكر"))
+                     makeCall(mobileNumber);
+                 else
+                     Toast.makeText(CousinProfileActivity.this, " غير مسموح بإجراء مكالمه ", Toast.LENGTH_SHORT).show();
 
             }
         });
+
+
+        cousinProfileBinding.btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                checkIfWhatsAppInstalledAndStartChat(mobileNumber);
+
+            }
+        });
+
+
+    }
+    private void changeFragmentForTab(Fragment targetFragment) {
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("CategoryType",categoryType);
+        bundle.putSerializable("CousinData",cousinAccount);
+        targetFragment.setArguments(bundle);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container_fragment, targetFragment, "fragment")
+                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+
 
     }
 
@@ -169,22 +213,16 @@ public class CousinProfileActivity extends AppCompatActivity {
             isLocation=false;
         }
     }
-    private void changeFragmentForTab(Fragment targetFragment) {
 
-                Bundle bundle = new Bundle();
-                bundle.putInt("CategoryType",categoryType);
-                bundle.putSerializable("CousinData",cousinAccount);
-                targetFragment.setArguments(bundle);
-
-                 getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container_fragment, targetFragment, "fragment")
-                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-
+    private void makeCall(String mobileNumber){
+        if(checkPermissions()){
+            if(!mobileNumber.equals(""))
+                startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:"+mobileNumber)));
+        }else {
+            Toast.makeText(CousinProfileActivity.this,"يجب السماح لإجراء اتصال  ", Toast.LENGTH_SHORT).show();
+        }
 
     }
-
     private boolean checkPermissions(){
         int permissionLocation = ContextCompat.checkSelfPermission(CousinProfileActivity.this,
                 Manifest.permission.CALL_PHONE);
@@ -201,6 +239,45 @@ public class CousinProfileActivity extends AppCompatActivity {
         }
 
     }
+
+    private void checkIfWhatsAppInstalledAndStartChat(String  mobileNumber){
+        boolean isInstalled = whatsAppInstalledOrNot("com.whatsapp");
+        if(isInstalled) {
+
+            if ((gender.equals("أنثي") && categoryType == 2) || gender.equals("ذكر")) {
+
+                //if (mobileNumber.startsWith("+20"))
+                    startChat(mobileNumber);
+               /* else
+                    Toast.makeText(CousinProfileActivity.this, " غير فعال للمصريين خارج البلد  ", Toast.LENGTH_SHORT).show();
+*/
+            } else
+                Toast.makeText(CousinProfileActivity.this, " غير مسموح بإجراء محادثة ", Toast.LENGTH_SHORT).show();
+
+        }else {
+            Toast.makeText(CousinProfileActivity.this, "يجب تنزيل تطبيق واتساب لاجراء محادثة", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+    private void startChat(String mobileNumber){
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone="+mobileNumber);
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(intent);
+
+    }
+    private boolean whatsAppInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        boolean app_installed;
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
+
 
 
 }

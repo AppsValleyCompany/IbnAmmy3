@@ -14,10 +14,10 @@
 
     <item
         android:id="@+id/img_cousin_photo"
-        android:drawable="@drawable/ic_profile_image"
+        android:drawable="@mipmap/male"
         android:gravity="center"
         android:top="75dp"
-        android:bottom="70dp"
+        android:bottom="65dp"
         android:left="60dp"
         android:right="70dp"
         />

@@ -48,6 +48,7 @@ public class FamilyListAdapter extends RecyclerView.Adapter<FamilyListAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
        final Follower fol=followers.get(position);
+       String des=fol.getDescription();
             holder.name.setText(fol.getFollower_Name());
             holder.des.setText(fol.getDescription());
             holder.del.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +61,9 @@ public class FamilyListAdapter extends RecyclerView.Adapter<FamilyListAdapter.Vi
                     notifyDataSetChanged();
                 }
             });
+
+            holder.prof_img.setImageResource(fol.getPhoto());
+
     }
 
     @Override
@@ -71,9 +75,11 @@ public class FamilyListAdapter extends RecyclerView.Adapter<FamilyListAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
         }
+
         TextView name=itemView.findViewById(R.id.follower_name_tv);
         TextView des=itemView.findViewById(R.id.follower_desc_tv);
         ImageView del=itemView.findViewById(R.id.delete_follower_btn);
+        ImageView prof_img=itemView.findViewById(R.id.follower_prof_iv);
     }
 
     @Override

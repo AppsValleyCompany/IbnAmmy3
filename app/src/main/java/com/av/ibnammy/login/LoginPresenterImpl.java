@@ -60,7 +60,7 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
 
     @Override
     public boolean validatePass(String pass) {
-        if(pass.length()<5){
+        if(pass.length()<3){
             loginView.setPasswordError("خطأ في كلمة المرور.");
             return false;
         }
@@ -103,7 +103,7 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
     @Override
     public void onSuccess(Bundle b) {
         loginView.hideProgress();
-        loginView.showError("Login success.");
+        loginView.showError("تم تسجيل الدخول بنجاح.");
         String id=b.getString("id");
      //   if(isSavePassChecked){
         loginView.saveCredentials(id);

@@ -24,7 +24,7 @@ public class LoginModelImpl implements LoginContract.LoginModel {
 
     @Override
     public void requestLogin(String userName, String password, final GetCallback.onLoginFinish listener) {
-         String data="{'Mobile':"+userName+",'Password':'"+password+"'}";
+            String data="{'Mobile':"+userName+",'Password':'"+password+"'}";
             Call<String> call = apiInterface.loginApi(data);
             call.enqueue(new Callback<String>() {
             @Override
@@ -52,11 +52,11 @@ public class LoginModelImpl implements LoginContract.LoginModel {
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+
                 listener.onFailure(t.getMessage());
             }
         });
     }
-
     @Override
     public void requestForgetPassword(String phone, String email, final GetCallback.onResetPasswordFinish listener) {
         String data="{'Mobile':"+phone+",'Email':'"+email+"'}";

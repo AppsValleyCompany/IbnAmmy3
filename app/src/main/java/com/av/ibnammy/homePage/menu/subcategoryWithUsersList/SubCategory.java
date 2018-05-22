@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Maiada on 3/20/2018.
+ * Created by Aya Mahmoud  on 3/20/2018.
  */
 
 public class SubCategory implements Section<CousinAccount> {
@@ -29,7 +29,18 @@ public class SubCategory implements Section<CousinAccount> {
         this.cousinAccounts = cousinAccounts;
     }
 
+    public ArrayList<CousinAccount> filterCousins(String searchText){
+        ArrayList<CousinAccount> cousinAccounts2=new ArrayList<>();
+        for(CousinAccount cousinAccount : getCousinAccounts()){
+            if (cousinAccount.getCousinName().toLowerCase().contains(searchText) ||
+                    cousinAccount.getCousinJob().toLowerCase().contains(searchText))
+            {
+                cousinAccounts2.add(cousinAccount);
+            }
 
+        }
+        return cousinAccounts2;
+    }
 
     @Override
     public List<CousinAccount> getChildItems() {

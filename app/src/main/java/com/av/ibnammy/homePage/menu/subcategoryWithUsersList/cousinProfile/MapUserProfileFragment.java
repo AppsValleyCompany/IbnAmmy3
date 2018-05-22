@@ -1,18 +1,23 @@
 package com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.FragmentMapUserBinding;
@@ -20,7 +25,8 @@ import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinAccount;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.maps.CameraUpdate;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,6 +52,8 @@ public class MapUserProfileFragment  extends Fragment implements
     FragmentMapUserBinding mapUserBinding;
     CousinAccount cousinAccount ;
 
+    private View mCustomMarkerView;
+    private ImageView mMarkerImageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +62,9 @@ public class MapUserProfileFragment  extends Fragment implements
         // Inflate the layout for this fragment
         mapUserBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_map_user,container,false);
         View rootView  = mapUserBinding.getRoot();
-
+        Locale.setDefault(new Locale("ar","EG"));
+        mCustomMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_view, null);
+        mMarkerImageView = mCustomMarkerView.findViewById(R.id.img_new_marker);
 
         getUserLocationAndAddress();
 
@@ -68,8 +78,6 @@ public class MapUserProfileFragment  extends Fragment implements
 
         if(!cousinAccount.getHomeLatitude().equals("")&&!cousinAccount.getHomeLongitude().equals("")){
             showMapAndAddress();
-            Locale.setDefault(new Locale("ar","EG"));
-            setCousinImage();
             changeToMapFragment();
         }else{
             hideMapAndAddress();
@@ -82,40 +90,62 @@ public class MapUserProfileFragment  extends Fragment implements
     @Override
     public void onMapReady(final GoogleMap googleMap) {
 
-
         mapStyleOptions = MapStyleOptions.loadRawResourceStyle(getActivity().getApplicationContext(),R.raw.style_json);
         // mMap = googleMap;
         googleMap.setMapStyle(mapStyleOptions);
 
 
-      //  CousinProfileActivity.setCousinImage(getActivity());
-        // Get Item id to change with my new drawable
-        // control_image.xml  have two id  id:img_frame_profile and id:img_profile_image
-        // To change one of them ex: change img_profile_image
-        LayerDrawable layer = (LayerDrawable)getActivity().getResources().getDrawable(R.drawable.control_image);
-        // Call drawable
-        layer.setDrawableByLayerId(R.id.img_cousin_photo,mapUserBinding.imgMarkerImage.getDrawable()); // replace and add
+        try {
 
-        // You need to convert drawable to bitmap coz marker options take only bitmap
-        Drawable d = getResources().getDrawable(R.drawable.control_image);
-        Bitmap bitmap = drawableToBitmap(d);
-
-        // control size of marker icon
-        final Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap,Math.round(bitmap.getWidth() *0.5f),
-                Math.round(bitmap.getHeight() * 0.5f),false);
 
         Double lat = Double.parseDouble(cousinAccount.getHomeLatitude());
         Double lng = Double.parseDouble(cousinAccount.getHomeLongitude());
 
         final LatLng getLocation = new LatLng( lat,lng);
-        googleMap.addMarker(new MarkerOptions().position(getLocation).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
-        float zoom = 15f;
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(getLocation, zoom);
-        googleMap.animateCamera(cameraUpdate);
 
-        CousinAddress();
 
+        if(!cousinAccount.getCousinImage().equals("")) {
+
+            Glide.with(getContext())
+                    .applyDefaultRequestOptions(new RequestOptions()
+                            .placeholder(R.mipmap.male)
+                            .fitCenter().transform(new CircleCrop())).
+                    asBitmap().
+                    load(IMG_URL + cousinAccount.getCousinImage())
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                            googleMap.addMarker(new MarkerOptions()
+                                    .position(getLocation)
+                                    .title(cousinAccount.getCousinName())
+                                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(mCustomMarkerView, bitmap))));
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(getLocation, 15f));
+
+                        }
+
+                    });
+
+        }else{
+
+            Drawable d = getResources().getDrawable(R.drawable.control_image);
+            Bitmap bitmap = drawableToBitmap(d);
+            final Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap,Math.round(bitmap.getWidth() *0.7f),
+                    Math.round(bitmap.getHeight() * 0.7f),false);
+            googleMap.addMarker(new MarkerOptions()
+                    .position(getLocation)
+                    .title(cousinAccount.getCousinName())
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(getLocation, 15f));
+        }
+
+            CousinAddress();
+
+        }
+
+         catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -146,9 +176,7 @@ public class MapUserProfileFragment  extends Fragment implements
         }
     }
 
-
     private  void  changeToMapFragment(){
-        setCousinImage();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         FragmentManager manager = getChildFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -156,6 +184,23 @@ public class MapUserProfileFragment  extends Fragment implements
         transaction.add(R.id.map_view, fragment);
         transaction.commit();
         fragment.getMapAsync(this);
+    }
+
+    private Bitmap getMarkerBitmapFromView(View view, Bitmap bitmap) {
+
+        mMarkerImageView.setImageBitmap(bitmap);
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.buildDrawingCache();
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        Drawable drawable = view.getBackground();
+        if (drawable != null)
+            drawable.draw(canvas);
+        view.draw(canvas);
+        return returnedBitmap;
     }
 
     public static Bitmap drawableToBitmap (Drawable drawable) {
@@ -182,7 +227,6 @@ public class MapUserProfileFragment  extends Fragment implements
 
     private void showMapAndAddress(){
         mapUserBinding.tvNoDataFound.setVisibility(View.GONE);
-
         mapUserBinding.mapView.setVisibility(View.VISIBLE);
         mapUserBinding.tvMarkerAddress.setVisibility(View.VISIBLE);
     }
@@ -194,25 +238,8 @@ public class MapUserProfileFragment  extends Fragment implements
         mapUserBinding.tvMarkerAddress.setVisibility(View.GONE);
     }
 
-    public  void setCousinImage(){
-        if(!cousinAccount.getCousinImage().equals("")){
-
-        /*    Picasso.with(getActivity()).load(IMG_URL + cousinAccount.getCousinImage()).transform((new CircleTransform()))
-                    .placeholder(R.drawable.ic_profile_image).centerCrop().fit().into(mapUserBinding.imgMarkerImage);
-*/
-                  Glide.with(getActivity())
-                  .applyDefaultRequestOptions(new RequestOptions()
-                         .placeholder(R.drawable.ic_profile_image)
-                         .fitCenter().transform(new CircleCrop()))
-                  .load(IMG_URL+cousinAccount.getCousinImage())
-                  .into(mapUserBinding.imgMarkerImage);
 
 
-        }else{
-            mapUserBinding.imgMarkerImage.setImageResource(R.drawable.ic_profile_image);
-
-        }
-    }
 
 
 }

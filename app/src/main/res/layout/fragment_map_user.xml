@@ -51,22 +51,15 @@
 
     </RelativeLayout>
 
+
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_no_data_found"
-        android:textColor="@color/titleTextColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center|center_horizontal"
         android:text="@string/no_cousin_data_found"
-        />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:visibility="invisible"
-        android:id="@+id/img_marker_image"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:src="@drawable/ic_frame_photo_h"/>
+        android:textColor="@color/titleTextColor"
+        android:visibility="gone" />
 
 </FrameLayout>
 </layout>

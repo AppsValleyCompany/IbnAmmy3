@@ -1,17 +1,24 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar" >
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
+<!--
     <style name="AppTheme.NoActionBar"  >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+-->
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -33,6 +40,9 @@
     <style name="spinnerTheme_black">
         <item name="android:textColor">@color/light_black1</item>
         <item name="android:textSize">17sp</item>
+    </style>
+    <style name="SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="checkBoxWhite">
 

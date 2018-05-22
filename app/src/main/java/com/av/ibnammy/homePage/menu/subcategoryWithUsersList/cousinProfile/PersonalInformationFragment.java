@@ -108,9 +108,9 @@ public class PersonalInformationFragment  extends Fragment {
 
 
         if(!cousinAccount.getDiscount().equals(""))
-            personalInformationBinding.tvDiscount.setText("نسبه الخصم: "+" "+cousinAccount.getDiscount()+"%");
+            personalInformationBinding.tvDiscount.setText("خصم ابن عمى : "+" "+cousinAccount.getDiscount()+"%");
         else
-            personalInformationBinding.tvDiscount.setText("نسبه الخصم: لا يوجد " );
+            personalInformationBinding.tvDiscount.setText("خصم ابن عمى : لا يوجد " );
 
     }
     private void  showMediaField(){

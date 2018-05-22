@@ -37,7 +37,7 @@ public class ProfileModel {
                     if(!jsonObject.getString("First_Name").equals("null")||
                             !jsonObject.getString("Second_Name").equals("null")
                             ){
-                        profile.setUserName(jsonObject.getString("First_Name")+" "
+                        profile.setUserName(jsonObject.getString("First_Name")
                                 +jsonObject.getString("Second_Name"));
 
                         profile.setFullUserName(jsonObject.getString("First_Name")+" "
@@ -90,6 +90,11 @@ public class ProfileModel {
                         profile.setProfileImage(imageName);
                     }
 
+                    if(!jsonObject.getString("Home_Latitude").equals("null"))
+                        profile.setHomeLatitude(jsonObject.getString("Home_Latitude"));
+
+                    if(!jsonObject.getString("Home_Longitude").equals("null"))
+                        profile.setHomeLongitude(jsonObject.getString("Home_Longitude"));
 
                    profileCallBack.onSuccess(profile);
 
@@ -109,6 +114,6 @@ public class ProfileModel {
             }
         });
 
-
     }
+
 }

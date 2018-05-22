@@ -2,6 +2,7 @@ package com.av.ibnammy.networkUtilities;
 
 import android.os.Bundle;
 
+import com.av.ibnammy.dashboard.DashboardData;
 import com.av.ibnammy.updateUserData.User;
 import com.av.ibnammy.updateUserData.workData.DDListResponse;
 import com.av.ibnammy.updateUserData.workData.ServiceType;
@@ -44,5 +45,9 @@ public abstract class GetCallback {
     public interface onResetPasswordFinish {
         void onResetPasswordSuccess(String status);
         void onResetPasswordFailure(String status);
+    }
+    public interface onGetStatistic{
+        void onGetStatisticSuccess(DashboardData data);
+        void onGetStatisticFailure(String s);
     }
 }

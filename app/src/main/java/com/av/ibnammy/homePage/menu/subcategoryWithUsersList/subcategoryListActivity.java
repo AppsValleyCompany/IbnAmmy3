@@ -8,11 +8,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.ActivitySubcategoryBinding;
 import com.av.ibnammy.homePage.menu.GetCallBack;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,6 @@ public class subcategoryListActivity extends AppCompatActivity {
     private ActivitySubcategoryBinding activitySubcategoryBinding;
     private SubCategorySectionAdapter subCategorySectionAdapter;
     private int categoryType;
-    static final String STATE_CATEGORY_TYPE = "categoryType";
 
     private List<SubCategory> sectionItemListSearch = new ArrayList<>();
 
@@ -62,11 +59,12 @@ public class subcategoryListActivity extends AppCompatActivity {
     }
 
     private void Update_UI() {
+
+
         String getCategoryID = getIntent().getStringExtra("CategoryID");
 
         GetAllSubCategoryWithServiceType(getCategoryID);
         disableEditText(activitySubcategoryBinding.searchBar);
-
 
         activitySubcategoryBinding.searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,6 +79,8 @@ public class subcategoryListActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
+                //  if(s.length()!=0)
                 searchOnSubcategoryList(s.toString());
 
             }
@@ -89,11 +89,13 @@ public class subcategoryListActivity extends AppCompatActivity {
     }
 
     private void GetAllSubCategoryWithServiceType(String categoryId) {
+
         showProgressBar();
+
         SubcategoryModel.GetAllSubCategory(new GetCallBack.SubCategoryCallBack() {
             @Override
             public void onSuccess(ArrayList<SubCategory> subCategoryArrayList) {
-                  hideProgressBar();
+                hideProgressBar();
 
                 if (subCategoryArrayList.size() != 0) {
                     activitySubcategoryBinding.tvErrorData.setVisibility(View.GONE);
@@ -102,7 +104,6 @@ public class subcategoryListActivity extends AppCompatActivity {
                     activitySubcategoryBinding.rvSubcategory.setAdapter(subCategorySectionAdapter);
                     subCategorySectionAdapter.notifyDataSetChanged();
                     enableEditText(activitySubcategoryBinding.searchBar);
-
                 } else {
                     activitySubcategoryBinding.tvErrorData.setVisibility(View.VISIBLE);
                     disableEditText(activitySubcategoryBinding.searchBar);
@@ -150,21 +151,21 @@ public class subcategoryListActivity extends AppCompatActivity {
         List<SubCategory> filteredList = new ArrayList<>();
         if (searchText.isEmpty()) {
             return sectionItemListSearch;
-
         } else {
             for (SubCategory row : sectionItemListSearch) {
                 if (row.getSubCategoryName().contains(searchText)) {
                     filteredList.add(row);
                 } else {
-                    for (CousinAccount cousinAccount : row.getCousinAccounts()) {
-                        if (cousinAccount.getCousinName().toLowerCase().contains(searchText) ||
-                                cousinAccount.getCousinJob().toLowerCase().contains(searchText)) {
-                            filteredList.add(row);
-                        }
+                    if(row.filterCousins(searchText).size()>0) {
+                        SubCategory subCategory =new SubCategory();
+                        subCategory.setCousinAccounts(row.filterCousins(searchText));
+                        subCategory.setSubCategoryName(row.getSubCategoryName());
+                        filteredList.add(subCategory);
                     }
                 }
             }
         }
+
         return filteredList;
     }
 
@@ -182,6 +183,5 @@ public class subcategoryListActivity extends AppCompatActivity {
         editText.setFocusableInTouchMode(true);
 
     }
-
 
 }

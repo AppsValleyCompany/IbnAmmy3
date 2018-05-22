@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/img_cousin_photo"
             app:srcCompat="@mipmap/ic_unfavourite" />
 
@@ -59,14 +59,13 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_cousin_photo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/toolbar"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_profile_image"
             app:civ_border_color="@color/titleTextColor"
             app:civ_border_width="2dp"
-            android:visibility="invisible" />
+           />
 
         <ProgressBar
             android:layout_below="@+id/toolbar"
@@ -75,7 +74,7 @@
             android:layout_centerHorizontal="true"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="20dp"/>
+            />
 
 
         <ImageView
@@ -84,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_toLeftOf="@+id/img_cousin_photo"
             android:src="@mipmap/ic_marker_white" />
 
@@ -94,11 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img_cousin_location"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:maxWidth="200dp"
-            android:lines="3"
-            android:maxLines="3"
             android:text="@string/no_cousin_data_found"
             android:textColor="@android:color/white"
             android:textSize="17sp"
@@ -109,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_cousin_name"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="@string/no_cousin_data_found"
@@ -121,7 +117,7 @@
             android:visibility="invisible"
             android:layout_width="45dp"
             android:layout_height="31dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/statues_border"
             >
             <ImageView
