@@ -130,7 +130,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     }
 
     private void updateLabel() {
-        String myFormat = "dd-mm-yyyy"; //In which you need put here
+        String myFormat = "dd-MM-yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         binding.birthDateEt.setText(sdf.format(myCalendar.getTime()));
     }
