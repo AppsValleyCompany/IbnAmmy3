@@ -1,6 +1,8 @@
 package com.av.ibnammy.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -31,7 +33,7 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
     public static TextView mTitle;
     NavigationView navigationView;
     private Profile getProfileData;
-    private TextView  userName;
+    private TextView  textViewVersionName,userName;
     private ImageView userImage;
     private Button sign_out_btn;
 
@@ -51,16 +53,32 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);// to access any item on navigation view
        // getData();
-        View view = navigationView.getHeaderView(0);
-        userName  = view.findViewById(R.id.tv_user_name);
-        userImage = view.findViewById(R.id.img_user);
+        View view            = navigationView.getHeaderView(0);
+        userName             = view.findViewById(R.id.tv_user_name);
+        userImage            = view.findViewById(R.id.img_user);
+        textViewVersionName  = findViewById(R.id.tv_version_name);
+
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            String versionName = pInfo.versionName;
+            textViewVersionName.setText("الإصدار "+versionName);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
         sign_out_btn=findViewById(R.id.sign_out_btn);
+
+
         sign_out_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivityAya.this.finish();
             }
         });
+
 
         Bundle data=intent.getBundleExtra("Login_Data");
            if (data != null) {
