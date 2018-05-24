@@ -63,13 +63,17 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
       //  UpdateDataActivity activity=new UpdateDataActivity();
+
         bundle=CommonUtils.loadCredentials(getContext());
+
+    }
+    private void  getUserData(){
         String phone=bundle.getString(Constants.PHONE_KEY);
         String password=bundle.getString(Constants.PASSWORD_KEY);
         final String data="{'Mobile':"+phone+",'Password':'"+password+"'}";
         //model=new UpdateDataModel();
         UpdateDataModel.get_user_data(data,this);
-
+        binding.progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -78,7 +82,9 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
 
         binding= DataBindingUtil.inflate(inflater,R.layout.personal_data_fragment, container, false);
         View view = binding.getRoot();
-        binding.progressBar.setVisibility(View.VISIBLE);
+
+        getUserData();
+
         binding.changeProfileIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +134,8 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
 
         return view;
     }
+
+
 
     private void updateLabel() {
         String myFormat = "dd-MM-yyyy"; //In which you need put here
