@@ -7,7 +7,6 @@
 
 
 <RelativeLayout
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
@@ -47,7 +46,7 @@
         android:layout_height="wrap_content"
         android:drawableRight="@mipmap/ic_search_bar"
         android:hint="بحث"
-        android:maxLines="1"
+        android:inputType="textImeMultiLine"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
         android:drawablePadding="20dp"
