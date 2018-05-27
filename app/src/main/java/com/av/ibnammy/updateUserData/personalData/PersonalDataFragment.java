@@ -79,7 +79,6 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding= DataBindingUtil.inflate(inflater,R.layout.personal_data_fragment, container, false);
         View view = binding.getRoot();
 
@@ -316,7 +315,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         binding.birthDateEt.setText(user.getBirthDate());
         binding.emailEt.setText(user.getEmail());
 
-        if(getContext()!=null)
+        if(getContext()!=null&&user.getProfile_IMG()!=null)
          Glide.with(getContext())
                 .applyDefaultRequestOptions(new RequestOptions()
                         .fitCenter().transform(new CircleCrop()))
