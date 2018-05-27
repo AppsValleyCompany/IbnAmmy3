@@ -80,7 +80,7 @@ public class subcategoryListActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                 if(s.length()!=0)
+                   if(s.length()!=0)
                    searchOnSubcategoryList(s.toString());
 
             }
