@@ -218,6 +218,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
     }
     @Override
     public void onDDListsFetchFailure(String s) {
+        if(getActivity()==null) return;
         Toast.makeText(getContext(),"خطأ اثناء تحميل البيانات!" + s,Toast.LENGTH_LONG).show();
         binding.progressBar.setVisibility(View.GONE);
     }

@@ -97,8 +97,9 @@ public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFa
     //private
 
     public void setup_recycler(ArrayList<Follower> list){
-        adapter=new FamilyListAdapter(list,getContext());
-        binding.recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if(getActivity()==null) return;
+        adapter=new FamilyListAdapter(list,getActivity());
+        binding.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recycleView.setAdapter(adapter);
 
     }

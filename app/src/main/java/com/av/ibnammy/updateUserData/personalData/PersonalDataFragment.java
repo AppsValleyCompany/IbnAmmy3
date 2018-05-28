@@ -129,8 +129,6 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
             }
         });
 
-
-
         return view;
     }
 
@@ -296,6 +294,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     @Override
     public void onGetDataSuccess(User user) {
         binding.progressBar.setVisibility(View.GONE);
+        binding.saveBtn.setVisibility(View.VISIBLE);
         fillForms(user);
     }
 
@@ -329,6 +328,8 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         String gender=user.getGender();
         String marital=user.getMarital_Status();
         String blood_type=user.getBlood_Type();
+
+        if(getActivity()==null) return;
 
         if (Arrays.asList(getResources().getStringArray(R.array.gender)).contains(gender)){
              binding.genderSpinner.setSelection  (((ArrayAdapter)binding.genderSpinner.getAdapter()).getPosition(gender));
