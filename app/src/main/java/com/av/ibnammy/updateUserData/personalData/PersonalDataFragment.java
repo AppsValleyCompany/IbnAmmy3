@@ -295,6 +295,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
 
     @Override
     public void onGetDataFailure(String status) {
+        if(getContext()==null) return;
         Toast.makeText(getContext(), status,Toast.LENGTH_SHORT).show();
         binding.progressBar.setVisibility(View.GONE);
     }

@@ -1,6 +1,7 @@
 package com.av.ibnammy.dashboard;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +84,8 @@ public class DashBoardFragment extends Fragment implements GetCallback.onGetStat
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                    if(t.getMessage()!=null)
                     listener.onGetStatisticFailure(t.getMessage());
             }
         });
@@ -106,12 +108,15 @@ public class DashBoardFragment extends Fragment implements GetCallback.onGetStat
         total_num_of_cousins.setText(data.getTotalAccountAndFollowers());
         num_of_accounts_tv.setText(data.getAccountsSignUp());
         num_of_subAccounts_tv.setText(data.getFollowers());
+
         hideProgressBar();
     }
 
     @Override
     public void onGetStatisticFailure(String status) {
+        if(getContext()==null) return;
         Toast.makeText(getContext(),status,Toast.LENGTH_SHORT).show();
+
         hideProgressBar();
     }
 
