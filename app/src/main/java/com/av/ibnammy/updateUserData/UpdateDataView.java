@@ -6,7 +6,7 @@ package com.av.ibnammy.updateUserData;
 
 public interface UpdateDataView {
      void onSaveData();
-    boolean validateForms();
-    void fillForms(User user);
+     boolean validateForms();
+     void fillForms(User user);
 
 }

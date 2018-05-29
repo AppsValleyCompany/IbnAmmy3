@@ -52,7 +52,7 @@ import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class  PersonalDataFragment extends Fragment implements GetCallback.onUpdateFinish ,GetCallback.onUserDataFetched, UpdateDataView {
+public class  PersonalDataFragment extends Fragment implements GetCallback.onUpdateFinish, GetCallback.onUserDataFetched, UpdateDataView {
     PersonalDataFragmentBinding binding;
     public static final int PICK_IMAGE = 1;
     Calendar myCalendar = Calendar.getInstance();
@@ -81,9 +81,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
                              Bundle savedInstanceState) {
         binding= DataBindingUtil.inflate(inflater,R.layout.personal_data_fragment, container, false);
         View view = binding.getRoot();
-
         getUserData();
-
         binding.changeProfileIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,13 +153,11 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
                 Uri filePath = data.getData();
             String getPath= FilePath.getPath(getActivity(),filePath);
             if(getPath!=null&& getContext()!=null) {
-
                 Glide.with(getContext())
                         .applyDefaultRequestOptions(new RequestOptions()
                                 .fitCenter().transform(new CircleCrop()))
                         .load(data.getData())
                         .into(binding.changeProfileIv);
-
               //  Picasso.with(getContext()).load(data.getData()).transform(new CropCircleTransformation()).into(binding.changeProfileIv);
                 Toast.makeText(getActivity(), "يتم رفع الصورة", Toast.LENGTH_SHORT).show();
                 uploadImageToServer(filePath);
@@ -202,7 +198,6 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         cursor.moveToFirst();
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
         cursor.close();
-
         return path;
     }
 

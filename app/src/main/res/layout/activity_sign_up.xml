@@ -142,6 +142,7 @@
             android:layout_height="38dp"
             android:background="@color/light_orange"
             android:layout_marginTop="9dp" >
+
         <Spinner
             android:paddingEnd="25dp"
             android:paddingStart="25dp"

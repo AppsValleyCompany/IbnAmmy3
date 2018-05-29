@@ -17,6 +17,7 @@ public class User {
             Work_IMG1,Work_IMG2,Work_IMG3,Work_IMG4,Work_IMG5,Work_Video;
 
             private Integer Discount;
+
     public User(String mobile, String password, String email, String first_Name, String second_Name, String third_Name, String forth_Name, String gender, String marital_Status, String birthDate, String blood_Type) {
         Mobile = mobile;
         Password = password;

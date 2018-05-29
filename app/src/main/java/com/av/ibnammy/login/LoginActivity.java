@@ -142,7 +142,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                     binding.phoneEt.setText(phone);}
                 if (!passsword.equals("null")){
                     binding.passwordEt.setText(passsword);}
-
                     binding.saveCredsCb.setChecked(save);
             }
         }

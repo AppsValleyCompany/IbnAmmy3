@@ -1,6 +1,7 @@
 package com.av.ibnammy.login;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.av.ibnammy.networkUtilities.ApiClient;
 import com.av.ibnammy.networkUtilities.ApiInterface;
@@ -14,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by lenovo on 20/02/2018.
+ * Created by Mina on 20/02/2018.
  */
 
 
@@ -28,7 +29,7 @@ public class LoginModelImpl implements LoginContract.LoginModel {
             Call<String> call = apiInterface.loginApi(data);
             call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 String s= response.body();
                 if(s!=null) {
                     try {
@@ -39,20 +40,25 @@ public class LoginModelImpl implements LoginContract.LoginModel {
                             bundle.putString("fName",object.getString("FirstName"));
                             bundle.putString("sName",object.getString("SecondName"));
                             bundle.putString("img",object.getString("ProfileIMG"));
+                            if(listener!=null)
                             listener.onSuccess(bundle);
                         } else {
-                            listener.onFailure(object.getString("Status"));
+                                if(listener!=null)
+                                listener.onFailure(object.getString("Status"));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                else listener.onFailure(response.message());
+                else{
+                    if(listener!=null)
+                        listener.onFailure(response.message());
+                }
                // "{"AccountID":"3","UpdateDate":"False"}"
             }
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                if(listener!=null)
                 listener.onFailure(t.getMessage());
             }
         });
@@ -63,7 +69,7 @@ public class LoginModelImpl implements LoginContract.LoginModel {
         Call<String> call = apiInterface.resetPasswordApi(data);
         call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 try {
                     JSONObject object = new JSONObject(response.body());
                     String status=object.getString("Status");
@@ -86,9 +92,9 @@ public class LoginModelImpl implements LoginContract.LoginModel {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                listener.onResetPasswordSuccess(t.getMessage());
-
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                if(t.getMessage()!=null)
+                    listener.onResetPasswordSuccess(t.getMessage());
             }
         });
     }

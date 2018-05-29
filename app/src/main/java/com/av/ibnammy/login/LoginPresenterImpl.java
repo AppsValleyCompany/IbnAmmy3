@@ -102,20 +102,21 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
 
     @Override
     public void onSuccess(Bundle b) {
-        loginView.hideProgress();
-        loginView.showError("تم تسجيل الدخول بنجاح.");
-        String id=b.getString("id");
-     //   if(isSavePassChecked){
-        loginView.saveCredentials(id);
-     //   }
-
-        loginView.moveToHomeScreen(b);
+        if(b!=null&&loginView!=null) {
+            loginView.hideProgress();
+            loginView.showError("تم تسجيل الدخول بنجاح.");
+            String id = b.getString("id");
+            loginView.saveCredentials(id);
+            loginView.moveToHomeScreen(b);
+        }
     }
 
     @Override
     public void onFailure(String s) {
-        loginView.hideProgress();
-        loginView.showError(s);
+        if(s!=null&&loginView!=null) {
+            loginView.hideProgress();
+            loginView.showError(s);
+        }
     }
 
 
