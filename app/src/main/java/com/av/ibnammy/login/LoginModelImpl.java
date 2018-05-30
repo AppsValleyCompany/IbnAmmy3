@@ -2,7 +2,6 @@ package com.av.ibnammy.login;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import com.av.ibnammy.networkUtilities.ApiClient;
 import com.av.ibnammy.networkUtilities.ApiInterface;
 import com.av.ibnammy.networkUtilities.GetCallback;
@@ -63,6 +62,7 @@ public class LoginModelImpl implements LoginContract.LoginModel {
             }
         });
     }
+
     @Override
     public void requestForgetPassword(String phone, String email, final GetCallback.onResetPasswordFinish listener) {
         String data="{'Mobile':"+phone+",'Email':'"+email+"'}";

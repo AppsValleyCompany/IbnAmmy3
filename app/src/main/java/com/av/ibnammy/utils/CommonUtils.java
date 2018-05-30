@@ -50,7 +50,6 @@ public class CommonUtils {
 
         AssetManager manager = context.getAssets();
         InputStream is = manager.open(jsonFileName);
-
         int size = is.available();
         byte[] buffer = new byte[size];
         is.read(buffer);
@@ -60,13 +59,15 @@ public class CommonUtils {
     }
 
     public static void transitFrag_BackStack(Context context,Fragment targetFragment){
-        ((AppCompatActivity)context).getSupportFragmentManager()
+        if(context!=null&&targetFragment!=null)
+             ((AppCompatActivity)context).getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frag_holder_update_data, targetFragment, "fragment")
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack("")
                 .commit();
     }
+
     public static void transitFrag(Context context,Fragment targetFragment){
         ((AppCompatActivity)context).getSupportFragmentManager()
                 .beginTransaction()
@@ -74,6 +75,7 @@ public class CommonUtils {
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }
+
     public static Bundle loadCredentials(Context context) {
         Bundle bundle=new Bundle();
         SharedPreferences pref = context.getSharedPreferences(Constants.PREF_NAME,  Context.MODE_PRIVATE);
@@ -85,7 +87,6 @@ public class CommonUtils {
                bundle.putString(Constants.PHONE_KEY,phone);
             if(!passsword.equals("null"))
                 bundle.putString(Constants.PASSWORD_KEY,passsword);
-
                  bundle.putString(Constants.USER_ID,id);
         }
         return bundle;

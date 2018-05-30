@@ -147,9 +147,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
     @Override
     public void showForgetPopup(final String phone){
-
         View view = getLayoutInflater().inflate(R.layout.forget_password_popup, null);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
        // LayoutInflater inflater = this.getLayoutInflater();
@@ -169,7 +167,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                if(CommonUtils.isEmailValid(email)){
                    progress_bar_popup.setVisibility(View.VISIBLE);
                    presenter.requestForgetPasswordFromModel(phone,email);
-
                }
                else
                     showError("الايميل غير صحيح.");
@@ -202,6 +199,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     public void dismissForgetPopup(){
         dialog.dismiss();
     }
+
 
 
 }

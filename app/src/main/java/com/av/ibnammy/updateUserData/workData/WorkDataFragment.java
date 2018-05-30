@@ -56,7 +56,6 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         UpdateDataActivity activity=new UpdateDataActivity();
         activity.addStep(1,getContext());
         bundle=CommonUtils.loadCredentials(getContext());
@@ -64,17 +63,14 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getContext()
                 , android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-               ActivityCompat.requestPermissions(getActivity(),
+                ActivityCompat.requestPermissions(getActivity(),
                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
                                android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
         }
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         phone=bundle.getString(Constants.PHONE_KEY);
         password=bundle.getString(Constants.PASSWORD_KEY);
@@ -93,6 +89,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         binding.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setEnabled(false);
                 onSaveData();
             }
         });
@@ -258,19 +255,20 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
     }
 
     @Override
-    public void onSaveData(){
+    public void onSaveData() throws NullPointerException{
         binding.progressBar.setVisibility(View.VISIBLE);
         if(validateForms()) {
             CategoryType cat_type = (CategoryType) binding.catTypeSpinner.getSelectedItem();
 
             String cat_type_id = cat_type.getCategory_TypeID();
-            ServiceCategory category = (ServiceCategory) binding.categorySpinner.getSelectedItem();
-            String cat_id = category.getService_CategoryID();
+            ServiceCategory serviceCategory = (ServiceCategory) binding.categorySpinner.getSelectedItem();
+            String cat_id = serviceCategory.getService_CategoryID();
             ServiceSubcategory subcat = (ServiceSubcategory) binding.spinnerServiceSubcategories.getSelectedItem();
             String subcat_id = subcat.getService_SubCategoryID();
             ServiceType serviceType = (ServiceType) binding.spinnerServiceType.getSelectedItem();
             String service_type_id = serviceType.getService_TypeID();
             String service_name = binding.organizationNameEt.getText().toString();
+
             String country=binding.countryEt.getText().toString();
             String district=binding.districtEt.getText().toString();
             String city=binding.cityEt.getText().toString();
@@ -287,6 +285,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
 
             User user = new User(phone, password, cat_type_id, cat_id, subcat_id, service_type_id,
                     service_name,longitude, latitude,country,district,city,region,area,street);
+
             UpdateDataModel.update_user_data(user, this);
         }
         else{
@@ -327,7 +326,6 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
 
         longitude=user.getHome_Longitude();
         latitude=user.getHome_Latitude();
-
     }
 
 
@@ -336,7 +334,6 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
     public void getLocation() {
 
         binding.progressBar.setVisibility(View.VISIBLE);
-
         LocationListener locationListener=new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -381,9 +378,8 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         };
 
         try {
-
-            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER,locationListener,null);//.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, locationListener);
+                locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER,locationListener,null);//.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, locationListener);
         }
 
         catch(SecurityException e) {
@@ -400,8 +396,8 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         if (permissionLocation != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
             if (!listPermissionsNeeded.isEmpty()) {
-                ActivityCompat.requestPermissions(getActivity(),
-                        listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+                ActivityCompat.requestPermissions(getActivity(),listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
+                        REQUEST_ID_MULTIPLE_PERMISSIONS);
             }
             return false;
         } else {
