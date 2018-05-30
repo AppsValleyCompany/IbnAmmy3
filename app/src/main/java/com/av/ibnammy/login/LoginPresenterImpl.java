@@ -109,8 +109,8 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
             loginView.showError("تم تسجيل الدخول بنجاح.");
             String id = b.getString("id");
             loginView.saveCredentials(id);
-            loginView.moveToHomeScreen(b);
             loginView.enableSignInButton();
+            loginView.moveToHomeScreen(b);
         }
     }
 
@@ -119,6 +119,7 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
         if(s!=null&&loginView!=null) {
             loginView.hideProgress();
             loginView.showError(s);
+            loginView.enableSignInButton();
         }
     }
 
