@@ -27,7 +27,9 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
     public void onLoginClicked(String userName, String password){
         loginView.showProgress();
         if(validatePhone(userName)&& validatePass(password)){
+            loginView.disableSignInButton();
             requestLoginFromModel(userName,password);
+
         }else{
             loginView.hideProgress();
         }
@@ -108,6 +110,7 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
             String id = b.getString("id");
             loginView.saveCredentials(id);
             loginView.moveToHomeScreen(b);
+            loginView.enableSignInButton();
         }
     }
 

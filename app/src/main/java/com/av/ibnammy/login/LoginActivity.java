@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                 presenter.goToSignupClicked();
             }
         });
-
         binding.signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,6 +186,18 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         dialog.setCancelable(false);
         dialog.show();
     }
+
+    @Override
+    public void enableSignInButton() {
+        binding.signinBtn.setEnabled(true);
+    }
+
+    @Override
+    public void disableSignInButton() {
+        binding.signinBtn.setEnabled(false);
+
+    }
+
     @Override
     public void dismissForgetPopup(){
         dialog.dismiss();

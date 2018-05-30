@@ -39,7 +39,7 @@ public class DashBoardFragment extends Fragment implements GetCallback.onGetStat
   //  List<String> spinner_data=new ArrayList<>();
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
                 View v=inflater.inflate(R.layout.dash_board_activity_layout, container, false);
                 progressBar=v.findViewById(R.id.progress_bar);

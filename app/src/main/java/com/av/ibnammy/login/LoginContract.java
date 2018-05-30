@@ -23,6 +23,8 @@ public interface LoginContract {
         void loadCredentials();
         void dismissForgetPopup();
         void showForgetPopup(String phone);
+        void enableSignInButton();
+        void disableSignInButton();
     }
 
      interface LoginModel {
