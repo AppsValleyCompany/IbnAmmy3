@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,8 +29,8 @@ import android.widget.Toast;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.FragmentMapBinding;
-import com.av.ibnammy.homePage.menu.GetCallBack;
 import com.av.ibnammy.homePage.menu.MenuListAdapter;
+import com.av.ibnammy.networkUtilities.GetCallback;
 import com.av.ibnammy.utils.CommonUtils;
 import com.av.ibnammy.utils.Constants;
 import com.av.ibnammy.viewprofile.Profile;
@@ -65,6 +66,7 @@ public class MapFragment extends Fragment implements
 {
 
     public FragmentMapBinding fragmentMapBinding;
+
     public boolean isClicked =false;
     private Animation animSlideUp,animSlideDown;
 
@@ -125,9 +127,9 @@ public class MapFragment extends Fragment implements
                 fragmentMapBinding.btnRequestService.setVisibility(View.GONE);
                 fragmentMapBinding.btnRequestForHelp.setVisibility(View.GONE);
 
-              //  fragmentMapBinding.tvNotActivatedTwo.setVisibility(View.VISIBLE);
+                //  fragmentMapBinding.tvNotActivatedTwo.setVisibility(View.VISIBLE);
 
-               fragmentMapBinding.requestHelp.setVisibility(View.VISIBLE);
+                fragmentMapBinding.requestHelp.setVisibility(View.VISIBLE);
 
             }
         });
@@ -260,6 +262,8 @@ public class MapFragment extends Fragment implements
         googleMap.setMapStyle( MapStyleOptions.loadRawResourceStyle(
                 getContext(), R.raw.style_json));
 
+        //  googleMap.setTrafficEnabled(true);
+
         getData(googleMap);
 
     }
@@ -279,7 +283,7 @@ public class MapFragment extends Fragment implements
         Bundle bundle=CommonUtils.loadCredentials(getContext());
         String phone=bundle.getString(Constants.PHONE_KEY);
         String password=bundle.getString(Constants.PASSWORD_KEY);
-        ProfileModel.GetProfileData(phone, password, new GetCallBack.ProfileCallBack() {
+        ProfileModel.GetProfileData(phone, password, new GetCallback.ProfileCallBack() {
             @Override
             public void onSuccess(Profile profile) {
                 hideProgressBar();
@@ -290,7 +294,7 @@ public class MapFragment extends Fragment implements
             public void onFailure(String error) {
                 hideProgressBar();
                 if(getActivity()!=null)
-                Toast.makeText(getActivity(), "حدث خطا", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "حدث خطا", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -299,13 +303,21 @@ public class MapFragment extends Fragment implements
 
         try{
 
+            // carrefour 29.982475, 31.274174
+            // Gabr   29.977078, 31.282030
+            // Me  29.976950, 31.282609
+
+            //test location
+           /* profile.setHomeLatitude("29.9749457");
+            profile.setHomeLongitude("31.2798031");*/
+
             if(!profile.getHomeLatitude().equals("")&&!profile.getHomeLongitude().equals("")){
                 Double  lat = Double.parseDouble(profile.getHomeLatitude());
                 Double  lng = Double.parseDouble(profile.getHomeLongitude());
 
                 final LatLng getLocation = new LatLng( lat,lng);
 
-                if(!profile.getProfileImage().equals("")){
+                if(!profile.getProfileImage().equals("")&&getContext()!=null){
                     Glide.with(getContext())
                             .applyDefaultRequestOptions(new RequestOptions()
                                     .placeholder(R.mipmap.male)
@@ -320,6 +332,7 @@ public class MapFragment extends Fragment implements
                                             .title(profile.getFullUserName())
                                             .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(mCustomMarkerView, bitmap))));
                                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(getLocation, 15f));
+
 
                                 }
 
@@ -338,7 +351,8 @@ public class MapFragment extends Fragment implements
 
                 }
             }else {
-                   if(getActivity()!=null)
+
+                if(getActivity()!=null)
                     Toast.makeText(getActivity(), "الرجاء تحديث بياناتك اولا ", Toast.LENGTH_LONG).show();
             }
         }
@@ -372,7 +386,6 @@ public class MapFragment extends Fragment implements
         return returnedBitmap;
     }
 
-
     public static Bitmap drawableToBitmap (Drawable drawable) {
         Bitmap bitmap = null;
         if (drawable instanceof BitmapDrawable) {
@@ -393,4 +406,7 @@ public class MapFragment extends Fragment implements
         drawable.draw(canvas);
         return bitmap;
     }
+
+
+
 }

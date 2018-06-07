@@ -15,7 +15,7 @@ import android.widget.Button;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.FragmentProfileBinding;
-import com.av.ibnammy.homePage.menu.GetCallBack;
+import com.av.ibnammy.networkUtilities.GetCallback;
 import com.av.ibnammy.updateUserData.UpdateDataActivity;
 import com.av.ibnammy.utils.CommonUtils;
 import com.av.ibnammy.utils.Constants;
@@ -81,7 +81,7 @@ public class ProfileFragment extends Fragment {
        Bundle bundle= CommonUtils.loadCredentials(getContext());
        String phone=bundle.getString(Constants.PHONE_KEY);
        String password=bundle.getString(Constants.PASSWORD_KEY);
-        ProfileModel.GetProfileData(phone, password, new GetCallBack.ProfileCallBack() {
+        ProfileModel.GetProfileData(phone, password, new GetCallback.ProfileCallBack() {
             @Override
             public void onSuccess(Profile profile) {
                 getProfileData = profile;

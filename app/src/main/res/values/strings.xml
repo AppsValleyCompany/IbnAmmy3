@@ -271,4 +271,18 @@
     <string name="not_activated">لم يتم التفعيل بعد </string>
     <string name="not_activated_one">سوف يتم تفعيل هذه الخاصيه بمجرد </string>
     <string name="not_activated_two"> وصول اعداد المشتركين 25 الف مشترك رئيسي او 125 الف تعداد عام ايهما الاول </string>
+
+
+
+    <string name="current_password">كلمة المرور الحالية </string>
+    <string name="new_password">كلمة المرور الجديدة</string>
+    <string name="retype_new_password">تأكيد كلمة المرور الجديدة </string>
+    <string name="update_password">تحديث</string>
+
+    <string name="error_password"> كلمة المرور لا ينبغي ان تكون اقل من ٣ احرف / ارقام </string>
+    <string name="error_not_match"> لا تتطابق مع كلمة المرور الجديدة </string>
+    <string name="password_error">لا يمكن التحقق من كلمة المرور الحالية يرجى المحاولة مرة اخرى</string>
+    <string name="password_success">لقد تم تغير كلمة المرور بنجاح</string>
+    <string name="internet_error">خطأ فى الإنترنت</string>
+
 </resources>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.FragmentMapBinding;
 import com.av.ibnammy.databinding.FragmentMenuBinding;
+import com.av.ibnammy.networkUtilities.GetCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class MenuFragment extends Fragment {
 
     private void GetAllCategories() {
       showProgressBar();
-      MenuModel.GetAllCategory(new GetCallBack.CategoryCallBack() {
+      MenuModel.GetAllCategory(new GetCallback.CategoryCallBack() {
             @Override
             public void onSuccess(ArrayList<CategoryType> categoryTypeArrayList,ArrayList<CategoryList> categoryLists) {
                 hideProgressBar();

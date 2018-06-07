@@ -2,9 +2,9 @@ package com.av.ibnammy.homePage.menu.subcategoryWithUsersList;
 
 
 
-import com.av.ibnammy.homePage.menu.GetCallBack;
 import com.av.ibnammy.networkUtilities.ApiClient;
 import com.av.ibnammy.networkUtilities.ApiInterface;
+import com.av.ibnammy.networkUtilities.GetCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +23,7 @@ import retrofit2.Response;
 public class SubcategoryModel {
 
     public static ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
-    public static void GetAllSubCategory(final GetCallBack.SubCategoryCallBack subCategoryCallBack, String categoryId){
+    public static void GetAllSubCategory(final GetCallback.SubCategoryCallBack subCategoryCallBack, String categoryId){
         final Call<String> subCategoryCall =  apiInterface.subCategoryApi(categoryId);
         subCategoryCall.enqueue(new Callback<String>() {
             @Override

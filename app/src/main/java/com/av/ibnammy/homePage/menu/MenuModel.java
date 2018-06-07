@@ -3,6 +3,7 @@ package com.av.ibnammy.homePage.menu;
 
 import com.av.ibnammy.networkUtilities.ApiClient;
 import com.av.ibnammy.networkUtilities.ApiInterface;
+import com.av.ibnammy.networkUtilities.GetCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +23,7 @@ public class MenuModel {
 
     public static ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
-    public static void GetAllCategory(final GetCallBack.CategoryCallBack categoryCallBack){
+    public static void GetAllCategory(final GetCallback.CategoryCallBack categoryCallBack){
 
         Call<String> categoryListCall  = apiInterface.categoryApi();
         categoryListCall.enqueue(new Callback<String>() {

@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/backgroundColor">
 
+
   <!--  <EditText
         android:id="@+id/search_bar"
         android:layout_marginTop="5dp"

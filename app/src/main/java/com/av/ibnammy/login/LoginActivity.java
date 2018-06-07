@@ -192,7 +192,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     public void disableSignInButton() {
         binding.signinBtn.setEnabled(false);
-
     }
 
     @Override

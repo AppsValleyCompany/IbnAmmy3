@@ -69,6 +69,7 @@ public interface ApiInterface {
     @POST("AccountServices/Delete_Video/Delete_Work_Video")
     Call<String> deleteVideo(@Query("accountID")String accountId);
 
-
+    @POST("AccountServices/ReNewPassword/UpdatePassword")
+    Call<String> updatePassword(@Body String data);
 
 }

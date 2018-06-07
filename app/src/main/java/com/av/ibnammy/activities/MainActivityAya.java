@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.av.ibnammy.R;
+import com.av.ibnammy.changePassword.ChangePasswordFragment;
 import com.av.ibnammy.dashboard.DashBoardFragment;
 import com.av.ibnammy.homePage.HomePageFragment;
 import com.av.ibnammy.updateUserData.UpdateDataActivity;
@@ -156,7 +157,12 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
             mTitle.setText(item.getTitle());
             //startActivity(new Intent(MainActivityAya.this,DashBoardActivity.class));
             changeFragmentForSideMenu1(new DashBoardFragment());
+        }else if(id==R.id.nav_change_password){
+              mTitle.setText(item.getTitle());
+              changeFragmentForSideMenu1(new ChangePasswordFragment());
+
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

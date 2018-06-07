@@ -30,7 +30,10 @@
             android:id="@+id/nav_my_alert"
             android:icon="@mipmap/ic_my_alert"
             android:title="الاحصائيات" />
-
+        <item
+            android:id="@+id/nav_change_password"
+            android:icon="@mipmap/ic_lock"
+            android:title="تغيير كلمة المرور" />
 
     </group>
 

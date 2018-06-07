@@ -1,9 +1,9 @@
 package com.av.ibnammy.viewprofile;
 
 
-import com.av.ibnammy.homePage.menu.GetCallBack;
 import com.av.ibnammy.networkUtilities.ApiClient;
 import com.av.ibnammy.networkUtilities.ApiInterface;
+import com.av.ibnammy.networkUtilities.GetCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +20,7 @@ public class ProfileModel {
 
     public static ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
-    public static void GetProfileData(final String phoneNumber, String password, final GetCallBack.ProfileCallBack profileCallBack){
+    public static void GetProfileData(final String phoneNumber, String password, final GetCallback.ProfileCallBack profileCallBack){
 
         String data="{'Mobile':"+phoneNumber+",'Password':'"+password+"'}";
         Call<String> profileDataCall  = apiInterface.getUserData(data);

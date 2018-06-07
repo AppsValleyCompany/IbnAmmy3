@@ -10,7 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.ActivitySubcategoryBinding;
-import com.av.ibnammy.homePage.menu.GetCallBack;
+import com.av.ibnammy.networkUtilities.GetCallback;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class subcategoryListActivity extends AppCompatActivity {
 
         showProgressBar();
 
-        SubcategoryModel.GetAllSubCategory(new GetCallBack.SubCategoryCallBack() {
+        SubcategoryModel.GetAllSubCategory(new GetCallback.SubCategoryCallBack() {
             @Override
             public void onSuccess(ArrayList<SubCategory> subCategoryArrayList) {
                 hideProgressBar();

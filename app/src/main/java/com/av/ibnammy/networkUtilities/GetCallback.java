@@ -3,9 +3,13 @@ package com.av.ibnammy.networkUtilities;
 import android.os.Bundle;
 
 import com.av.ibnammy.dashboard.DashboardData;
+import com.av.ibnammy.homePage.menu.CategoryList;
+import com.av.ibnammy.homePage.menu.CategoryType;
+import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.SubCategory;
 import com.av.ibnammy.updateUserData.User;
 import com.av.ibnammy.updateUserData.workData.DDListResponse;
 import com.av.ibnammy.updateUserData.workData.ServiceType;
+import com.av.ibnammy.viewprofile.Profile;
 
 import java.util.ArrayList;
 
@@ -14,6 +18,7 @@ import java.util.ArrayList;
  */
 
 public abstract class GetCallback {
+
     public interface onLoginFinish{
         void onSuccess(Bundle bundle);
         void onFailure(String s);
@@ -46,8 +51,34 @@ public abstract class GetCallback {
         void onResetPasswordSuccess(String status);
         void onResetPasswordFailure(String status);
     }
+
+
     public interface onGetStatistic{
         void onGetStatisticSuccess(DashboardData data);
         void onGetStatisticFailure(String s);
     }
+
+
+    public   interface  CategoryCallBack{
+        void onSuccess(ArrayList<CategoryType> categoryTypeArrayList, ArrayList<CategoryList> categoryLists);
+        void onFailure(String throwable);
+    }
+
+    public  interface  SubCategoryCallBack{
+        void onSuccess(ArrayList<SubCategory> subCategoryArrayList);
+        void onFailure(String throwable);
+    }
+
+    public interface ProfileCallBack{
+        void  onSuccess(Profile profile);
+        void  onFailure(String error);
+    }
+
+    public interface onUpdatePassword {
+        void onUpdatePasswordSuccess();
+        void onUpdatePasswordError();
+        void onUpdatePasswordFailure();
+
+    }
+
 }
