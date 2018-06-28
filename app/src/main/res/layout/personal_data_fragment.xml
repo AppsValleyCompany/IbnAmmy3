@@ -44,12 +44,13 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal">
 
         <EditText
             android:id="@+id/second_name_et"
             android:layout_marginLeft="3dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/rectangle_white_frame"
@@ -58,12 +59,14 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="14sp"
+            android:maxLines="1"
+            android:maxLength="15"
             />
 
         <EditText
             android:id="@+id/first_name_et"
             android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/rectangle_white_frame"
@@ -71,50 +74,66 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:maxLength="15"
+            android:text=""
+            />
 
     </TableRow>
-    <TableRow
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+
         >
 
     <Button
-        android:layout_width="55dp"
-        android:layout_height="35dp"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/light_orange"
         android:text="النجار"
         android:textColor="@color/light_black2"
-        android:textStyle="bold"/>
-
+        android:textStyle="bold"
+        />
     <EditText
         android:id="@+id/forth_name_et"
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
         android:background="@drawable/rectangle_white_frame"
         android:hint="الاسم الرابع"
         android:padding="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:maxLength="12"
+        />
 
     <EditText
         android:id="@+id/third_name_et"
         android:layout_marginLeft="3dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
         android:background="@drawable/rectangle_white_frame"
         android:hint="الاسم الثالث"
         android:padding="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:maxLength="12"
+        android:textDirection="ltr"
+        android:gravity="right"
 
-    </TableRow>
+        />
+
+    </LinearLayout>
 
     <!--<TableRow
         android:layout_width="match_parent"
@@ -222,6 +241,8 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="14sp"
+            android:maxLines="1"
+            android:maxLength="40"
 />
 
     </TableRow>

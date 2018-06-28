@@ -12,6 +12,7 @@ import java.util.Collections;
   interface ChangePasswordImplementerPresenter  {
 
     boolean validateData();
+    boolean checkSpaceInEditText();
 
      void onUpdatedButtonClicked();
      void onUpdatePassword();

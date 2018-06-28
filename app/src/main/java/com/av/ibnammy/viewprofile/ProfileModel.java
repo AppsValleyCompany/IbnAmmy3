@@ -37,12 +37,12 @@ public class ProfileModel {
                     if(!jsonObject.getString("First_Name").equals("null")||
                             !jsonObject.getString("Second_Name").equals("null")
                             ){
-                        profile.setUserName(jsonObject.getString("First_Name")
-                                +jsonObject.getString("Second_Name"));
+                        profile.setUserName(jsonObject.getString("First_Name").replaceAll("\n","")
+                                +jsonObject.getString("Second_Name").replaceAll("\n",""));
 
-                        profile.setFullUserName(jsonObject.getString("First_Name")+" "
-                                +jsonObject.getString("Second_Name")+" "+jsonObject.getString("Third_Name")+" "
-                                +jsonObject.getString("Forth_Name"));
+                        profile.setFullUserName(jsonObject.getString("First_Name").replaceAll("\n","")+" "
+                                +jsonObject.getString("Second_Name").replaceAll("\n","")+" "+jsonObject.getString("Third_Name").replaceAll("\n","")+" "
+                                +jsonObject.getString("Forth_Name").replaceAll("\n",""));
                     }else {
                         profile.setUserName("لا يوجد");
                     }

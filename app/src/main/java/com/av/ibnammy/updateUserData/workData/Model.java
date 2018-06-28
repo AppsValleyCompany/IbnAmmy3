@@ -57,7 +57,7 @@ public class Model {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                //  ArrayList<ServiceType> serviceTypes=response.body();
+                //  ArrayList<ServiceTypeSearch> serviceTypes=response.body();
 
 
             }

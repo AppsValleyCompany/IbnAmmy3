@@ -44,12 +44,16 @@ public class SubcategoryModel {
                                     CousinAccount cousinAccount = new CousinAccount();
                                     JSONObject accountObject = classAccounts.getJSONObject(j);
                                     cousinAccount.setHasAccount(true);
-                                    if(!accountObject.getString("First_Name").equals("")&&
-                                            !accountObject.getString("Second_Name").equals("")){
 
-                                        cousinAccount.setCousinName(accountObject.getString("First_Name")
-                                                .concat(" "+accountObject.getString("Second_Name")));
-                                    }
+                                    if(!accountObject.getString("AccountID").equals("null"))
+                                        cousinAccount.setCousinId(accountObject.getString("AccountID").replace("\r\n",""));
+
+
+                                    if(!accountObject.getString("First_Name").equals("")&&
+                                            !accountObject.getString("Second_Name").equals(""))
+                                        cousinAccount.setCousinName(accountObject.getString("First_Name").replaceAll("\n","")
+                                                .concat(" "+accountObject.getString("Second_Name").replaceAll("\n","")));
+
 
                                     if(!accountObject.getString("Service_Type").equals("null"))
                                         cousinAccount.setCousinJob(accountObject.getString("Service_Type").replace("\r\n",""));

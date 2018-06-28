@@ -8,7 +8,7 @@ import com.av.ibnammy.networkUtilities.GetCallback;
 
 public interface SignUpContract {
      interface SignUpModel {
-        void requestSignUp(String mobile, String password, int familyID, GetCallback.onSignUpFinish listener);
+        void requestSignUp(String mobile, String password, String email, int familyID, GetCallback.onSignUpFinish listener);
 
     }
 
@@ -20,13 +20,15 @@ public interface SignUpContract {
         void setUsernameError(String e);
         void setPasswordError(String e);
         void setRepeatPasswordError(String e);
+        void setEmailError(String e);
     }
 
      interface SignUpPresenter {
         boolean validatePhone(String phone);
         boolean validatePass(String pass, String repeat);
-        void onSignUpClicked(String phone, String password, String repeat, int family);
-        void requestSignUpFromModel(String phone, String password, int family);
+        boolean validateEmail(String email);
+        void onSignUpClicked(String phone, String password, String repeat, String emai, int family);
+        void requestSignUpFromModel(String phone, String password, String email, int family);
 
     }
 }

@@ -11,7 +11,10 @@ public final class Constants {
     public static final String PASSWORD_KEY="password";
     public static  final  String PREF_NAME="MyPref";
     public static  final  String USER_ID="user_id";
+    public static final String USER_IMG="user_img";
     public static  final String SAVE_CREDS_BOOL="save";
+    public static  final String USER_LAT="user_lat";
+    public static  final String USER_LNG="user_lng";
 
     public static  HashMap<String,String> relation_map(){
         HashMap<String,String> relation_map=new HashMap<>();

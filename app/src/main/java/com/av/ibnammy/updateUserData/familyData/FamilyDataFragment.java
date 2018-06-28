@@ -64,24 +64,24 @@ public class FamilyDataFragment extends Fragment implements FamilyCallBack.AddFa
                 String desKey= (String) binding.relationSpinner.getSelectedItem(); // get description value for selected key.
                // String des= Constants.relation_map().get(desKey);
                 String name=binding.followerNameEt.getText().toString();
-                if(!name.equals("")){
-                Follower follower=new Follower(name,desKey);
-                    if(desKey.equals("زوجة")||desKey.equals("ام")||desKey.equals("ابنة")||desKey.equals("اخت")){
+                if(name.equals("")){
+                    binding.followerNameEt.setError( "برجاء ادخال اسم التابع اولا.");
+                }
+                else if(name.startsWith(" ") || CommonUtils.stringContainsNumber(name)){
+                    binding.followerNameEt.setError("خطأ فى الادخال.");
+                }
+                else {
+                    name=name.replaceAll("\n","");
+                    Follower follower = new Follower(name, desKey);
+                    if (desKey.equals("زوجة") || desKey.equals("ام") || desKey.equals("ابنة") || desKey.equals("اخت")) {
                         follower.setPhoto(R.mipmap.female);
-                    }
-                    else
+                    } else
                         follower.setPhoto(R.mipmap.male);
 
-                    /*                if(familyList.contains(follower))
-                    Toast.makeText(getContext(),"موجود بالفعل.", Toast.LENGTH_SHORT).show();
-                else {*/
-
                     adapter.add(follower);
+                    binding.followerNameEt.setText("");
                     hideKeyboard();
-                 //   adapter.notifyDataSetChanged();
-              //  }
-            }
-            else Toast.makeText(getContext(), "برجاء ادخال اسم التابع اولا.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

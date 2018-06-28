@@ -145,7 +145,13 @@ public class ProfileFragment extends Fragment {
            else
            binding.nameTvProfileFrag.setText(" لا يوجد");
 
-           binding.phoneTvProfileFrag.setText(profile.getMobile());
+           String mobileNumber =  profile.getMobile();
+           if(mobileNumber.length()==10)
+               mobileNumber = "+2 0"+ mobileNumber;
+           else
+               mobileNumber = "+ "+ mobileNumber;
+
+           binding.phoneTvProfileFrag.setText(mobileNumber);
            binding.idTvProfileFrag.setText(profile.getAccountId());
            binding.accStatusTvProfileFrag.setText(profile.getSubscriptionStatus());
            binding.payStatusTvProfileFrag.setText(profile.getActive());

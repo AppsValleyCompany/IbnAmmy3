@@ -3,6 +3,7 @@ package com.av.ibnammy.changePassword;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.av.ibnammy.networkUtilities.GetCallback;
 import com.av.ibnammy.utils.CommonUtils;
@@ -29,7 +30,8 @@ public class ChangePasswordPresenter  implements ChangePasswordImplementerPresen
     public void onUpdatedButtonClicked() {
         if(validateData()) {
 
-            onUpdatePassword();
+            if(checkSpaceInEditText())
+             onUpdatePassword();
         }
     }
 
@@ -127,4 +129,37 @@ public class ChangePasswordPresenter  implements ChangePasswordImplementerPresen
     }
 
 
+    @Override
+    public boolean checkSpaceInEditText() {
+
+        if(changePasswordView.getCurrentPassword().contains(" ")){
+            changePasswordView.showErrorSpaceCurrentPassword();
+
+            changePasswordView.hideErrorNewPassword();
+            changePasswordView.hideErrorConfirmPassword();
+            return false;
+        }else {
+            if (changePasswordView.getNewPassword().contains(" ")) {
+                changePasswordView.showErrorSpaceNewPassword();
+
+                changePasswordView.hideErrorCurrentPassword();
+                changePasswordView.hideErrorConfirmPassword();
+                return false;
+            } else {
+                if (changePasswordView.getConfirmPassword().contains(" ")) {
+                    changePasswordView.showErrorSpaceConfirmPassword();
+
+                    changePasswordView.hideErrorCurrentPassword();
+                    changePasswordView.hideErrorNewPassword();
+
+                    return false;
+                } else{
+                    changePasswordView.hideErrorCurrentPassword();
+                    changePasswordView.hideErrorNewPassword();
+                    changePasswordView.hideErrorConfirmPassword();
+                    return true;
+                }
+            }
+        }
+    }
 }

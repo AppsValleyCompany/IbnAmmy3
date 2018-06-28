@@ -22,6 +22,11 @@ interface ChangePasswordView {
     void hideErrorNewPassword();
     void hideErrorConfirmPassword();
 
+
+    void showErrorSpaceCurrentPassword();
+    void showErrorSpaceNewPassword();
+    void showErrorSpaceConfirmPassword();
+
     Context context();
     Activity activity();
 
@@ -34,6 +39,8 @@ interface ChangePasswordView {
     void showOnUpdatePasswordSuccess();
     void showOnUpdatePasswordError();
     void showOnUpdatePasswordNetworkFailure();
+
+
 
     void hideSoftKeyboard();
 

@@ -3,11 +3,16 @@ package com.av.ibnammy.networkUtilities;
 import android.os.Bundle;
 
 import com.av.ibnammy.dashboard.DashboardData;
+import com.av.ibnammy.homePage.map.SearchResult;
+import com.av.ibnammy.homePage.map.ServiceCategory;
+import com.av.ibnammy.homePage.map.ServiceTypeSearch;
 import com.av.ibnammy.homePage.menu.CategoryList;
 import com.av.ibnammy.homePage.menu.CategoryType;
+import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinAccount;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.SubCategory;
 import com.av.ibnammy.updateUserData.User;
 import com.av.ibnammy.updateUserData.workData.DDListResponse;
+import com.av.ibnammy.updateUserData.workData.ServiceSubcategory;
 import com.av.ibnammy.updateUserData.workData.ServiceType;
 import com.av.ibnammy.viewprofile.Profile;
 
@@ -78,7 +83,39 @@ public abstract class GetCallback {
         void onUpdatePasswordSuccess();
         void onUpdatePasswordError();
         void onUpdatePasswordFailure();
-
     }
 
+
+    public interface ProfileData{
+        void  onProfileDataSuccess(Profile profile);
+        void  onProfileDataError();
+        void  onProfileDataFailure();
+    }
+
+    public  interface DDServiceCategorySearch{
+        void onDDServiceCategorySearchSuccess(ArrayList<ServiceCategory> serviceCategories);
+   //     void onDDServiceCategorySearchError();
+        void onDDServiceCategorySearchFailure();
+
+    }
+    public interface DDServiceTypeSearch{
+        void onTypesFetchSuccess(ArrayList<ServiceTypeSearch> response);
+        void onTypesFetchFailure();
+    }
+    public interface DDCountry{
+        void onDDCountrySuccess(ArrayList<String> response);
+        void onDDCountryFailure();
+    }
+
+    public interface DistrictsCountry{
+        void onDistrictsCountrySuccess(ArrayList<String> response);
+        void onDistrictsCountryFailure();
+    }
+
+    public interface AllSearchResult{
+        void onSearchResultSuccess(ArrayList<CousinAccount> searchResultArrayList);
+        void onSearchResultError();
+        void onSearchResultFailure();
+
+    }
 }

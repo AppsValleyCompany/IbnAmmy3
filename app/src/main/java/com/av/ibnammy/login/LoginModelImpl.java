@@ -39,12 +39,17 @@ public class LoginModelImpl implements LoginContract.LoginModel {
                             bundle.putString("fName",object.getString("FirstName"));
                             bundle.putString("sName",object.getString("SecondName"));
                             bundle.putString("img",object.getString("ProfileIMG"));
+                            bundle.putString("lat",object.getString("Home_Latitude"));
+                            bundle.putString("lng",object.getString("Home_Longitude"));
+
                             if(listener!=null)
                             listener.onSuccess(bundle);
-                        } else {
+                        } else if(object.getString("Status").equals("Invalid Mobile Or Password")){
                                 if(listener!=null)
-                                listener.onFailure(object.getString("Status"));
+                                listener.onFailure("خطأ في رقم الهاتف او كلمة المرور.");
                         }
+                        else listener.onFailure(object.getString("Status"));
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

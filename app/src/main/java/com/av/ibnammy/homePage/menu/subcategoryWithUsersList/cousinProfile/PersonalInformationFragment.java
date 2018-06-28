@@ -31,7 +31,6 @@ public class PersonalInformationFragment  extends Fragment {
         personalInformationBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_personal_information,container,false);
         View rooView = personalInformationBinding.getRoot();
 
-
         categoryType  =  getArguments().getInt("CategoryType");
         cousinAccount = (CousinAccount) getArguments().getSerializable("CousinData");
 

@@ -29,7 +29,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
                 String phone=binding.phoneEt.getText().toString();
                 String pass=binding.passwordEt.getText().toString();
                 String repeat=binding.repeatPasswordEt.getText().toString();
-                presenter.onSignUpClicked(phone,pass,repeat,1);
+                String email=binding.emailEt.getText().toString();
+                presenter.onSignUpClicked(phone,pass,repeat,email,1);
             }
         });
 
@@ -76,4 +77,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     public void setRepeatPasswordError(String e) {
         binding.inputLayoutRepeatPassword.setError(e);
     }
+
+    public void setEmailError(String e){binding.inputLayoutEmail.setError(e);}
 }

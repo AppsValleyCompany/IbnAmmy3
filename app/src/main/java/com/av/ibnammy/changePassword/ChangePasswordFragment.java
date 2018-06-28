@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -166,4 +167,22 @@ public class ChangePasswordFragment  extends Fragment implements ChangePasswordV
     }
 
 
+
+    @Override
+    public void showErrorSpaceCurrentPassword() {
+        changePasswordBinding.inputLayoutCurrentPassword.setError(getResources().getString(R.string.error_input));
+
+    }
+
+    @Override
+    public void showErrorSpaceNewPassword() {
+        changePasswordBinding.inputLayoutNewPassword.setError(getResources().getString(R.string.error_input));
+
+    }
+
+    @Override
+    public void showErrorSpaceConfirmPassword() {
+        changePasswordBinding.inputLayoutConfirmPassword.setError(getResources().getString(R.string.error_input));
+
+    }
 }

@@ -210,8 +210,8 @@
     </string-array>
 
     <string-array name="typeOfRequestList">
-        <item>نوع الخدمه</item>
-        <item>الباحث عن وظيفة</item>
+        <item> البحث عن </item>
+      <!--  <item>الباحث عن وظيفة</item>
         <item>الباحث عن زوج(ة)</item>
         <item>ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</item>
         <item>تكنولوجيا/ميديا</item>
@@ -219,7 +219,7 @@
         <item>مصانع</item>
         <item>مكتب محاماه</item>
         <item>مؤسسات طبية</item>
-        <item>اخرى</item>
+        <item>اخرى</item>-->
     </string-array>
 
     <string-array name="cat_type">
@@ -265,13 +265,15 @@
     <string name="no_member">لا يوجد اعضاء</string>
     <string name="no_cousin_data_found">لا يوجد </string>
     <string name="error_search_result">لا يوجد نتائج للبحث </string>
-    <string name="search_text">اكتب التخصص او الخدمة المطلوبة</string>
+    <string name="search_text"> اكتب الخدمة المطلوبة</string>
+    <string name="search_name"> الاسم الاول </string>
 
 
     <string name="not_activated">لم يتم التفعيل بعد </string>
     <string name="not_activated_one">سوف يتم تفعيل هذه الخاصيه بمجرد </string>
     <string name="not_activated_two"> وصول اعداد المشتركين 25 الف مشترك رئيسي او 125 الف تعداد عام ايهما الاول </string>
 
+    <string name="error_input">  خطأ فى الادخال </string>
 
 
     <string name="current_password">كلمة المرور الحالية </string>
@@ -284,5 +286,18 @@
     <string name="password_error">لا يمكن التحقق من كلمة المرور الحالية يرجى المحاولة مرة اخرى</string>
     <string name="password_success">لقد تم تغير كلمة المرور بنجاح</string>
     <string name="internet_error">خطأ فى الإنترنت</string>
+
+    <string name="map_location"> للاستفادة من هذه الخدمة ، لابد من استخدام احداثيات الموقع  </string>
+    <string name="current_location"> موقعك الحالى  </string>
+    <string name="register_location">  موقعك المسجل  </string>
+    <string name="no_location">لا يوجد موقع مسجل، برجاء تحديث بياناتك</string>
+    <string name="no_search_result">لا يوجد نتائج البحث</string>
+    <string name="not_allow_to_chat">غير مسموح بإجراء محادثة </string>
+    <string name="install_whatsapp">يجب تنزيل تطبيق واتساب لاجراء محادثة </string>
+    <string name="error">حدث  خطأ </string>
+    <string name="allow_to_call">يجب السماح لإجراء اتصال </string>
+    <string name="female">أنثي</string>
+    <string name="male">ذكر</string>
+
 
 </resources>

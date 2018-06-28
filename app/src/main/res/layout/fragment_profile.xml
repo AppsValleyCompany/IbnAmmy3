@@ -113,11 +113,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            tools:text="0127777777"
+            tools:text="+0127777777"
             android:textColor="@color/light_orange"
             android:textSize="17dp"
             android:textStyle="bold"
             android:paddingRight="10dp"
+            android:textDirection="ltr"
             />
 
     </TableRow>

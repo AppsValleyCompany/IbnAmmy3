@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+<LinearLayout
+    android:id="@+id/service_or_help"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <Button
+        android:id="@+id/btn_request_service"
+        android:visibility="visible"
+        android:layout_marginTop="15dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        android:text="بحث / اطلب خدمه"
+        android:background="#fab864"
+        />
+
+    <Button
+        android:id="@+id/btn_request_for_help"
+        android:layout_marginTop="15dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="اطلب استغاثه"
+        android:background="#f64444"
+        android:layout_marginBottom="30dp"
+        android:visibility="visible"
+        />
+
+</LinearLayout>
+</layout>

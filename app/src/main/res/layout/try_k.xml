@@ -3,11 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1c1d21"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+   >
 
 
-   <LinearLayout
+    
+
+    
+    
+  <!-- <LinearLayout
        android:id="@+id/advance_search"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -118,7 +121,7 @@
            android:layout_height="wrap_content"
            android:orientation="horizontal">
 
-      <!--     <FrameLayout
+      &lt;!&ndash;     <FrameLayout
                android:layout_height="35dp"
                android:layout_width="0dp"
                android:layout_weight="1"
@@ -134,8 +137,8 @@
                    android:theme="@style/spinnerTheme"
                    android:backgroundTint="@color/white"
                    />
-           </FrameLayout>-->
-         <!--  <FrameLayout
+           </FrameLayout>&ndash;&gt;
+         &lt;!&ndash;  <FrameLayout
                android:layout_height="35dp"
                android:layout_width="0dp"
                android:layout_weight="1"
@@ -152,10 +155,10 @@
                    android:backgroundTint="@color/white"
                    />
 
-           </FrameLayout>-->
+           </FrameLayout>&ndash;&gt;
 
        </LinearLayout>
-      <!-- <LinearLayout
+      &lt;!&ndash; <LinearLayout
            android:layout_marginTop="10dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
@@ -198,9 +201,9 @@
 
            </FrameLayout>
 
-       </LinearLayout>-->
+       </LinearLayout>&ndash;&gt;
 
-   </LinearLayout>
+   </LinearLayout>-->
 
 
 </RelativeLayout>

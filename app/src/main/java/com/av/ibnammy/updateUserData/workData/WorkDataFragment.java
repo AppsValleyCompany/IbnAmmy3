@@ -3,6 +3,7 @@ package com.av.ibnammy.updateUserData.workData;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
@@ -243,9 +244,11 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
 
     @Override
     public void onUpdateSuccess(String status) {
+        saveLngLatToPreference();
         Toast.makeText(getContext(),status,Toast.LENGTH_SHORT).show();
         binding.progressBar.setVisibility(View.GONE);
         CommonUtils.transitFrag_BackStack(getContext(),new FamilyDataFragment());
+
     }
 
     @Override
@@ -283,6 +286,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
             String password=bundle.getString(Constants.PASSWORD_KEY);
 
 
+
             User user = new User(phone, password, cat_type_id, cat_id, subcat_id, service_type_id,
                     service_name,longitude, latitude,country,district,city,region,area,street);
 
@@ -290,6 +294,7 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         }
         else{
             Toast.makeText(getContext(),"رجاء اكمال البيانات اولا.",Toast.LENGTH_SHORT).show();
+            binding.saveBtn.setEnabled(true);
             binding.progressBar.setVisibility(View.GONE);
         }
     }
@@ -297,13 +302,19 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
     @Override
     public boolean validateForms(){
         String service_name=binding.organizationNameEt.getText().toString();
-         if(service_name.equals("")){
-            return false;}
+            if(service_name.startsWith(" ")){
+                binding.organizationNameEt.setError("خطأ فى الادخال");
+                return false;
+            }
+            else{
+                return true;
+            }
+
 /*            else if(longitude==null||latitude==null){
             Toast.makeText(getContext(),"الرجاء الضغط على تحديد موقعك لاكمال التسجيل..",Toast.LENGTH_LONG).show();
             return false;
         }*/
-         return true;
+
     }
 
     @Override
@@ -329,7 +340,6 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
     }
 
 
-    // LocationManager locationManager;
 
     public void getLocation() {
 
@@ -425,8 +435,14 @@ GetCallback.onUpdateFinish,UpdateDataView ,GetCallback.onUserDataFetched//, Loca
         Toast.makeText(getContext(),status,Toast.LENGTH_SHORT).show();
     }
 
-    public void fetchUserData(){
-
+    public void saveLngLatToPreference(){
+        if(getActivity()!=null) {
+            SharedPreferences pref = getActivity().getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString(Constants.USER_LAT, latitude);
+                editor.putString(Constants.USER_LNG, longitude);
+                editor.apply();
+        }
     }
 }
 

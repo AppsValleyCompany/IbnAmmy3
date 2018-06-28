@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
-    public void saveCredentials(String id){
+    public void saveCredentials(Bundle b){
         SharedPreferences pref = getSharedPreferences(Constants.PREF_NAME,  Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
           //if(binding.saveCredsCb.isChecked()){
@@ -120,7 +120,16 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
             String password=binding.passwordEt.getText().toString();
             editor.putString(Constants.PHONE_KEY,phone);
             editor.putString(Constants.PASSWORD_KEY,password);
+            /********/
+            String id=b.getString("id");
+            String img=b.getString("img");
+            String lat=b.getString("lat");
+            String lng=b.getString("lng");
+
             editor.putString(Constants.USER_ID,id);
+            editor.putString(Constants.USER_IMG,img);
+            editor.putString(Constants.USER_LAT,lat);
+            editor.putString(Constants.USER_LNG,lng);
             editor.putBoolean(Constants.SAVE_CREDS_BOOL,save);
             editor.apply();
       //   }

@@ -134,6 +134,7 @@
             android:textColorHint="@color/white"
             android:textSize="15sp"
             android:backgroundTint="@color/white"
+            android:maxLines="1"
             />
         </android.support.design.widget.TextInputLayout>
 

@@ -10,9 +10,12 @@ public class CousinAccount implements Serializable {
 
     public  boolean hasAccount;
 
+    public  String  cousinId ="";
     public  String  cousinName="";
     public  String  cousinJob="";
     public  String  cousinImage="";
+    public  String  cousinDistance ="";
+    public  String  categoryTypeID = "";
     public  String  BirthDate ="";
     public  String  cousinMaritalStatus;
     public  String  homeLongitude="";
@@ -36,12 +39,21 @@ public class CousinAccount implements Serializable {
     public  String  serviceName = "";
     public  String  gender = "";
 
+
     public boolean isHasAccount() {
         return hasAccount;
     }
 
     public void setHasAccount(boolean hasAccount) {
         this.hasAccount = hasAccount;
+    }
+
+    public String getCousinId() {
+        return cousinId;
+    }
+
+    public void setCousinId(String cousinId) {
+        this.cousinId = cousinId;
     }
 
     public String getCousinName() {
@@ -245,5 +257,21 @@ public class CousinAccount implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getCousinDistance() {
+        return cousinDistance;
+    }
+
+    public void setCousinDistance(String cousinDistance) {
+        this.cousinDistance = cousinDistance;
+    }
+
+    public String getCategoryTypeID() {
+        return categoryTypeID;
+    }
+
+    public void setCategoryTypeID(String categoryTypeID) {
+        this.categoryTypeID = categoryTypeID;
     }
 }

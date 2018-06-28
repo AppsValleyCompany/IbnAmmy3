@@ -19,7 +19,7 @@ public interface LoginContract {
         void moveToSignupScreen();
         void setUsernameError(String e);
         void setPasswordError(String e);
-        void saveCredentials(String id);
+        void saveCredentials(Bundle b);
         void loadCredentials();
         void dismissForgetPopup();
         void showForgetPopup(String phone);
@@ -29,7 +29,7 @@ public interface LoginContract {
 
      interface LoginModel {
         void requestLogin(String userName, String password, final GetCallback.onLoginFinish listener);
-        void requestForgetPassword(String phone,String email,GetCallback.onResetPasswordFinish listener);
+        void requestForgetPassword(String phone, String email, GetCallback.onResetPasswordFinish listener);
     }
 
      interface LoginPresenter {
@@ -41,6 +41,6 @@ public interface LoginContract {
         void goToSignupClicked();
         void onAttach(Context context);
         void onDetach();
-        void requestForgetPasswordFromModel(String phone,String email);
+        void requestForgetPasswordFromModel(String phone, String email);
     }
 }

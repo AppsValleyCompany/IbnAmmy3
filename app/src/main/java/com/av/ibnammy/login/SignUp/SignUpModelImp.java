@@ -20,9 +20,9 @@ public class SignUpModelImp implements SignUpContract.SignUpModel {
     ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
     @Override
-    public void requestSignUp(final String mobile, final String password, int familyID, final GetCallback.onSignUpFinish listener) {
+    public void requestSignUp(final String mobile, final String password,String email, int familyID, final GetCallback.onSignUpFinish listener) {
 
-        String data="{'Mobile':"+mobile+",'Password':'"+password+"','FamliyID':'"+ familyID +"'}";
+        String data="{'Mobile':"+mobile+",'Password':'"+password+"','Email':'"+email+"','FamliyID':'"+ familyID +"'}";
 
         Call<String> call = apiInterface.signUpApi(data);
 
@@ -34,11 +34,16 @@ public class SignUpModelImp implements SignUpContract.SignUpModel {
                 try {
                     JSONObject object = new JSONObject(s);
                     String status=object.getString("Status");
-                    if(!(status.equals("Success"))){
-                      listener.onFailure(status);
-                    }
-                    else {
-                        listener.onSuccess(status,mobile);
+                    switch (status) {
+                        case "Mobile already exists":
+                            listener.onFailure("رقم الهاتف مسجل بالفعل!");
+                            break;
+                        case "Success":
+                            listener.onSuccess("تم التسجيل بنجاح.", mobile);
+                            break;
+                        default:
+                            listener.onFailure("حدث خطأ");
+                            break;
                     }
 
                 } catch (JSONException e) {

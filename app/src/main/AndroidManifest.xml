@@ -67,6 +67,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".homePage.menu.subcategoryWithUsersList.cousinProfile.FullScreenVideoActivity"
             />
+
+
     </application>
 
 </manifest>

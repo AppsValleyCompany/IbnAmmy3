@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/img_profile_photo"
-        android:drawable="@drawable/ic_profile_image"
+        android:drawable="@mipmap/male"
         android:gravity="center"
         android:top="80dp"
         android:bottom="30dp"

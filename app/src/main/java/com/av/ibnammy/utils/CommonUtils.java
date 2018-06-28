@@ -92,7 +92,10 @@ public class CommonUtils {
         return bundle;
     }
 
-
+    public static boolean stringContainsNumber( String s )
+    {
+        return Pattern.compile( "[0-9]" ).matcher( s ).find();
+    }
 /*    public static String getTimeStamp() {
         return new SimpleDateFormat(AppConstants.TIMESTAMP_FORMAT, Locale.US).format(new Date());
     }*/

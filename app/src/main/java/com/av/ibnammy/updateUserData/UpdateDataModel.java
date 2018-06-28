@@ -26,7 +26,6 @@ public class UpdateDataModel {
         try{
             Gson gson=new Gson();
             String data =gson.toJson(user);
-
             Call<String> call= apiInterface.updateAccountApi(data);
             call.enqueue(new Callback<String>() {
                 @Override

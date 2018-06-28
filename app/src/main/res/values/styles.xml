@@ -24,10 +24,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="myRatingBar" parent="@android:style/Widget.RatingBar">
+    <style name="myRatingBar" >
         <item name="android:progressDrawable">@drawable/favourite_style</item>
-        <item name="android:minHeight">23dip</item>
-        <item name="android:maxHeight">25dip</item>
+        <!--<item name="android:minHeight">23dip</item>
+        <item name="android:maxHeight">25dip</item>-->
     </style>
     <!--    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>

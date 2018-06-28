@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:id="@+id/search_box_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+        <RelativeLayout
+            android:id="@+id/user_box_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            >
+
+            <RelativeLayout
+                android:layout_margin="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:background="@color/colorTappedIcon"
+                    />
+
+
+                <RelativeLayout
+                    android:id="@+id/details_box"
+                    android:background="@color/colorPrimaryDark"
+                    android:alpha="3"
+                    android:layout_below="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:id="@+id/row_1"
+                        android:layout_marginTop="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_man_white"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@mipmap/ic_man_white"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_cousin_name"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/img_man_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="لا يوجد"
+                            android:textColor="@color/titleTextColor"/>
+
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/row_2"
+                        android:layout_below="@+id/row_1"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_job_note"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@mipmap/ic_job_note"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_cousin_job"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/img_job_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="لا يوجد"
+                            android:textColor="@android:color/white"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/row_3"
+                        android:layout_below="@+id/row_2"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp">
+
+                        <ImageView
+                            android:id="@+id/img_marker_white"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@mipmap/ic_marker_white"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_cousin_address"
+                            android:layout_marginRight="5dp"                           android:layout_toLeftOf="@+id/img_marker_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="لا يوجد"
+                            android:textColor="@android:color/darker_gray"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_below="@+id/details_box"
+                    android:background="@color/colorTappedIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
+
+                    <ImageView
+                        android:id="@+id/img_profile_details"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_man_black"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        />
+
+                    <View
+                        android:id="@+id/line_2"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundColor"
+                        android:layout_toRightOf="@+id/img_profile_details"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <ImageView
+                        android:id="@+id/img_chat"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_chat_black"
+                        android:layout_toRightOf="@+id/line_2"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        />
+
+                    <View
+                        android:id="@+id/line_3"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundColor"
+                        android:layout_toRightOf="@+id/img_chat"
+                        android:layout_marginLeft="20dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_call_service"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/line_3"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="اتصل مكالمه "
+                        android:gravity="center"
+                        android:textColor="@color/backgroundColor"
+                        />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/ic_half_frame"
+                />
+             <ImageView
+                 android:id="@+id/img_cousin"
+                 android:layout_marginTop="46dp"
+                 android:layout_width="43dp"
+                 android:layout_height="43dp"
+                 android:src="@mipmap/male"
+                 android:layout_centerHorizontal="true"
+                 />
+
+
+            <ProgressBar
+                android:id="@+id/pb_load_photo_profile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="53dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+</layout>

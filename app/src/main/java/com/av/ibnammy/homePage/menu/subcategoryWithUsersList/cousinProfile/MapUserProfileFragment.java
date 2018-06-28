@@ -128,15 +128,23 @@ public class MapUserProfileFragment  extends Fragment implements
 
         }else{
 
-            Drawable d = getResources().getDrawable(R.drawable.control_image);
-            Bitmap bitmap = drawableToBitmap(d);
-            final Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap,Math.round(bitmap.getWidth() *0.7f),
-                    Math.round(bitmap.getHeight() * 0.7f),false);
-            googleMap.addMarker(new MarkerOptions()
-                    .position(getLocation)
-                    .title(cousinAccount.getCousinName())
-                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(getLocation, 15f));
+            Glide.with(getContext())
+                    .applyDefaultRequestOptions(new RequestOptions()
+                            .fitCenter().transform(new CircleCrop())).
+                    asBitmap()
+                    .load(R.mipmap.male)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                            googleMap.addMarker(new MarkerOptions()
+                                    .position(getLocation)
+                                    .title(cousinAccount.getCousinName())
+                                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(mCustomMarkerView, bitmap))));
+
+
+                        }
+
+                    });
         }
 
             CousinAddress();

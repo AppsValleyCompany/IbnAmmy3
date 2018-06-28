@@ -9,6 +9,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.av.ibnammy.R;
@@ -42,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -77,7 +80,7 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull  LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         binding= DataBindingUtil.inflate(inflater,R.layout.personal_data_fragment, container, false);
         View view = binding.getRoot();
@@ -94,10 +97,14 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 // TODO Auto-generated method stub
+                Date currentTime = Calendar.getInstance().getTime();
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+                if(myCalendar.getTime().before(currentTime))
+                    updateLabel();
+                else
+                   Toast.makeText(PersonalDataFragment.this.getContext(), "الرجاء ادخال تاريخ ميلاد صحيح.", Toast.LENGTH_SHORT).show();
             }
 
         };
@@ -105,9 +112,11 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         binding.birthDateEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(getContext(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                if(getContext()!=null) {
+                    new DatePickerDialog(getContext(), date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
             }
         });
 
@@ -276,15 +285,33 @@ public class  PersonalDataFragment extends Fragment implements GetCallback.onUpd
         int gen=binding.genderSpinner.getSelectedItemPosition();
         int marital=binding.maritalSpinner.getSelectedItemPosition();
         int blood=binding.bloodTypeSpinner.getSelectedItemPosition();
-        if (first_name.equals("")||second_name.equals("")||third_name.equals("")
-                ||forth_name.equals("")||birth_date.equals("")
-                || gen==0 || marital==0 || blood==0  )
-            return false;
-        else
-            return true;
+
+        return !(!validateInput(binding.firstNameEt) || !validateInput(binding.secondNameEt) || !validateInput(binding.thirdNameEt)
+                || !validateInput(binding.forthNameEt) || birth_date.equals("")
+                || gen == 0 || marital == 0 || blood == 0 || !validateEmail(email));
     }
 
-
+    public boolean validateEmail(String email) {
+        if(CommonUtils.isEmailValid(email)||email.isEmpty()){
+            binding.emailEt.setError(null);
+            return true;
+        }
+        else {
+            binding.emailEt.setError("خطأ فى الايميل.");
+            return false;
+        }
+    }
+    public boolean validateInput(EditText et){
+        String s=et.getText().toString();
+        if(s.equals("")||s.contains(" ")|| s.isEmpty()) {
+             et.setError("خطأ في الادخال.");
+            return false;
+        }
+        else {
+            et.setError(null);
+            return true;
+        }
+    }
 
     @Override
     public void onGetDataSuccess(User user) {

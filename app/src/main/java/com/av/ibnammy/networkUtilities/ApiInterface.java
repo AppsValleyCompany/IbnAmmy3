@@ -1,10 +1,16 @@
 package com.av.ibnammy.networkUtilities;
 
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -71,5 +77,17 @@ public interface ApiInterface {
 
     @POST("AccountServices/ReNewPassword/UpdatePassword")
     Call<String> updatePassword(@Body String data);
+
+    @POST("AccountServices/SerachService_Category/GetServiceCategoryForSearch")
+    Call<String> DDServiceCategorySearch();
+
+    @POST("AccountServices/SerachCountry/SerachCountry")
+    Call<String> DDCountry();
+
+    @POST("AccountServices/SerachDistrict/SerachDistrict")
+    Call<String> districtsOfCountry(@Query("Country")String country);
+
+    @POST("AccountServices/SearchAccounts/SearchAccounts")
+    Call<String> searchResultAccounts(@Body String searchRequest);
 
 }

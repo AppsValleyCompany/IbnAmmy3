@@ -83,8 +83,8 @@ public class MainActivityAya extends AppCompatActivity implements NavigationView
 
         Bundle data=intent.getBundleExtra("Login_Data");
            if (data != null) {
-               String fName = data.getString("fName");
-               String sName = data.getString("sName");
+               String fName = data.getString("fName").replaceAll("\n","");
+               String sName = data.getString("sName").replaceAll("\n","");
                if (!fName.equals("") || !sName.equals("")) {
                    String photo = data.getString("img");
                    String name = fName + " " + sName;

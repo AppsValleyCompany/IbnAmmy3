@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<RelativeLayout
+    android:id="@+id/row_item_search"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
-    >
+    android:background="@color/colorPrimaryDark">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_profile_photo"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/small_line"
         android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile_image"
+         android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/male"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
+        app:civ_border_color="@color/titleTextColor"
+        app:civ_border_width="2dp"
         />
+
+    <ProgressBar
+        android:visibility="visible"
+        android:id="@+id/pb_load_photo"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:indeterminateTint="@color/titleTextColor"/>
+
+
 
     <TextView
         android:id="@+id/txt_user_name"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/small_line"
+        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/img_profile_photo"
@@ -30,13 +48,13 @@
 
     <TextView
         android:id="@+id/txt_job_user_name"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/txt_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/img_profile_photo"
         android:text="محامى بالنقض"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="25dp"
         android:textColor="@android:color/white"/>
 
     <TextView
@@ -47,9 +65,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
-        android:text="3  km"
+        tools:text="3  km"
         android:layout_marginRight="10dp"
         android:textColor="@color/titleTextColor"/>
 
 
 </RelativeLayout>
+</layout>

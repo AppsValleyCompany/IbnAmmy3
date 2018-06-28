@@ -50,8 +50,8 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
 
     @Override
     public boolean validatePhone(String phone) {
-        if(phone.length()>18|| phone.length()<10){
-            loginView.setUsernameError("خطأ في رقم الهاتف");
+        if(phone.length()>18|| phone.length()<10 || !phone.startsWith("0")){
+            loginView.setUsernameError("خطأ في رقم الهاتف.");
             loginView.setPasswordError(null);
             return false;
         }
@@ -107,8 +107,9 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
         if(b!=null&&loginView!=null) {
             loginView.hideProgress();
             loginView.showError("تم تسجيل الدخول بنجاح.");
-            String id = b.getString("id");
-            loginView.saveCredentials(id);
+      /*      String id = b.getString("id");
+            String img=b.getString("img");*/
+            loginView.saveCredentials(b);
             loginView.enableSignInButton();
             loginView.moveToHomeScreen(b);
         }
