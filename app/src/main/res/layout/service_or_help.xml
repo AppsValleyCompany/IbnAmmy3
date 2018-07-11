@@ -21,6 +21,8 @@
         android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:text="بحث / اطلب خدمه"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:background="#fab864"
         />
 
@@ -34,6 +36,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="اطلب استغاثه"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:background="#f64444"
         android:layout_marginBottom="30dp"
         android:visibility="visible"

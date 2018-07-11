@@ -90,4 +90,6 @@ public interface ApiInterface {
     @POST("AccountServices/SearchAccounts/SearchAccounts")
     Call<String> searchResultAccounts(@Body String searchRequest);
 
+    @POST("AccountServices/Help/AddHelp")
+    Call<String> addRequestHelp(@Body String addHelpRequest);
 }

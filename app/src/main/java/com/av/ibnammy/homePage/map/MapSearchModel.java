@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class MapSearchModel {
 
-    protected   ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
+    protected    ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
     //Get ProfileData
     protected  void ProfileData(final String phoneNumber, String password, final GetCallback.ProfileData profileDataCallBack){
@@ -40,6 +40,10 @@ public class MapSearchModel {
                     {
                         JSONObject jsonObject=new JSONObject(response.body());
                         Profile profile = new Profile();
+
+                        if(!jsonObject.getString("AccountID").equals("null"))
+                            profile.setAccountId(jsonObject.getString("AccountID"));
+
                         if(!jsonObject.getString("First_Name").equals("null")||
                                 !jsonObject.getString("Second_Name").equals("null")
                                 ){
@@ -65,13 +69,17 @@ public class MapSearchModel {
                         if(!jsonObject.getString("Home_Longitude").equals("null"))
                             profile.setHomeLongitude(jsonObject.getString("Home_Longitude"));
 
-                        if(profile.getHomeLongitude().equals("")&&profile.getHomeLongitude().equals("")){
+
+                        profileDataCallBack.onProfileDataSuccess(profile);
+
+
+                       /* if(profile.getHomeLongitude().equals("")&&profile.getHomeLongitude().equals("")){
                             profileDataCallBack.onProfileDataError();
 
                         }else {
                             profileDataCallBack.onProfileDataSuccess(profile);
 
-                        }
+                        }*/
 
 
                     }
@@ -169,6 +177,7 @@ public class MapSearchModel {
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
                     try {
+
                         ArrayList<String> districtsList = new ArrayList<>();
                         districtsList.add("المدينه");
                         JSONArray jsonArray = new JSONArray(response.body());
@@ -237,6 +246,8 @@ public class MapSearchModel {
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful())
                 {
+
+
                     try {
 
                         String json= response.body();
@@ -362,6 +373,8 @@ public class MapSearchModel {
                              searchResultCallBack.onSearchResultError();
                             else
                             searchResultCallBack.onSearchResultSuccess(searchResultArrayList);
+
+
                         }
 
 
@@ -370,6 +383,9 @@ public class MapSearchModel {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                }else {
+                    searchResultCallBack.onSearchResultFailure();
 
                 }
             }
@@ -382,6 +398,40 @@ public class MapSearchModel {
 
     }
 
+    //Get All Search result account
+    protected  void AddRequestHelp(final GetCallback.AddRequestHelp addRequestHelp, final String addHelpRequest){
+
+        final Call<String> addHelpCall  = apiInterface.addRequestHelp(addHelpRequest);
+        addHelpCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful())
+                {
+
+
+                    try {
+
+                     String addHelpResponse = response.body();
+                     JSONObject jsonObject = new JSONObject(addHelpResponse);
+                     if(jsonObject.getString("Status").equals("Success"))
+                         addRequestHelp.onAddRequestHelpSuccess();
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                addRequestHelp.onAddRequestHelpFailure();
+            }
+        });
+
+    }
 
 
 

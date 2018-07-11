@@ -76,7 +76,7 @@ public class CommonUtils {
                 .commit();
     }
 
-    public static Bundle loadCredentials(Context context) {
+  /*  public static Bundle loadCredentials(Context context) {
         Bundle bundle=new Bundle();
         SharedPreferences pref = context.getSharedPreferences(Constants.PREF_NAME,  Context.MODE_PRIVATE);
         if(pref!=null){
@@ -88,6 +88,29 @@ public class CommonUtils {
             if(!passsword.equals("null"))
                 bundle.putString(Constants.PASSWORD_KEY,passsword);
                  bundle.putString(Constants.USER_ID,id);
+        }
+        return bundle;
+    }*/
+
+
+    public static Bundle loadCredentials(Context context) {
+        Bundle bundle=new Bundle();
+        SharedPreferences pref = context.getSharedPreferences(Constants.PREF_NAME,  Context.MODE_PRIVATE);
+        if(pref!=null){
+            String phone=pref.getString(Constants.PHONE_KEY,"null");
+            String passsword=pref.getString(Constants.PASSWORD_KEY,"null");
+            String id=pref.getString(Constants.USER_ID,"null");
+            String img=pref.getString(Constants.USER_IMG,"null");
+            String lat=pref.getString(Constants.USER_LAT,"null");
+            String lng=pref.getString(Constants.USER_LNG,"null");
+            if(!phone.equals("null"))
+                bundle.putString(Constants.PHONE_KEY,phone);
+            if(!passsword.equals("null"))
+                bundle.putString(Constants.PASSWORD_KEY,passsword);
+            bundle.putString(Constants.USER_ID,id);
+            bundle.putString(Constants.USER_IMG,img);
+            bundle.putString(Constants.USER_LAT,lat);
+            bundle.putString(Constants.USER_LNG,lng);
         }
         return bundle;
     }

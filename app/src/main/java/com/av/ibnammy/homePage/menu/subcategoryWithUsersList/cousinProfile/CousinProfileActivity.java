@@ -99,7 +99,7 @@ public class CousinProfileActivity extends AppCompatActivity {
         categoryType  =  getIntent().getIntExtra("CategoryType",0);
         cousinAccount = (CousinAccount) getIntent().getSerializableExtra("CousinDate");
 
-        Toast.makeText(this, cousinAccount.getCousinId(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, cousinAccount.getCousinId(), Toast.LENGTH_SHORT).show();
 
         if(!cousinAccount.getCousinName().equals(""))
             cousinProfileBinding.tvCousinName.setText(cousinAccount.getCousinName());

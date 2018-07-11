@@ -88,7 +88,7 @@ public abstract class GetCallback {
 
     public interface ProfileData{
         void  onProfileDataSuccess(Profile profile);
-        void  onProfileDataError();
+     //   void  onProfileDataError();
         void  onProfileDataFailure();
     }
 
@@ -116,6 +116,10 @@ public abstract class GetCallback {
         void onSearchResultSuccess(ArrayList<CousinAccount> searchResultArrayList);
         void onSearchResultError();
         void onSearchResultFailure();
+    }
 
+    public interface AddRequestHelp{
+        void onAddRequestHelpSuccess();
+        void onAddRequestHelpFailure();
     }
 }

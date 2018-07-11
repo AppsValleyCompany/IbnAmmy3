@@ -20,7 +20,7 @@ android:baselineAligned="false">
     android:layout_marginLeft="35dp"
     android:background="@drawable/rectangle_white_frame">
     <Spinner
-        android:id="@+id/spinner_request_help"
+        android:id="@+id/dd_request_help"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
@@ -43,6 +43,7 @@ android:baselineAligned="false">
     android:layout_marginLeft="35dp"
     android:background="@drawable/rectangle_white_frame">
     <Spinner
+        android:id="@+id/dd_blood_type"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_width="match_parent"

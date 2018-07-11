@@ -1,7 +1,6 @@
 package com.av.ibnammy.homePage.map;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 
 import android.content.Context;
@@ -10,16 +9,17 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 
 import android.net.Uri;
@@ -37,6 +37,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -95,24 +96,27 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 import hollowsoft.slidingdrawer.OnDrawerCloseListener;
 import hollowsoft.slidingdrawer.OnDrawerOpenListener;
 
-import static com.av.ibnammy.networkUtilities.ApiClient.BASE_URL;
 import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
 
 
@@ -130,13 +134,12 @@ public class MapFragment extends Fragment implements
         GetCallback.DistrictsCountry,
         GetCallback.DDServiceTypeSearch,
         GetCallback.AllSearchResult,
+        GetCallback.AddRequestHelp,
         View.OnTouchListener,
         GoogleMap.OnMarkerClickListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener
-
-
 
 {
 
@@ -153,46 +156,93 @@ public class MapFragment extends Fragment implements
 
     private SearchResultAccountAdapter searchResultAccountAdapter;
 
-
     private Profile mProfile;
     private MapSearchModel mapSearchModel;
-    private SearchMap searchMap ;
+    private RequestService requestService ;
+    private RequestHelp requestHelp ;
 
-    private String phone,password,userId,imgProfile,lat,lng ="";
+    private String phone="",password="",userId="",imgProfile="",lat="",lng="" ;
     private int categoryType = 0;
     private String mobileNumber="";
     private String gender="";
-    private String currentLat,currentLng;
+    private String currentLat="",currentLng="";
 
     private final static int REQUEST_ID_CALL_PHONE_PERMISSIONS=0x1;
     private final static int REQUEST_ID_FINE_LOCATION_PERMISSIONS=0x2;
     private final static int REQUEST_CHECK_SETTINGS_GPS=0x3;
 
     ArrayList<CousinAccount> searchResults = new ArrayList<>();
-
     CousinAccount searchResult = new CousinAccount();
 
     private Location myLocation;
     private GoogleApiClient googleApiClient;
-    private  int TAG_SERVICE_OR_HELP  = 0;
-    private  int TAG_CURRENT_LOCATION = 0;
 
+    private  int TAG_SERVICE_OR_HELP  = 0;
+    private  boolean isSearched = false;
     private  boolean isRegistered = false  ;
+    private  boolean TAG_CURRENT_LOCATION = true ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
+        changeMapToArabic();
         // Inflate the layout for this fragment
         fragmentMapBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_map, container, false);
         rootView = fragmentMapBinding.getRoot();  // getRoot because onCreateView return view
-        Locale.setDefault(new Locale("ar","EG"));
+
+        getProfileData();
 
         changeToMapFragment();
 
         Setup_UI();
 
+  /*    String token = FirebaseInstanceId.getInstance().getToken();
+        Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();*/
+
+
         return rootView;
     }
+
+    private void changeMapToArabic() {
+        String languageToLoad = "ar_EG";
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getContext().getResources().updateConfiguration(config,
+                getContext().getResources().getDisplayMetrics());
+    }
+
+
+    private void getProfileData() {
+
+        Bundle bundle = CommonUtils.loadCredentials(getContext());
+        phone         = bundle.getString(Constants.PHONE_KEY);
+        password      = bundle.getString(Constants.PASSWORD_KEY);
+        userId        = bundle.getString(Constants.USER_ID);
+        imgProfile    = bundle.getString(Constants.USER_IMG);
+        lat           = bundle.getString(Constants.USER_LAT);
+        lng           = bundle.getString(Constants.USER_LNG);
+
+
+        mapSearchModel  = new MapSearchModel();
+        requestService  = new RequestService();
+        requestHelp     = new RequestHelp();
+
+        requestService.setMobile(phone);
+        requestService.setPassword(password);
+
+        requestHelp.setMobile(phone);
+        requestHelp.setPassword(password);
+
+        searchResult.setCousinId(userId);
+        searchResult.setCousinImage(imgProfile);
+        searchResult.setHomeLatitude(lat);
+        searchResult.setHomeLongitude(lng);
+        searchResults.add(searchResult);
+
+    }
+
 
     private void showAlertDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -204,7 +254,9 @@ public class MapFragment extends Fragment implements
                     public void onClick(DialogInterface dialog,int id) {
 
                         showProgressBar();
-                        requestPermissionLocation();
+                        checkPermissions();
+                        TAG_CURRENT_LOCATION = true;
+                        // requestPermissionLocation();
 
 
                     }
@@ -241,32 +293,14 @@ public class MapFragment extends Fragment implements
         catch (Exception e)
         {
             e.printStackTrace();
-            Toast.makeText(getContext(),"Error",Toast.LENGTH_LONG).show();
+           // Toast.makeText(getContext(),"Error",Toast.LENGTH_LONG).show();
         }
     }
 
     private void Setup_UI() {
 
 
-        mapSearchModel = new MapSearchModel();
-        searchMap  = new SearchMap();
-
-        Bundle bundle = CommonUtils.loadCredentials(getContext());
-
-        phone         = bundle.getString(Constants.PHONE_KEY);
-        password      = bundle.getString(Constants.PASSWORD_KEY);
-        userId        = bundle.getString(Constants.USER_ID);
-        imgProfile    = bundle.getString(Constants.USER_IMG);
-        lat           = bundle.getString(Constants.USER_LAT);
-        lng           = bundle.getString(Constants.USER_LNG);
-
-        searchResult.setCousinId(userId);
-        searchResult.setCousinImage(imgProfile);
-
-        searchResults.add(searchResult);
-
-        searchMap.setMobile(phone);
-        searchMap.setPassword(password);
+         setUpGClient();
 
         animSlideUp   = AnimationUtils.loadAnimation( getActivity().getApplicationContext(), R.anim.slide_up);
         animSlideDown = AnimationUtils.loadAnimation( getActivity().getApplicationContext(), R.anim.slide_down);
@@ -317,8 +351,46 @@ public class MapFragment extends Fragment implements
             @Override
             public void onClick(View view) {
                 //    fragmentMapBinding.requestHelpLayout.requestHelp.setVisibility(View.GONE);
-                if(getView()!=null)
-                    Snackbar.make(getView(),getResources().getString(R.string.not_activated),Snackbar.LENGTH_LONG).show();
+
+                int requestHelpPosition = fragmentMapBinding.requestHelpLayout.ddRequestHelp.getSelectedItemPosition();
+                if(requestHelpPosition!=0){
+                    if(requestHelpPosition==4){
+                        int bloodTypePosition=fragmentMapBinding.requestHelpLayout.ddBloodType.getSelectedItemPosition();
+                        if(bloodTypePosition!=0){
+                            String requestHelpText = fragmentMapBinding.requestHelpLayout.ddRequestHelp.getSelectedItem().toString();
+                            String bloodType = fragmentMapBinding.requestHelpLayout.ddBloodType.getItemAtPosition(bloodTypePosition).toString();
+                            String bloodTypeText = fragmentMapBinding.requestHelpLayout.ddBloodType.getItemAtPosition(0).toString();
+                            if(bloodTypePosition==9)
+                            requestHelp.setDescription( requestHelpText +" / "+bloodTypeText+" "+" : "+bloodType );
+                            else
+                            requestHelp.setDescription(bloodType +" : "+requestHelpText+" / "+bloodTypeText+" ");
+                        }else {
+                            requestHelp.setDescription(fragmentMapBinding.requestHelpLayout.ddRequestHelp.getSelectedItem().toString());
+                        }
+
+
+                    }else{
+                        requestHelp.setDescription(fragmentMapBinding.requestHelpLayout.ddRequestHelp.getSelectedItem().toString());
+                    }
+
+
+
+                }else {
+                    requestHelp.setDescription("");
+                }
+
+                String requestHelpJson = new Gson().toJson(requestHelp);
+                try {
+                    JSONObject jsonObject = new JSONObject(requestHelpJson);
+                    if(isSearchingForRequestHelp(jsonObject))
+                       // Toast.makeText(getContext(), requestHelpJson, Toast.LENGTH_LONG).show();
+                        addRequestHelp(requestHelpJson);
+                    else
+                        onRequestHelpEmpty();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -341,8 +413,10 @@ public class MapFragment extends Fragment implements
         fragmentMapBinding.btnCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentLat = null;
-                currentLng = null;
+
+                TAG_SERVICE_OR_HELP = 0;
+                currentLat = "";
+                currentLng = "";
                 if(getActivity()!=null)
                  getMyLocation();
             }
@@ -350,9 +424,9 @@ public class MapFragment extends Fragment implements
 
         fragmentMapBinding.searchListLayout.slideDrawer.setOnDrawerCloseListener(this);
         fragmentMapBinding.searchListLayout.slideDrawer.setOnDrawerOpenListener(this);
-
-        if(getActivity()!=null)
-         requestPermissionLocation();
+//
+//        if(getActivity()!=null)
+//         requestPermissionLocation();
 
 
         onBackPressed();
@@ -363,7 +437,7 @@ public class MapFragment extends Fragment implements
 
     private void fetchDDFromSpinner(){
 
-        fragmentMapBinding.requestHelpLayout.spinnerRequestHelp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        fragmentMapBinding.requestHelpLayout.ddRequestHelp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i==4)
@@ -385,52 +459,62 @@ public class MapFragment extends Fragment implements
 
                 String firstName = fragmentMapBinding.requestServiceLayout.searchBarName.getText().toString();
                 if(firstName.length()!=0)
-                    searchMap.setFirst_Name(firstName);
+                    requestService.setFirst_Name(firstName);
                 else
-                    searchMap.setFirst_Name("");
+                    requestService.setFirst_Name("");
 
                 String searchText = fragmentMapBinding.requestServiceLayout.searchBarText.getText().toString();
                 if(searchText.length()!=0)
-                    searchMap.setService_SubcategoryName(searchText);
+                    requestService.setService_SubcategoryName(searchText);
                 else
-                    searchMap.setService_SubcategoryName("");
+                    requestService.setService_SubcategoryName("");
 
 
                 int countryPosition = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddCountry.getSelectedItemPosition();
                 String country = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddCountry.getItemAtPosition(countryPosition).toString();
                 if(countryPosition!=0)
-                    searchMap.setHome_Country(country);
+                    requestService.setHome_Country(country);
                 else
-                    searchMap.setHome_Country("");
+                    requestService.setHome_Country("");
 
                 int districtPosition = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddCity.getSelectedItemPosition();
                 String district = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddCity.getItemAtPosition(districtPosition).toString();
                 if(districtPosition!=0)
-                    searchMap.setHome_District(district);
+                    requestService.setHome_District(district);
                 else
-                    searchMap.setHome_District("");
+                    requestService.setHome_District("");
 
                 int genderPosition = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddGender.getSelectedItemPosition();
                 String gender = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddGender.getItemAtPosition(genderPosition).toString();
                 if(genderPosition!=0)
-                    searchMap.setGender(gender);
+                    requestService.setGender(gender);
                 else
-                    searchMap.setGender("");
+                    requestService.setGender("");
 
                 int bloodTypePosition = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddBloodType.getSelectedItemPosition();
                 String bloodType = fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddBloodType.getItemAtPosition(bloodTypePosition).toString();
                 if(bloodTypePosition!=0)
-                    searchMap.setBlood_Typ(bloodType);
+                    requestService.setBlood_Type(bloodType);
                 else
-                    searchMap.setBlood_Typ("");
-
-                String searchMapJson = new Gson().toJson(searchMap);
-
-               Toast.makeText(getContext(), searchMapJson, Toast.LENGTH_LONG).show();
-                getAllSearchOnMap(searchMapJson);
+                    requestService.setBlood_Type("");
 
 
-            /*    */
+                String requestServiceJson = new Gson().toJson(requestService);
+               // Toast.makeText(getContext(), requestServiceJson, Toast.LENGTH_LONG).show();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(requestServiceJson);
+                    if(isSearchingForRequestService(jsonObject))
+                     getAllSearchOnMap(requestServiceJson);
+                    else
+                        onSearchEmpty();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
 
 
             }
@@ -438,13 +522,105 @@ public class MapFragment extends Fragment implements
 
     }
 
-    private void getAllSearchOnMap(String searchMapJson) {
+    private boolean isSearchingForRequestService(JSONObject json){
+        boolean isSearched = false;
+        Iterator<String> iter = json.keys();
+        while (iter.hasNext()) {
+            String key = iter.next();
+            try {
+                switch (key) {
+
+                    case "Blood_Type":
+                        String bloodType = json.getString(key);
+                        if(!bloodType.equals(""))
+                            isSearched = true ;
+                        break;
+
+                    case "First_Name":
+                        String firstName = json.getString(key);
+                        if(!firstName.equals(""))
+                            isSearched = true ;
+                        break;
+                    case "Gender":
+                        String gender = json.getString(key);
+                        if(!gender.equals(""))
+                            isSearched = true ;
+                        break;
+
+                    case "Home_Country":
+                        String homeCountry = json.getString(key);
+                        if(!homeCountry.equals(""))
+                            isSearched = true ;
+                        break;
+                    case "Home_District":
+                        String homeDistrict = json.getString(key);
+                        if(!homeDistrict.equals(""))
+                            isSearched = true ;
+                        break;
+                    case "Service_CategoryID":
+                        String serviceCategoryId = json.getString(key);
+                        if(!serviceCategoryId.equals(""))
+                            isSearched = true ;
+                        break;
+
+                    case "Service_SubcategoryName":
+                        String serviceSubcategoryName = json.getString(key);
+                        if(!serviceSubcategoryName.equals(""))
+                            isSearched = true ;
+                        break;
+                    case "Service_TypeID":
+                        String serviceTypeID = json.getString(key);
+                        if(!serviceTypeID.equals(""))
+                            isSearched = true ;
+                        break;
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return isSearched;
+    }
+
+    private void getAllSearchOnMap(String requestServiceJson) {
         mGoogleMap.clear();
         hideSoftKeyboard();
         showProgressBar();
         fragmentMapBinding.requestServiceLayout.requestService.setVisibility(View.GONE);
-        mapSearchModel.SearchResultAccounts(this,searchMapJson);
+        mapSearchModel.SearchResultAccounts(this,requestServiceJson);
 
+    }
+
+    private boolean isSearchingForRequestHelp(JSONObject json){
+        boolean isSearched = false;
+        Iterator<String> iter = json.keys();
+        while (iter.hasNext()) {
+            String key = iter.next();
+            try {
+                switch (key) {
+                    case "Description":
+                        String description = json.getString(key);
+                        if(!description.equals(""))
+                            isSearched = true ;
+                        break;
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return isSearched;
+    }
+
+    private  void  addRequestHelp (String requestHelpJson){
+         showProgressBar();
+        fragmentMapBinding.requestHelpLayout.requestHelp.setVisibility(View.GONE);
+        mapSearchModel.AddRequestHelp(this,requestHelpJson);
     }
 
     private void fillDDListSearch() {
@@ -488,26 +664,55 @@ public class MapFragment extends Fragment implements
 
     private void  getData(){
 
-        if(lat.equals("")&&lng.equals("")){
-            if(getView()!=null)
-                Snackbar.make(getView(),getResources().getString(R.string.no_location),Snackbar.LENGTH_LONG).show();
-
-            hideProgressBar();
-
-        }else {
+        if(!lat.equals("")&&!lng.equals("")){
 
             isRegistered = true;
+
+            TAG_CURRENT_LOCATION = false;
+            fragmentMapBinding.btnCurrentLocation.setVisibility(View.GONE);
 
             searchResults.get(0).setHomeLatitude(lat);
             searchResults.get(0).setHomeLongitude(lng);
 
-            searchMap.setHome_Latitude(lat);
-            searchMap.setHome_Longitude(lng);
+            requestService.setHome_Latitude(lat);
+            requestService.setHome_Longitude(lng);
+     try{
+            String languageToLoad = "ar_EG";
+            Locale locale = new Locale(languageToLoad);
+            Locale.setDefault(locale);
+            Geocoder geocoder = new Geocoder(getContext(),locale);
+            List<Address> listAddresses = null;
+            listAddresses = geocoder.getFromLocation( Double.parseDouble(lat),  Double.parseDouble(lng), 1);
+            if(null!=listAddresses&&listAddresses.size()>0) {
+                String country = listAddresses.get(0).getCountryName(); //country
+                String city = listAddresses.get(0).getAdminArea();//city
+                String region = listAddresses.get(0).getSubAdminArea();//region
+                requestHelp.setLatitude(lat);
+                requestHelp.setLongitude(lng);
+                requestHelp.setCountry(country);
+                requestHelp.setCity(city);
+                requestHelp.setRegion(region);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
             searchForServiceOrHelp();
             setCousinLocationsSearchResultOnMap();
             hideProgressBar();
+
+        }else {
+
+
+            if(getView()!=null)
+                Snackbar.make(getView(),getResources().getString(R.string.no_location),Snackbar.LENGTH_LONG).show();
+
+            hideProgressBar();
+
+
+
 
         }
     }
@@ -532,23 +737,27 @@ public class MapFragment extends Fragment implements
         view.buildDrawingCache();
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
                 Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(returnedBitmap);
-        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
+        Bitmap scaled = Bitmap.createScaledBitmap(returnedBitmap,view.getMeasuredWidth(), view.getMeasuredHeight(),false);
+        Canvas canvas = new Canvas(scaled);
         Drawable drawable = view.getBackground();
         if (drawable != null)
             drawable.draw(canvas);
         view.draw(canvas);
-        return returnedBitmap;
+        return scaled;
     }
     @Override
     public void onDrawerClosed() {
+        if(!isRegistered)
         fragmentMapBinding.btnCurrentLocation.setVisibility(View.VISIBLE);
+
         fragmentMapBinding.bgList.setBackgroundColor(0);
         fragmentMapBinding.searchListLayout.imgSlideUp.setImageDrawable(getActivity().getResources().getDrawable(R.mipmap.arrow_slide_up));
     }
 
     @Override
     public void onDrawerOpened() {
+
         fragmentMapBinding.btnCurrentLocation.setVisibility(View.GONE);
         fragmentMapBinding.searchListLayout.imgSlideUp.setImageDrawable(getActivity().getResources().getDrawable(R.mipmap.arrow_slide_down));
         fragmentMapBinding.bgList.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
@@ -576,7 +785,6 @@ public class MapFragment extends Fragment implements
                 fragmentMapBinding.requestServiceLayout.requestService.setVisibility(View.VISIBLE);
                 searchResults.subList(1,searchResults.size()).clear();
                 setCousinLocationsSearchResultOnMap();
-                TAG_CURRENT_LOCATION = 0 ;
 
 
             }else
@@ -596,14 +804,12 @@ public class MapFragment extends Fragment implements
                 fragmentMapBinding.searchListLayout.slideDrawer.setVisibility(View.GONE);
                 fragmentMapBinding.requestServiceLayout.requestService.setVisibility(View.VISIBLE);
                 searchResults.subList(1,searchResults.size()).clear();
-                TAG_CURRENT_LOCATION = 0 ;
                 setCousinLocationsSearchResultOnMap();
 
 
             }else {
 
                 rootView.clearFocus();
-                googleApiClient.disconnect();
             }
 
 
@@ -611,6 +817,7 @@ public class MapFragment extends Fragment implements
         }
         return false;
     }
+
 
     @Override
     public void onDDServiceCategorySearchSuccess(final ArrayList<ServiceCategory> categoryArrayList) {
@@ -633,9 +840,9 @@ public class MapFragment extends Fragment implements
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if(position!=0)
-                        searchMap.setService_CategoryID(categoryArrayList.get(position).getServiceCategoryID());
+                        requestService.setService_CategoryID(categoryArrayList.get(position).getServiceCategoryID());
                     else
-                        searchMap.setService_CategoryID("");
+                        requestService.setService_CategoryID("");
 
 
                 }
@@ -666,10 +873,10 @@ public class MapFragment extends Fragment implements
             fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if(position!=0){
+                  //  if(position!=0){
                         String country =  fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddCountry.getItemAtPosition(position).toString();
                         getDistrictOfCountry(country);
-                    }
+
 
                 }
 
@@ -694,7 +901,6 @@ public class MapFragment extends Fragment implements
     @Override
     public void onDistrictsCountrySuccess(ArrayList<String> districtList) {
         hideProgressBar();
-
         if(getContext()!=null) {
             ArrayAdapter<String> districtListAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, districtList);
             fragmentMapBinding.requestServiceLayout.advanceSearchLayout.ddCity.setAdapter(districtListAdapter);
@@ -727,9 +933,9 @@ public class MapFragment extends Fragment implements
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if(position!=0)
-                        searchMap.setService_TypeID(serviceTypeArrayList.get(position).getService_typeID());
+                        requestService.setService_TypeID(serviceTypeArrayList.get(position).getService_typeID());
                     else
-                        searchMap.setService_TypeID("");
+                        requestService.setService_TypeID("");
 
                 }
 
@@ -754,13 +960,31 @@ public class MapFragment extends Fragment implements
         for(int i=0;i<searchResultArrayList.size();i++){
             CousinAccount searchResult = searchResultArrayList.get(i);
             searchResults.add(searchResult);
-            TAG_CURRENT_LOCATION = 1;
+
         }
         hideProgressBar();
         setCousinSearchResultList(searchResultArrayList);
         setCousinLocationsSearchResultOnMap();
 
 
+    }
+
+    @Override
+    public void onAddRequestHelpSuccess() {
+        hideProgressBar();
+        fragmentMapBinding.requestHelpLayout.requestHelp.setVisibility(View.VISIBLE);
+        fragmentMapBinding.requestHelpLayout.ddRequestHelp.setSelection(0);
+        if(getView()!=null)
+            Snackbar.make(getView(),getResources().getString(R.string.add_help_success),Snackbar.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onAddRequestHelpFailure() {
+        fragmentMapBinding.requestHelpLayout.requestHelp.setVisibility(View.VISIBLE);
+        fragmentMapBinding.requestHelpLayout.ddRequestHelp.setSelection(0);
+        hideProgressBar();
+        onDataFailure();
     }
 
     private void setCousinSearchResultList(ArrayList<CousinAccount> searchResultArrayList) {
@@ -787,8 +1011,9 @@ public class MapFragment extends Fragment implements
     private void setCousinLocationsSearchResultOnMap() {
         try {
 
+            showProgressBar();
             mGoogleMap.clear();
-            for (int i=0;i<=searchResults.size();i++) {
+            for (int i=0;i<searchResults.size();i++) {
                 final CousinAccount searchResult = searchResults.get(i);
 
                 if (getContext() != null&&!searchResult.getHomeLatitude().equals("") && !searchResult.getHomeLongitude().equals("")) {
@@ -796,6 +1021,11 @@ public class MapFragment extends Fragment implements
                     Double lng = Double.parseDouble(searchResult.getHomeLongitude());
 
                     final LatLng getLocation = new LatLng(lat, lng);
+/*
+                    Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                            .position(getLocation));
+                    marker.setTag(searchResult);*/
+
 
                     if(i==0&&!imgProfile.equals("")){
                         Glide.with(getContext())
@@ -815,11 +1045,13 @@ public class MapFragment extends Fragment implements
                                         float zoom = 15f;
                                         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(getLocation, zoom);
                                         mGoogleMap.animateCamera(cameraUpdate);
+                                        hideProgressBar();
                                     }
 
                                 });
                     }
                     else{
+                        showProgressBar();
                         final int finalI = i;
                         Glide.with(getContext())
                                 .applyDefaultRequestOptions(new RequestOptions()
@@ -837,10 +1069,11 @@ public class MapFragment extends Fragment implements
                                             float zoom = 15f;
                                             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(getLocation, zoom);
                                             mGoogleMap.animateCamera(cameraUpdate);
+                                            hideProgressBar();
                                         }else if(finalI+1 == searchResults.size()){
 
-                                            Double lat = Double.parseDouble(searchMap.getHome_Latitude());
-                                            Double lng = Double.parseDouble(searchMap.getHome_Longitude());
+                                            Double lat = Double.parseDouble(requestService.getHome_Latitude());
+                                            Double lng = Double.parseDouble(requestService.getHome_Longitude());
                                             final LatLng getLocation = new LatLng(lat, lng);
                                             float zoom = 7f;
                                             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(getLocation, zoom);
@@ -854,13 +1087,12 @@ public class MapFragment extends Fragment implements
                                 });
                     }
 
-
                 }
 
             }
 
         }
-        catch (Exception e) {
+       catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -963,20 +1195,41 @@ public class MapFragment extends Fragment implements
 
     private synchronized void setUpGClient()
     {
-
-        googleApiClient = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(), 0, this)
-                .addConnectionCallbacks(this).addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API).build();
-
-        if(!googleApiClient.isConnected())
-           googleApiClient.connect();
-
-
-        // Toast.makeText(getActivity(), "googleApiClient is connected", Toast.LENGTH_LONG).show();
+        if(googleApiClient == null || !googleApiClient.isConnected()){
+            try {
+                googleApiClient = new GoogleApiClient.Builder(getActivity())
+                        .enableAutoManage(getActivity(), 0, this)
+                        .addConnectionCallbacks(this).addOnConnectionFailedListener(this)
+                        .addApi(LocationServices.API)
+                        .build();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (googleApiClient != null) {
+            googleApiClient.connect();
+        }
+
+    }
+
+    @Override
+    public void onStop() {
+        Log.d("GARG", "***** on Stop ***** ");
+        if (googleApiClient != null && googleApiClient.isConnected()) {
+            Log.d("GARG", "***** on Stop mGoogleApiClient disconnect ***** ");
+
+            googleApiClient.stopAutoManage(getActivity());
+            googleApiClient.disconnect();
+        }
+        super.onStop();
+    }
+/*
     private boolean requestPermissionLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ID_FINE_LOCATION_PERMISSIONS);
@@ -994,119 +1247,126 @@ public class MapFragment extends Fragment implements
             return  true;
         }
 
-    }
+    }*/
     private void getMyLocation(){
 
         showProgressBar();
         if(googleApiClient!=null) {
             if (googleApiClient.isConnected())
             {
-                int permissionLocation = ContextCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.ACCESS_FINE_LOCATION);
-                if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
-                    myLocation =     LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                    LocationRequest locationRequest = new LocationRequest();
-                    locationRequest.setInterval(3000);
-                    locationRequest.setFastestInterval(3000);
-                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
-                    builder.setAlwaysShow(true);
-                    LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-                    PendingResult<LocationSettingsResult> result =LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
-                    result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+                if(getActivity()!=null){
+                    int permissionLocation = ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.ACCESS_FINE_LOCATION);
+                    if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                        myLocation =     LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                        LocationRequest locationRequest = new LocationRequest();
+                        locationRequest.setInterval(3000);
+                        locationRequest.setFastestInterval(3000);
+                        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+                        builder.setAlwaysShow(true);
+                        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+                        PendingResult<LocationSettingsResult> result =LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+                        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
 
-                        @Override
-                        public void onResult(LocationSettingsResult result) {
-                            final Status status = result.getStatus();
-                            switch (status.getStatusCode()) {
-                                case LocationSettingsStatusCodes.SUCCESS:
-                                    int permissionLocation = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-                                    if (permissionLocation == PackageManager.PERMISSION_GRANTED)
-                                    {
-                                        myLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                            @Override
+                            public void onResult(LocationSettingsResult result) {
+                                final Status status = result.getStatus();
+                                switch (status.getStatusCode()) {
+                                    case LocationSettingsStatusCodes.SUCCESS:
+                                        int permissionLocation = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+                                        if (permissionLocation == PackageManager.PERMISSION_GRANTED)
+                                        {
+                                            myLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                                            searchForServiceOrHelp();
+                                        }
+                                        break;
+                                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                        try
+                                        {
+                                            status.startResolutionForResult(getActivity(),REQUEST_CHECK_SETTINGS_GPS);
+                                            hideProgressBar();
 
-                                        if(TAG_CURRENT_LOCATION==0)
-                                        searchForServiceOrHelp();
-                                    }
-                                    break;
-                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                    try
-                                    {
-                                        status.startResolutionForResult(getActivity(),REQUEST_CHECK_SETTINGS_GPS);
+                                        }
+                                        catch (IntentSender.SendIntentException e)
+                                        {
+                                        }
+                                        break;
+                                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                                         hideProgressBar();
-
-                                    }
-                                    catch (IntentSender.SendIntentException e)
-                                    {
-                                    }
-                                    break;
-                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                    hideProgressBar();
-                                    break;
+                                        break;
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
+
             }
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && getActivity()!=null) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+          hideProgressBar();
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
             int permissionLocation = ContextCompat.checkSelfPermission(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION);
+                    android.Manifest.permission.ACCESS_FINE_LOCATION);
             if (permissionLocation == PackageManager.PERMISSION_GRANTED){
-                setUpGClient();
+                getMyLocation();
+
             }
+
         }
+
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==REQUEST_CHECK_SETTINGS_GPS) {
-            if (resultCode == Activity.RESULT_OK) {
+            switch (resultCode){
+                case  Activity.RESULT_OK:
+                    if(getActivity()!=null)
+                        getMyLocation();
+                    break;
+                case  Activity.RESULT_CANCELED:
+                    if(getActivity()!=null)
+                        checkPermissions();
+                    break;
+
+            }
+
+           /* if (resultCode == Activity.RESULT_OK)
+            {
                 if(getActivity()!=null)
                   getMyLocation();
             } else {
                 requestPermissionLocation();
-            }
+            }*/
         }
 
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (googleApiClient != null)
-            googleApiClient.connect();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (googleApiClient != null && getActivity()!=null&&googleApiClient.isConnected()) {
-            googleApiClient.stopAutoManage(getActivity());
-            googleApiClient.disconnect();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (googleApiClient != null && getActivity()!=null&&googleApiClient.isConnected()) {
-            googleApiClient.stopAutoManage(getActivity());
-            googleApiClient.disconnect();
-        }
     }
 
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if(getActivity()!=null&&googleApiClient!=null)
-          getMyLocation();
+        if(getActivity()!=null)
+         checkPermissions();
+
+    }
+
+
+    private void checkPermissions(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(getActivity(),android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ID_FINE_LOCATION_PERMISSIONS);
+            //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        } else {
+            getMyLocation();
+        }
+
     }
 
     @Override
@@ -1124,15 +1384,52 @@ public class MapFragment extends Fragment implements
         hideProgressBar();
         myLocation = location;
         if (myLocation != null) {
-            Double latitude = myLocation.getLatitude();
-            Double longitude = myLocation.getLongitude();
 
-            searchMap.setHome_Latitude(String.valueOf(latitude));
-            searchMap.setHome_Longitude(String.valueOf(longitude));
+            if(TAG_CURRENT_LOCATION){
+                Double latitude = myLocation.getLatitude();
+                Double longitude = myLocation.getLongitude();
 
-            if(currentLat!=null&&currentLng!=null){
+                requestService.setHome_Latitude(String.valueOf(latitude));
+                requestService.setHome_Longitude(String.valueOf(longitude));
 
-                if(!isRegistered){
+                try{
+                    String languageToLoad = "ar_EG";
+                    Locale locale = new Locale(languageToLoad);
+                    Locale.setDefault(locale);
+                    Geocoder geocoder = new Geocoder(getContext(),locale);
+                    List<Address> listAddresses = null;
+                    listAddresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    if(null!=listAddresses&&listAddresses.size()>0) {
+                        String country = listAddresses.get(0).getCountryName(); //country
+                        String city = listAddresses.get(0).getAdminArea();//city
+                        String region = listAddresses.get(0).getSubAdminArea();//region
+                        requestHelp.setLatitude(lat);
+                        requestHelp.setLongitude(lng);
+                        requestHelp.setCountry(country);
+                        requestHelp.setCity(city);
+                        requestHelp.setRegion(region);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                if(!currentLat.equals("")&&!currentLng.equals("")){
+
+
+                    if(!isRegistered) {
+
+                        currentLat = String.valueOf(latitude);
+                        currentLng = String.valueOf(longitude);
+
+                        searchResults.get(0).setHomeLatitude(currentLat);
+                        searchResults.get(0).setHomeLongitude(currentLng);
+                        // setCousinLocationsSearchResultOnMap();
+                    }
+
+                }else{
 
                     currentLat = String.valueOf(latitude);
                     currentLng = String.valueOf(longitude);
@@ -1140,24 +1437,11 @@ public class MapFragment extends Fragment implements
                     searchResults.get(0).setHomeLatitude(currentLat);
                     searchResults.get(0).setHomeLongitude(currentLng);
 
+                    fragmentMapBinding.btnCurrentLocation.setVisibility(View.VISIBLE);
+
+                    setCousinLocationsSearchResultOnMap();
+
                 }
-
-
-               // setCousinLocationsSearchResultOnMap();
-
-
-            }else{
-
-
-                currentLat = String.valueOf(latitude);
-                currentLng = String.valueOf(longitude);
-
-                searchResults.get(0).setHomeLatitude(currentLat);
-                searchResults.get(0).setHomeLongitude(currentLng);
-
-                fragmentMapBinding.btnCurrentLocation.setVisibility(View.VISIBLE);
-
-                setCousinLocationsSearchResultOnMap();
 
             }
 
@@ -1209,7 +1493,7 @@ public class MapFragment extends Fragment implements
 
     private void makeCall(String mobileNumber){
         if(checkPermissionsCallPhone()){
-            if(!mobileNumber.equals(""))
+            if(mobileNumber!=null)
                 startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:"+mobileNumber)));
         }else {
             if(getView()!=null)
@@ -1312,8 +1596,10 @@ public class MapFragment extends Fragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(googleApiClient!=null)
         googleApiClient.disconnect();
     }
+
 
     public void hideSoftKeyboard() {
         InputMethodManager inputMethodManager =
@@ -1365,4 +1651,14 @@ public class MapFragment extends Fragment implements
         }
     }
 
+    private void onSearchEmpty(){
+        hideProgressBar();
+        if(getView()!=null)
+            Snackbar.make(getView(),getResources().getString(R.string.search_empty),Snackbar.LENGTH_SHORT).show();
+    }
+    private void onRequestHelpEmpty(){
+        hideProgressBar();
+        if(getView()!=null)
+            Snackbar.make(getView(),getResources().getString(R.string.request_help_empty),Snackbar.LENGTH_SHORT).show();
+    }
 }

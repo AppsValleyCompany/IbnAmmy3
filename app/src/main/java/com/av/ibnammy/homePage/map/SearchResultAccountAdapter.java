@@ -90,7 +90,6 @@ public class SearchResultAccountAdapter extends RecyclerView.Adapter<SearchResul
         }else {
             holder.cousinImage.setImageResource(R.mipmap.male);
             holder.progressBar.setVisibility(View.GONE);
-
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "308410965553",
+    "firebase_url": "https://ibnammy-190312.firebaseio.com",
+    "project_id": "ibnammy-190312",
+    "storage_bucket": "ibnammy-190312.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308410965553:android:90d7e10236992bd8",
+        "android_client_info": {
+          "package_name": "com.av.ibnammy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308410965553-194op9hq32pqo9lr5h6c4grfvc59ok4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfFK-Y7cfSrBD9W5YO4VaqpCirD-Fy-10"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

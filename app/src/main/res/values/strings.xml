@@ -286,6 +286,9 @@
     <string name="password_error">لا يمكن التحقق من كلمة المرور الحالية يرجى المحاولة مرة اخرى</string>
     <string name="password_success">لقد تم تغير كلمة المرور بنجاح</string>
     <string name="internet_error">خطأ فى الإنترنت</string>
+    <string name="search_empty">يجب ادخال بيانات للبحث </string>
+    <string name="request_help_empty">يجب ادخال حاله الاستغاثه </string>
+    <string name="add_help_success"> تم إضافة حاله الاستغاثة بنحاج  </string>
 
     <string name="map_location"> للاستفادة من هذه الخدمة ، لابد من استخدام احداثيات الموقع  </string>
     <string name="current_location"> موقعك الحالى  </string>

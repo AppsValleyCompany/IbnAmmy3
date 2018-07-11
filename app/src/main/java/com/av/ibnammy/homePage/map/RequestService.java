@@ -4,7 +4,7 @@ package com.av.ibnammy.homePage.map;
  * Created by Maiada on 6/14/2018.
  */
 
-public class SearchMap {
+public class RequestService {
 
     private String Mobile = "";
     private String Password = "";
@@ -17,7 +17,7 @@ public class SearchMap {
     private String Gender = "";
     private String Home_Latitude = "";
     private String Home_Longitude = "";
-    private String Blood_Typ = "";
+    private String Blood_Type = "";
 
 
     public String getMobile() {
@@ -92,7 +92,35 @@ public class SearchMap {
         return Home_Longitude;
     }
 
-    public void setBlood_Typ(String blood_Typ) {
-        Blood_Typ = blood_Typ;
+    public void setBlood_Type(String blood_Type) {
+        Blood_Type = blood_Type;
+    }
+
+    public String getService_CategoryID() {
+        return Service_CategoryID;
+    }
+
+    public String getFirst_Name() {
+        return First_Name;
+    }
+
+    public String getService_SubcategoryName() {
+        return Service_SubcategoryName;
+    }
+
+    public String getHome_Country() {
+        return Home_Country;
+    }
+
+    public String getHome_District() {
+        return Home_District;
+    }
+
+    public String getService_TypeID() {
+        return Service_TypeID;
+    }
+
+    public String getBlood_Type() {
+        return Blood_Type;
     }
 }
