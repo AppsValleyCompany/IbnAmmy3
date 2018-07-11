@@ -25,19 +25,20 @@ public interface LoginContract {
         void showForgetPopup(String phone);
         void enableSignInButton();
         void disableSignInButton();
+        String getDeviceToken();
     }
 
      interface LoginModel {
-        void requestLogin(String userName, String password, final GetCallback.onLoginFinish listener);
+        void requestLogin(String userName, String password,String deviceToken, final GetCallback.onLoginFinish listener);
         void requestForgetPassword(String phone, String email, GetCallback.onResetPasswordFinish listener);
     }
 
      interface LoginPresenter {
-        void onLoginClicked(String userName, String password);
+        void onLoginClicked(String userName, String password,String deviceToken);
         boolean isValidFormat(String userName, String password);
         boolean validatePhone(String phone);
         boolean validatePass(String pass);
-        public void requestLoginFromModel(String userName, String password);
+        public void requestLoginFromModel(String userName, String password,String deviceToken);
         void goToSignupClicked();
         void onAttach(Context context);
         void onDetach();

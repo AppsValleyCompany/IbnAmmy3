@@ -22,6 +22,8 @@ import com.av.ibnammy.login.SignUp.SignUpActivity;
 import com.av.ibnammy.updateUserData.UpdateDataActivity;
 import com.av.ibnammy.utils.CommonUtils;
 import com.av.ibnammy.utils.Constants;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.LoginView {
@@ -33,7 +35,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
         presenter=new LoginPresenterImpl(this);
         binding.goSignupBtn.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                 String phone=binding.phoneEt.getText().toString();
                 String pass=  binding.passwordEt.getText().toString();
             //    presenter.isSavePassChecked=binding.saveCredsCb.isChecked();
-                presenter.onLoginClicked(phone,pass);
+                presenter.onLoginClicked(phone,pass,getDeviceToken());
             }
         });
         binding.tvForgetPasswordLogin.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +202,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     public void disableSignInButton() {
         binding.signinBtn.setEnabled(false);
+    }
+
+    @Override
+    public String getDeviceToken() {
+        return FirebaseInstanceId.getInstance().getToken();
     }
 
     @Override

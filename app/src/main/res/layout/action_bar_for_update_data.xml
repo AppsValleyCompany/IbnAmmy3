@@ -28,13 +28,13 @@
                 android:layout_gravity="center"
                 android:textSize="17dp"
                 />
-            <ImageView
+<!--            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/search_icon"
                 android:layout_gravity="right"
                 android:layout_marginRight="7dp"
-                />
+                />-->
         </FrameLayout>
     </android.support.v7.widget.Toolbar>
 </FrameLayout>

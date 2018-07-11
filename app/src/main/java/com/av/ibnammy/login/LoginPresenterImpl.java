@@ -24,11 +24,11 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
     }
 
     @Override
-    public void onLoginClicked(String userName, String password){
+    public void onLoginClicked(String userName, String password,String deviceToken){
         loginView.showProgress();
         if(validatePhone(userName)&& validatePass(password)){
             loginView.disableSignInButton();
-            requestLoginFromModel(userName,password);
+            requestLoginFromModel(userName,password,deviceToken);
 
         }else{
             loginView.hideProgress();
@@ -72,8 +72,8 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter,GetCallb
     }
 
     @Override
-     public void requestLoginFromModel(String userName, String password){
-        loginModel.requestLogin(userName,password,this);
+     public void requestLoginFromModel(String userName, String password,String deviceToken){
+        loginModel.requestLogin(userName,password,deviceToken,this);
     }
 
     @Override

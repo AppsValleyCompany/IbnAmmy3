@@ -23,8 +23,8 @@ public class LoginModelImpl implements LoginContract.LoginModel {
    private ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
 
     @Override
-    public void requestLogin(String userName, String password, final GetCallback.onLoginFinish listener) {
-            String data="{'Mobile':"+userName+",'Password':'"+password+"'}";
+    public void requestLogin(String userName, String password,String deviceToken, final GetCallback.onLoginFinish listener) {
+            String data="{'Mobile':"+userName+",'Password':'"+password+"','Token':'"+deviceToken+"'}";
             Call<String> call = apiInterface.loginApi(data);
             call.enqueue(new Callback<String>() {
             @Override
