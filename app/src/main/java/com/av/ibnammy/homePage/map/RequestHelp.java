@@ -14,7 +14,7 @@ public class RequestHelp {
     private String Country = "";
     private String City = "";
     private String Description = "";
-    private String Region = "";
+    private String District = "";
 
 
     public String getMobile() {
@@ -73,11 +73,11 @@ public class RequestHelp {
         Description = description;
     }
 
-    public String getRegion() {
-        return Region;
+    public String getDistrict() {
+        return District;
     }
 
-    public void setRegion(String region) {
-        Region = region;
+    public void setDistrict(String district) {
+        District = district;
     }
 }

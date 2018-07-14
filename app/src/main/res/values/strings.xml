@@ -301,6 +301,7 @@
     <string name="allow_to_call">يجب السماح لإجراء اتصال </string>
     <string name="female">أنثي</string>
     <string name="male">ذكر</string>
+    <string name="version_name">الإصدار :1.4</string>
 
 
 </resources>

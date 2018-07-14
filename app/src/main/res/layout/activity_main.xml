@@ -35,7 +35,7 @@
             android:textColor="@color/titleTextColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="الإصدار  :1.4"
+            android:text="@string/version_name"
             android:layout_marginBottom="60dp"
             android:layout_gravity="bottom"
             android:layout_marginLeft="10dp"

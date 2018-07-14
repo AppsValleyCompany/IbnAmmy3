@@ -195,8 +195,8 @@ public class MapFragment extends Fragment implements
         changeToMapFragment();
 
         Setup_UI();
-
-  /*    String token = FirebaseInstanceId.getInstance().getToken();
+/*
+        String token = FirebaseInstanceId.getInstance().getToken();
         Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();*/
 
 
@@ -690,8 +690,8 @@ public class MapFragment extends Fragment implements
                 requestHelp.setLatitude(lat);
                 requestHelp.setLongitude(lng);
                 requestHelp.setCountry(country);
-                requestHelp.setCity(city);
-                requestHelp.setRegion(region);
+                requestHelp.setDistrict(city);
+                requestHelp.setCity(region);
             }
 
         } catch (IOException e) {
@@ -1406,8 +1406,8 @@ public class MapFragment extends Fragment implements
                         requestHelp.setLatitude(lat);
                         requestHelp.setLongitude(lng);
                         requestHelp.setCountry(country);
-                        requestHelp.setCity(city);
-                        requestHelp.setRegion(region);
+                        requestHelp.setDistrict(city);
+                        requestHelp.setCity(region);
                     }
 
                 } catch (IOException e) {
