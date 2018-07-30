@@ -14,6 +14,8 @@ import com.av.ibnammy.R;
 import com.av.ibnammy.homePage.menu.MenuListAdapter;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinAccount;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileActivity;
+import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileModel;
+import com.av.ibnammy.networkUtilities.GetCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -34,10 +36,15 @@ public class SearchResultAccountAdapter extends RecyclerView.Adapter<SearchResul
     ArrayList<CousinAccount> resultArrayList;
     Context context;
     int categoryType ;
+    String phone,password;
+    CousinProfileModel cousinProfileModel = new CousinProfileModel();
 
-    public SearchResultAccountAdapter(Context context, ArrayList<CousinAccount> resultArrayList) {
+    public SearchResultAccountAdapter(Context context, ArrayList<CousinAccount> resultArrayList,String phone,String password) {
         this.context = context;
         this.resultArrayList = resultArrayList;
+        this.phone =phone;
+        this.password =password;
+
     }
 
     @Override
@@ -107,11 +114,43 @@ public class SearchResultAccountAdapter extends RecyclerView.Adapter<SearchResul
                 }
 
 
-                Intent cousinProfileIntent = new Intent(context, CousinProfileActivity.class);
+                final Intent cousinProfileIntent = new Intent(context, CousinProfileActivity.class);
                 cousinProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 cousinProfileIntent.putExtra("CousinDate", searchResult);
                 cousinProfileIntent.putExtra("CategoryType", categoryType);
-                context.startActivity(cousinProfileIntent);
+                searchResult.setFavourite(false);
+
+                cousinProfileModel.getAllFavouriteID(new GetCallback.GetAllFavouriteIdAccount() {
+                    @Override
+                    public void onGetAllFavouriteIdSuccess(ArrayList<String> favouriteAccountIdList) {
+                        if(favouriteAccountIdList.size()!=0){
+
+                            for(int i=0;i<favouriteAccountIdList.size();i++){
+                                if(favouriteAccountIdList.get(i).equals(searchResult.getCousinId()))
+                                {
+                                    searchResult.setFavourite(true);
+                                    context.startActivity(cousinProfileIntent);
+                                    break;
+                                }
+                            }
+                            if(!searchResult.isFavourite())
+                                context.startActivity(cousinProfileIntent);
+
+
+                        }else {
+                            context.startActivity(cousinProfileIntent);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onGetAllFavouriteIdFailure() {
+                        Toast.makeText(context, "حدث خطأ", Toast.LENGTH_SHORT).show();
+                        context.startActivity(cousinProfileIntent);
+
+                    }
+                },phone,password);
 
             }
         });

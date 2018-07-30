@@ -11,6 +11,8 @@ import android.widget.EditText;
 import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.ActivitySubcategoryBinding;
 import com.av.ibnammy.networkUtilities.GetCallback;
+import com.av.ibnammy.utils.CommonUtils;
+import com.av.ibnammy.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class subcategoryListActivity extends AppCompatActivity {
     private ActivitySubcategoryBinding activitySubcategoryBinding;
     private SubCategorySectionAdapter subCategorySectionAdapter;
     private int categoryType;
+    private String phone,password;
 
     private List<SubCategory> sectionItemListSearch = new ArrayList<>();
 
@@ -36,6 +39,10 @@ public class subcategoryListActivity extends AppCompatActivity {
     }
 
     private void Setup_UI() {
+
+        Bundle bundle = CommonUtils.loadCredentials(this);
+        phone         = bundle.getString(Constants.PHONE_KEY);
+        password      = bundle.getString(Constants.PASSWORD_KEY);
 
         setSupportActionBar(activitySubcategoryBinding.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -63,6 +70,8 @@ public class subcategoryListActivity extends AppCompatActivity {
 
 
         String getCategoryID = getIntent().getStringExtra("CategoryID");
+
+
 
         GetAllSubCategoryWithServiceType(getCategoryID);
         disableEditText(activitySubcategoryBinding.searchBar);
@@ -101,7 +110,7 @@ public class subcategoryListActivity extends AppCompatActivity {
                 if (subCategoryArrayList.size() != 0) {
                     activitySubcategoryBinding.tvErrorData.setVisibility(View.GONE);
                     sectionItemListSearch = subCategoryArrayList;
-                    subCategorySectionAdapter = new SubCategorySectionAdapter(getApplicationContext(), subCategoryArrayList, categoryType);
+                    subCategorySectionAdapter = new SubCategorySectionAdapter(getApplicationContext(), subCategoryArrayList, categoryType,phone,password);
                     activitySubcategoryBinding.rvSubcategory.setAdapter(subCategorySectionAdapter);
                     subCategorySectionAdapter.notifyDataSetChanged();
                     enableEditText(activitySubcategoryBinding.searchBar);
@@ -135,7 +144,7 @@ public class subcategoryListActivity extends AppCompatActivity {
 
         List<SubCategory> subCategories = getFilter(searchText.toString());
 
-        subCategorySectionAdapter = new SubCategorySectionAdapter(this, subCategories, categoryType);
+        subCategorySectionAdapter = new SubCategorySectionAdapter(this, subCategories, categoryType,phone,password);
         activitySubcategoryBinding.rvSubcategory.setAdapter(subCategorySectionAdapter);
         subCategorySectionAdapter.notifyDataSetChanged();
 
@@ -184,5 +193,6 @@ public class subcategoryListActivity extends AppCompatActivity {
         editText.setFocusableInTouchMode(true);
 
     }
+
 
 }

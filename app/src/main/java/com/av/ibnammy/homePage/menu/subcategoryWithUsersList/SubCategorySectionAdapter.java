@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.av.ibnammy.R;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileActivity;
+import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileModel;
+import com.av.ibnammy.networkUtilities.GetCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -18,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
@@ -30,16 +35,19 @@ public class SubCategorySectionAdapter extends SectionRecyclerViewAdapter<SubCat
     int categoryType;
     Context context;
     List<SubCategory> sectionItemList;
+    String phone,password;
+
+    CousinProfileModel cousinProfileModel = new CousinProfileModel();
 
 
-
-    public SubCategorySectionAdapter(Context context, List<SubCategory> sectionItemList, int categoryType) {
+    public SubCategorySectionAdapter(Context context, List<SubCategory> sectionItemList, int categoryType,String phone,String password) {
         super(context, sectionItemList);
 
         this.context = context;
         this.sectionItemList = sectionItemList;
         this.categoryType = categoryType;
-
+        this.phone = phone;
+        this.password=password;
 
 
     }
@@ -47,6 +55,7 @@ public class SubCategorySectionAdapter extends SectionRecyclerViewAdapter<SubCat
 
     @Override
     public SubcategoryHolder onCreateSectionViewHolder(ViewGroup viewGroup, int i) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.row_list_subcategory, viewGroup, false);
         return new SubcategoryHolder(view);
 
@@ -123,11 +132,48 @@ public class SubCategorySectionAdapter extends SectionRecyclerViewAdapter<SubCat
             public void onClick(View v) {
 
                 if(checkAccount){
-                    Intent cousinProfileIntent = new Intent(context, CousinProfileActivity.class);
+
+
+                    final Intent cousinProfileIntent = new Intent(context, CousinProfileActivity.class);
                     cousinProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     cousinProfileIntent.putExtra("CousinDate", cousinAccount);
                     cousinProfileIntent.putExtra("CategoryType", categoryType);
-                    context.startActivity(cousinProfileIntent);
+                    cousinAccount.setFavourite(false);
+
+                    cousinProfileModel.getAllFavouriteID(new GetCallback.GetAllFavouriteIdAccount() {
+                        @Override
+                        public void onGetAllFavouriteIdSuccess(ArrayList<String> favouriteAccountIdList) {
+                            if(favouriteAccountIdList.size()!=0){
+
+                                for(int i=0;i<favouriteAccountIdList.size();i++){
+                                    if(favouriteAccountIdList.get(i).equals(cousinAccount.getCousinId()))
+                                    {
+                                        cousinAccount.setFavourite(true);
+                                        context.startActivity(cousinProfileIntent);
+                                        break;
+                                    }
+                                }
+                                if(!cousinAccount.isFavourite())
+                                    context.startActivity(cousinProfileIntent);
+
+
+                            }else {
+                                context.startActivity(cousinProfileIntent);
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onGetAllFavouriteIdFailure() {
+                            Toast.makeText(context, "حدث خطأ", Toast.LENGTH_SHORT).show();
+                            context.startActivity(cousinProfileIntent);
+
+                        }
+                    },phone,password);
+
+
+
                 }
 
 
@@ -136,6 +182,7 @@ public class SubCategorySectionAdapter extends SectionRecyclerViewAdapter<SubCat
         });
 
     }
+
 
 
 

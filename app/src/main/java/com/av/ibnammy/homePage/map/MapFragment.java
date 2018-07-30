@@ -64,6 +64,7 @@ import com.av.ibnammy.databinding.SearchDetailsBoxBinding;
 
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinAccount;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileActivity;
+import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.cousinProfile.CousinProfileModel;
 import com.av.ibnammy.networkUtilities.GetCallback;
 import com.av.ibnammy.utils.CommonUtils;
 import com.av.ibnammy.utils.Constants;
@@ -157,9 +158,9 @@ public class MapFragment extends Fragment implements
     private SearchResultAccountAdapter searchResultAccountAdapter;
 
     private Profile mProfile;
-    private MapSearchModel mapSearchModel;
-    private RequestService requestService ;
-    private RequestHelp requestHelp ;
+    private MapSearchModel mapSearchModel = new MapSearchModel();
+    private RequestService requestService = new RequestService();
+    private RequestHelp requestHelp = new RequestHelp();
 
     private String phone="",password="",userId="",imgProfile="",lat="",lng="" ;
     private int categoryType = 0;
@@ -181,6 +182,8 @@ public class MapFragment extends Fragment implements
     private  boolean isSearched = false;
     private  boolean isRegistered = false  ;
     private  boolean TAG_CURRENT_LOCATION = true ;
+    CousinProfileModel cousinProfileModel = new CousinProfileModel();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -195,8 +198,8 @@ public class MapFragment extends Fragment implements
         changeToMapFragment();
 
         Setup_UI();
-/*
-        String token = FirebaseInstanceId.getInstance().getToken();
+
+ /*       String token = FirebaseInstanceId.getInstance().getToken();
         Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();*/
 
 
@@ -225,9 +228,9 @@ public class MapFragment extends Fragment implements
         lng           = bundle.getString(Constants.USER_LNG);
 
 
-        mapSearchModel  = new MapSearchModel();
+      /*  mapSearchModel  = new MapSearchModel();
         requestService  = new RequestService();
-        requestHelp     = new RequestHelp();
+        requestHelp     = new RequestHelp();*/
 
         requestService.setMobile(phone);
         requestService.setPassword(password);
@@ -1000,7 +1003,7 @@ public class MapFragment extends Fragment implements
         fragmentMapBinding.searchListLayout.listItemSearch.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentMapBinding.searchListLayout.listItemSearch.setHasFixedSize(true);
 
-        searchResultAccountAdapter = new SearchResultAccountAdapter(getContext(),searchResultArrayList);
+        searchResultAccountAdapter = new SearchResultAccountAdapter(getContext(),searchResultArrayList,phone,password);
         fragmentMapBinding.searchListLayout.listItemSearch.setAdapter(searchResultAccountAdapter);
 
         searchResultAccountAdapter.notifyDataSetChanged();
@@ -1254,52 +1257,57 @@ public class MapFragment extends Fragment implements
         if(googleApiClient!=null) {
             if (googleApiClient.isConnected())
             {
-                if(getActivity()!=null){
-                    int permissionLocation = ContextCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.ACCESS_FINE_LOCATION);
-                    if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
-                        myLocation =     LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                        LocationRequest locationRequest = new LocationRequest();
-                        locationRequest.setInterval(3000);
-                        locationRequest.setFastestInterval(3000);
-                        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
-                        builder.setAlwaysShow(true);
-                        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-                        PendingResult<LocationSettingsResult> result =LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
-                        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+                try{
+                    if(getActivity()!=null){
+                        int permissionLocation = ContextCompat.checkSelfPermission(getActivity(),
+                                Manifest.permission.ACCESS_FINE_LOCATION);
+                        if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                            myLocation =     LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                            LocationRequest locationRequest = new LocationRequest();
+                            locationRequest.setInterval(3000);
+                            locationRequest.setFastestInterval(3000);
+                            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+                            builder.setAlwaysShow(true);
+                            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+                            PendingResult<LocationSettingsResult> result =LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+                            result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
 
-                            @Override
-                            public void onResult(LocationSettingsResult result) {
-                                final Status status = result.getStatus();
-                                switch (status.getStatusCode()) {
-                                    case LocationSettingsStatusCodes.SUCCESS:
-                                        int permissionLocation = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-                                        if (permissionLocation == PackageManager.PERMISSION_GRANTED)
-                                        {
-                                            myLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                                            searchForServiceOrHelp();
-                                        }
-                                        break;
-                                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                        try
-                                        {
-                                            status.startResolutionForResult(getActivity(),REQUEST_CHECK_SETTINGS_GPS);
+                                @Override
+                                public void onResult(LocationSettingsResult result) {
+                                    final Status status = result.getStatus();
+                                    switch (status.getStatusCode()) {
+                                        case LocationSettingsStatusCodes.SUCCESS:
+                                            int permissionLocation = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+                                            if (permissionLocation == PackageManager.PERMISSION_GRANTED)
+                                            {
+                                                myLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                                                searchForServiceOrHelp();
+                                            }
+                                            break;
+                                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                            try
+                                            {
+                                                status.startResolutionForResult(getActivity(),REQUEST_CHECK_SETTINGS_GPS);
+                                                hideProgressBar();
+
+                                            }
+                                            catch (IntentSender.SendIntentException e)
+                                            {
+                                            }
+                                            break;
+                                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                                             hideProgressBar();
-
-                                        }
-                                        catch (IntentSender.SendIntentException e)
-                                        {
-                                        }
-                                        break;
-                                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                        hideProgressBar();
-                                        break;
+                                            break;
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
+
 
             }
         }
@@ -1471,7 +1479,7 @@ public class MapFragment extends Fragment implements
 
     }
 
-    private void openCousinProfileFromDetailsBox(CousinAccount cousinAccount) {
+    private void openCousinProfileFromDetailsBox(final CousinAccount cousinAccount) {
         int getCategoryType =  Integer.parseInt(cousinAccount.getCategoryTypeID());
 
         if(getCategoryType==1){
@@ -1482,14 +1490,57 @@ public class MapFragment extends Fragment implements
             categoryType = 2;
         }
 
-
+/*
         Intent cousinProfileIntent = new Intent(getContext(), CousinProfileActivity.class);
         cousinProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         cousinProfileIntent.putExtra("CousinDate", cousinAccount);
         cousinProfileIntent.putExtra("CategoryType", categoryType);
-        getContext().startActivity(cousinProfileIntent);
+        getContext().startActivity(cousinProfileIntent);*/
+
+
+        final Intent cousinProfileIntent = new Intent(getContext(), CousinProfileActivity.class);
+        cousinProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        cousinProfileIntent.putExtra("CousinDate", cousinAccount);
+        cousinProfileIntent.putExtra("CategoryType", categoryType);
+        cousinAccount.setFavourite(false);
+
+        cousinProfileModel.getAllFavouriteID(new GetCallback.GetAllFavouriteIdAccount() {
+            @Override
+            public void onGetAllFavouriteIdSuccess(ArrayList<String> favouriteAccountIdList) {
+                if(favouriteAccountIdList.size()!=0){
+
+                    for(int i=0;i<favouriteAccountIdList.size();i++){
+                        if(favouriteAccountIdList.get(i).equals(cousinAccount.getCousinId()))
+                        {
+                            cousinAccount.setFavourite(true);
+                            getContext().startActivity(cousinProfileIntent);
+                            break;
+                        }
+                    }
+                    if(!cousinAccount.isFavourite())
+                        getContext().startActivity(cousinProfileIntent);
+
+
+                }else {
+                    getContext().startActivity(cousinProfileIntent);
+
+                }
+
+            }
+
+            @Override
+            public void onGetAllFavouriteIdFailure() {
+                Toast.makeText(getContext(), "حدث خطأ", Toast.LENGTH_SHORT).show();
+                getContext().startActivity(cousinProfileIntent);
+
+            }
+        },phone,password);
+
+
 
     }
+
+
 
     private void makeCall(String mobileNumber){
         if(checkPermissionsCallPhone()){
@@ -1525,7 +1576,6 @@ public class MapFragment extends Fragment implements
         Uri uri = Uri.parse("https://api.whatsapp.com/send?phone="+mobileNumber);
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
         startActivity(intent);
-
     }
     private boolean whatsAppInstalledOrNot(String uri) {
         PackageManager pm = getActivity().getPackageManager();

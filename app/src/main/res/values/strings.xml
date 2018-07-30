@@ -80,7 +80,7 @@
 
     <string-array name="countries_array">
         <item> الدولة </item>
-     <!--   <item> مصر </item>
+        <!--   <item> مصر </item>
         <item>الامارات  </item>-->
     </string-array>
 
@@ -211,7 +211,7 @@
 
     <string-array name="typeOfRequestList">
         <item> البحث عن </item>
-      <!--  <item>الباحث عن وظيفة</item>
+        <!--  <item>الباحث عن وظيفة</item>
         <item>الباحث عن زوج(ة)</item>
         <item>ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</item>
         <item>تكنولوجيا/ميديا</item>
@@ -273,23 +273,22 @@
     <string name="not_activated_one">سوف يتم تفعيل هذه الخاصيه بمجرد </string>
     <string name="not_activated_two"> وصول اعداد المشتركين 25 الف مشترك رئيسي او 125 الف تعداد عام ايهما الاول </string>
 
+    <!--Change Password Page-->
     <string name="error_input">  خطأ فى الادخال </string>
-
-
     <string name="current_password">كلمة المرور الحالية </string>
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="retype_new_password">تأكيد كلمة المرور الجديدة </string>
     <string name="update_password">تحديث</string>
-
     <string name="error_password"> كلمة المرور لا ينبغي ان تكون اقل من ٣ احرف / ارقام </string>
     <string name="error_not_match"> لا تتطابق مع كلمة المرور الجديدة </string>
     <string name="password_error">لا يمكن التحقق من كلمة المرور الحالية يرجى المحاولة مرة اخرى</string>
     <string name="password_success">لقد تم تغير كلمة المرور بنجاح</string>
     <string name="internet_error">خطأ فى الإنترنت</string>
+
+    <!-- Map Search Page-->
     <string name="search_empty">يجب ادخال بيانات للبحث </string>
     <string name="request_help_empty">يجب ادخال حاله الاستغاثه </string>
     <string name="add_help_success"> تم إضافة حاله الاستغاثة بنحاج  </string>
-
     <string name="map_location"> للاستفادة من هذه الخدمة ، لابد من استخدام احداثيات الموقع  </string>
     <string name="current_location"> موقعك الحالى  </string>
     <string name="register_location">  موقعك المسجل  </string>
@@ -303,5 +302,18 @@
     <string name="male">ذكر</string>
     <string name="version_name">الإصدار :1.4</string>
 
+    <!-- Favourite Search Page-->
+    <string name="add_favourite_success"> تم الأضافة فى قائمة المفضلة  </string>
+    <string name="delete_favourite_success">تم المسح من قائمة المفضلة  </string>
+    <string name="no_favourite"> لا يوجد قائمة مفضلة </string>
+    <string name="error_favourite"> حدث خطأ فى اتصال الشبكة</string>
+
+
+    <!-- Help Notification Page-->
+    <string name="help_page"> الاستغاثة </string>
+
+    <!-- Rating Page-->
+    <string name="rate_success"> تم إضافة تقييمك </string>
+    <string name="rate_error"> حدث خطأ فى اتصال الشبكة</string>
 
 </resources>

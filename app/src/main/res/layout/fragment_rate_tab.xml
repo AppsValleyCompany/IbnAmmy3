@@ -31,7 +31,7 @@
                     android:layout_height="match_parent"
                     android:numStars="5"
                     android:stepSize="1.0"
-                    android:rating="2.0"
+                    android:rating="0.0"
                     />
 
 
@@ -53,20 +53,22 @@
                     android:layout_marginRight="50dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button" />
+                    android:textColor="@color/background"
+                    android:textStyle="bold"
+                    android:id="@+id/btn_done" />
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="20dp"
                     android:text="اضف تقييمك للخدمة "
+                    android:textStyle="bold"
                     android:textSize="16dp"
-                    android:layout_marginLeft="60dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/gold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView" />
             </LinearLayout>
 
+<!--
 
             <TextView
                 android:layout_marginTop="20dp"
@@ -82,6 +84,7 @@
                 android:alpha="3"
                 android:layout_marginBottom="10dp"
                 />
+-->
 
 <!--
             <TextView
@@ -105,7 +108,14 @@
         </LinearLayout>
     </ScrollView>
 
-
+   <ProgressBar
+       android:visibility="invisible"
+       android:layout_marginTop="10dp"
+       android:layout_marginBottom="10dp"
+       android:id="@+id/pb_loading"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_vertical|center_horizontal"/>
 </LinearLayout>
 
 </layout>

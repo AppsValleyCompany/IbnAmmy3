@@ -142,6 +142,10 @@ public class SubcategoryModel {
                                         cousinAccount.setGender(accountObject.getString("Gender").replace("\r\n",""));
 
 
+                                    if(!accountObject.getString("Raty").equals("null"))
+                                        cousinAccount.setRaty(accountObject.getString("Raty").replace("\r\n",""));
+
+
 
                                     accountArrayList.add(cousinAccount);
 

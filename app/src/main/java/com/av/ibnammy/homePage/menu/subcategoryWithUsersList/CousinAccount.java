@@ -38,6 +38,9 @@ public class CousinAccount implements Serializable {
     public  String  serviceSubcategory = "";
     public  String  serviceName = "";
     public  String  gender = "";
+    public  boolean isFavourite = false;
+    public  String Raty = "0.0";
+
 
 
     public boolean isHasAccount() {
@@ -273,5 +276,21 @@ public class CousinAccount implements Serializable {
 
     public void setCategoryTypeID(String categoryTypeID) {
         this.categoryTypeID = categoryTypeID;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
+    }
+
+    public String getRaty() {
+        return Raty;
+    }
+
+    public void setRaty(String raty) {
+        Raty = raty;
     }
 }

@@ -7,8 +7,8 @@ android {
         applicationId "com.av.ibnammy"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.8"
+        versionCode 10
+        versionName "1.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -58,5 +58,6 @@ dependencies {
 
     compile 'net.gotev:uploadservice:3.4.2'
 }
+
 
 apply plugin: 'com.google.gms.google-services'

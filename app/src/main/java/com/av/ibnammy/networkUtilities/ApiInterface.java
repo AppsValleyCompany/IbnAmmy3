@@ -92,4 +92,16 @@ public interface ApiInterface {
 
     @POST("AccountServices/Help/AddHelp")
     Call<String> addRequestHelp(@Body String addHelpRequest);
+
+    @POST("AccountServices/GetAccountFavourite/GetFavourite")
+    Call<String> getAllFavourite(@Body String getAllFavouriteRequest);
+
+    @POST("AccountServices/AddAccountFavourite/AddFavourite")
+    Call<String> addFavourite(@Body String addFavouriteRequest);
+
+    @POST("AccountServices/DeleteAccountFavourite/DeleteFavourite")
+    Call<String> deleteFavourite(@Body String deleteFavouriteRequest);
+
+    @POST("AccountServices/UpdateAccountRate/UpdateRate")
+    Call<String> updateRate(@Body String updateRateRequest);
 }

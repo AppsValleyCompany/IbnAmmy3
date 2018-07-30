@@ -365,6 +365,11 @@ public class MapSearchModel {
                                 if(!accountObject.getString("Category_TypeID").equals("null"))
                                     cousinAccount.setCategoryTypeID(accountObject.getString("Category_TypeID").replace("\r\n",""));
 
+
+                                if(!accountObject.getString("Raty").equals("null"))
+                                    cousinAccount.setRaty(accountObject.getString("Raty").replace("\r\n",""));
+
+
                                 searchResultArrayList.add(cousinAccount);
 
                             }

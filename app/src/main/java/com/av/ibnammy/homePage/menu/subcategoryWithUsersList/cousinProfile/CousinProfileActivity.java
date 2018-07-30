@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +21,9 @@ import com.av.ibnammy.R;
 import com.av.ibnammy.databinding.ActivityCousinProfileBinding;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinAccount;
 import com.av.ibnammy.homePage.menu.subcategoryWithUsersList.CousinProfileFragment;
+import com.av.ibnammy.networkUtilities.GetCallback;
+import com.av.ibnammy.utils.CommonUtils;
+import com.av.ibnammy.utils.Constants;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -33,7 +37,9 @@ import java.util.List;
 
 import static com.av.ibnammy.networkUtilities.ApiClient.IMG_URL;
 
-public class CousinProfileActivity extends AppCompatActivity {
+public class CousinProfileActivity extends AppCompatActivity implements
+        GetCallback.AddFavourite,
+        GetCallback.DeleteFavourite{
 
 
     static ActivityCousinProfileBinding cousinProfileBinding;
@@ -45,6 +51,10 @@ public class CousinProfileActivity extends AppCompatActivity {
     private int categoryType;
     private String mobileNumber = "";
     private String gender = "";
+
+    private String phone,password;
+    private CousinProfileModel  cousinProfileModel = new CousinProfileModel();
+
 
 
     @Override
@@ -59,6 +69,14 @@ public class CousinProfileActivity extends AppCompatActivity {
   }
 
     private void Setup_UI() {
+
+        categoryType  =  getIntent().getIntExtra("CategoryType",0);
+        cousinAccount = (CousinAccount) getIntent().getSerializableExtra("CousinDate");
+
+        Bundle bundle = CommonUtils.loadCredentials(this);
+        phone         = bundle.getString(Constants.PHONE_KEY);
+        password      = bundle.getString(Constants.PASSWORD_KEY);
+
         cousinProfileBinding.tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,17 +91,30 @@ public class CousinProfileActivity extends AppCompatActivity {
             }
         });
 
+        isFavourite = cousinAccount.isFavourite();
+        if(isFavourite)
+           cousinProfileBinding.imgCousinFav.setImageDrawable(getResources().getDrawable(R.mipmap.ic_favourite));
+       else
+           cousinProfileBinding.imgCousinFav.setImageDrawable(getResources().getDrawable(R.mipmap.ic_unfavourite));
+
 
         cousinProfileBinding.imgCousinFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(!isFavourite){
-                    //    changeFragmentForBottomMenu(new MyPageFragment());
-                    Toast.makeText(CousinProfileActivity.this, getString(R.string.not_activated), Toast.LENGTH_SHORT).show();
+
+                    showProgressBar();
+                    cousinProfileModel.addAccountFavourite(CousinProfileActivity.this,phone,password,cousinAccount.getCousinId());
+
                     cousinProfileBinding.imgCousinFav.setImageDrawable(getResources().getDrawable(R.mipmap.ic_favourite));
                     isFavourite=true;
                 }else{
                     //  changeFragmentForBottomMenu(new ProfileTabsFragment());
+                    showProgressBar();
+                    cousinProfileModel.deleteAccountFavourite(CousinProfileActivity.this,phone,password,cousinAccount.getCousinId());
+
+
                     cousinProfileBinding.imgCousinFav.setImageDrawable(getResources().getDrawable(R.mipmap.ic_unfavourite));
                     isFavourite=false;
                 }
@@ -96,8 +127,7 @@ public class CousinProfileActivity extends AppCompatActivity {
 
     private void Update_UI() {
 
-        categoryType  =  getIntent().getIntExtra("CategoryType",0);
-        cousinAccount = (CousinAccount) getIntent().getSerializableExtra("CousinDate");
+
 
      //   Toast.makeText(this, cousinAccount.getCousinId(), Toast.LENGTH_SHORT).show();
 
@@ -200,8 +230,6 @@ public class CousinProfileActivity extends AppCompatActivity {
                 .replace(R.id.container_fragment, targetFragment, "fragment")
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
-
-
     }
 
     private void ShowCousinLocation(){
@@ -215,7 +243,6 @@ public class CousinProfileActivity extends AppCompatActivity {
             isLocation=false;
         }
     }
-
     private void makeCall(String mobileNumber){
         if(checkPermissions()){
             if(!mobileNumber.equals(""))
@@ -241,7 +268,6 @@ public class CousinProfileActivity extends AppCompatActivity {
         }
 
     }
-
     private void checkIfWhatsAppInstalledAndStartChat(String  mobileNumber){
         boolean isInstalled = whatsAppInstalledOrNot("com.whatsapp");
         if(isInstalled) {
@@ -281,5 +307,46 @@ public class CousinProfileActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onAddFavouriteSuccess() {
+         onDataSuccess(getResources().getString(R.string.add_favourite_success));
+    }
 
+    @Override
+    public void onAddFavouriteFailure() {
+        onDataFailure();
+    }
+
+    @Override
+    public void onDeleteFavouriteSuccess() {
+        onDataSuccess(getResources().getString(R.string.delete_favourite_success));
+
+    }
+
+    @Override
+    public void onDeleteFavouriteFailure() {
+        onDataFailure();
+
+    }
+
+    private void onDataFailure(){
+        hideProgressBar();
+        if(cousinProfileBinding.getRoot().getRootView()!=null)
+            Snackbar.make(cousinProfileBinding.getRoot().getRootView(),getResources().getString(R.string.error),Snackbar.LENGTH_LONG).show();
+
+    }
+
+    private void onDataSuccess(String successMessage){
+        hideProgressBar();
+        if(cousinProfileBinding.getRoot().getRootView()!=null)
+            Snackbar.make(cousinProfileBinding.getRoot().getRootView(),successMessage,Snackbar.LENGTH_LONG).show();
+
+    }
+
+    private void showProgressBar(){
+        cousinProfileBinding.pbLoading.setVisibility(View.VISIBLE);
+    }
+    private void hideProgressBar(){
+        cousinProfileBinding.pbLoading.setVisibility(View.GONE);
+    }
 }

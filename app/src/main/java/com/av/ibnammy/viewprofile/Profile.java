@@ -1,10 +1,12 @@
 package com.av.ibnammy.viewprofile;
 
+import java.io.Serializable;
+
 /**
  * Created by Maiada on 4/2/2018.
  */
 
-public class Profile {
+public class Profile implements Serializable {
 
     private String  userName  = "" ;
     private String  mobile    = "" ;

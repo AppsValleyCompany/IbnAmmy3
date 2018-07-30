@@ -122,4 +122,28 @@ public abstract class GetCallback {
         void onAddRequestHelpSuccess();
         void onAddRequestHelpFailure();
     }
+
+    public interface GetAllFavouriteAccount{
+        void onGetAllFavouriteSuccess(ArrayList<CousinAccount> cousinAccounts);
+        void onGetAllFavouriteFailure();
+    }
+
+    public interface GetAllFavouriteIdAccount{
+        void onGetAllFavouriteIdSuccess(ArrayList<String> favouriteAccountIdList);
+        void onGetAllFavouriteIdFailure();
+    }
+
+    public interface AddFavourite{
+        void onAddFavouriteSuccess();
+        void onAddFavouriteFailure();
+    }
+    public interface DeleteFavourite{
+        void onDeleteFavouriteSuccess();
+        void onDeleteFavouriteFailure();
+    }
+
+    public interface UpdateAccountRate{
+        void onUpdateRateSuccess();
+        void onUpdateRateFailure();
+    }
 }
